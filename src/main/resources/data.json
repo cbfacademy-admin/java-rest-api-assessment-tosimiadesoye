@@ -1,0 +1,11 @@
+[
+  {
+    "order_id": 123456,
+    "security_symbol": "AAPL",
+    "quantity": 100,
+    "order_side": "Buy",
+    "price": 145.75,
+    "status": "Open",
+    "timestamp": "10-55-2023:15:30Z"
+  }
+    ]
