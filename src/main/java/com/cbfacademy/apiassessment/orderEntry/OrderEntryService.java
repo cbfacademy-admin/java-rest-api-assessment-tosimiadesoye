@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.UUID;
-
+import java.util.List;
 
 @Service
 public class OrderEntryService {
@@ -19,13 +17,13 @@ public class OrderEntryService {
         this.jsonUtil = jsonUtil;
     }
 
-    public Collection<OrderEntry> getOrderEntry() throws IOException {
+    public List<OrderEntry> getOrderEntry() throws IOException {
         return jsonUtil.readJsonFile(new File(DATA_FILE_PATH));
     }
 
-    public Collection<OrderEntry> getOrderEntryById(UUID id) throws IOException {
+    public List<OrderEntry> getOrderEntryById(long id) throws IOException {
 
-        Collection<OrderEntry> entry = jsonUtil.readJsonObjById(id, new File(DATA_FILE_PATH));
+        List<OrderEntry> entry = jsonUtil.readJsonObjById(id, new File(DATA_FILE_PATH));
         if (entry.isEmpty()) {
             throw new NotFoundException("OrderEntry not found with ID: " + id);
         }
@@ -37,12 +35,12 @@ public class OrderEntryService {
         jsonUtil.writeToJsonFile(orderEntry, new File(DATA_FILE_PATH));
     }
 
-    public void updateOrderEntryById(UUID id, OrderEntry orderEntry) throws IOException {
+    public void updateOrderEntryById(long id, OrderEntry orderEntry) throws IOException {
         jsonUtil.updateJsonObjById(id, orderEntry, new File(DATA_FILE_PATH));
 
     }
 
-    public void deleteOrderEntryById(UUID id) throws IOException {
+    public void deleteOrderEntryById(long id) throws IOException {
         jsonUtil.deleteJsonObjById(id, new File(DATA_FILE_PATH));
     }
 

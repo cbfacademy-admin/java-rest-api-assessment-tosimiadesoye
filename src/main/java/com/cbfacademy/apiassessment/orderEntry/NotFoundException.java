@@ -7,8 +7,12 @@ public class NotFoundException extends RuntimeException {
     }
 }
 
-class ValidationException extends RuntimeException {
+class ValidationException extends Exception {
     public ValidationException(String message) {
         super(message);
     }
+}
+
+class FileNameException extends Exception{
+    public FileNameException(String message) {super((message));}
 }

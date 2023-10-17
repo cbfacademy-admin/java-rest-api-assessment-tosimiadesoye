@@ -6,8 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orderEntry")
@@ -21,9 +20,9 @@ public class OrderEntryController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<OrderEntry>> getOrderEntry() throws IOException {
+    public ResponseEntity<List<OrderEntry>> readOrderEntryApi() throws IOException {
         try {
-            Collection<OrderEntry> entries = orderEntryService.getOrderEntry();
+            List<OrderEntry> entries = orderEntryService.getOrderEntry();
             return ResponseEntity.ok(entries);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -31,9 +30,9 @@ public class OrderEntryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Collection<OrderEntry>> getOrderEntryById(@PathVariable UUID id) {
+    public ResponseEntity<List<OrderEntry>> readOrderEntryByIdApi(@PathVariable long id) {
         try {
-            Collection<OrderEntry> entry = orderEntryService.getOrderEntryById(id);
+            List<OrderEntry> entry = orderEntryService.getOrderEntryById(id);
             if (entry.isEmpty()) {
                 return ResponseEntity.notFound().build();
             } else {
@@ -47,9 +46,9 @@ public class OrderEntryController {
 
     }
 
-
     @PostMapping
-    public ResponseEntity<Void> createOrderEntry(@RequestBody OrderEntry orderEntry) {
+    public ResponseEntity<Void> createOrderEntryApi(@RequestBody OrderEntry orderEntry) {
+
         try {
             orderEntryService.createOrderEntry(orderEntry);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -59,7 +58,7 @@ public class OrderEntryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateOrderEntryById(@PathVariable UUID id, @RequestBody OrderEntry orderEntry) {
+    public ResponseEntity<Void> updateOrderEntryByIdApi(@PathVariable long id, @RequestBody OrderEntry orderEntry) {
 
         try {
             orderEntryService.updateOrderEntryById(id, orderEntry);
@@ -71,7 +70,7 @@ public class OrderEntryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrderEntryById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteOrderEntryByIdApi(@PathVariable long id) {
         try {
             orderEntryService.deleteOrderEntryById(id);
             return ResponseEntity.noContent().build();

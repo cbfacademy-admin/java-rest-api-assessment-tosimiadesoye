@@ -2,25 +2,30 @@ package com.cbfacademy.apiassessment.Json;
 
 import com.cbfacademy.apiassessment.orderEntry.OrderEntry;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.util.Collection;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class ReadAndWriteToJson {
+  private final Gson gson;
 
-    private final Gson gson = new Gson();
+    public ReadAndWriteToJson() {
+        gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeUKTypeAdapter())
+                .create();
+    }
 
-    public Collection<OrderEntry> readJsonFile(File file) throws IOException {
+    public List<OrderEntry> readJsonFile(File file) throws IOException {
         if (!file.exists()) {
             throw new FileNotFoundException("File not found");
         }
         try (FileReader reader = new FileReader(file)) {
 
-            TypeToken<Collection<OrderEntry>> entryType = new TypeToken<>() {
+            TypeToken<List<OrderEntry>> entryType = new TypeToken<>() {
             };
 
             return gson.fromJson(reader, entryType);
@@ -28,7 +33,7 @@ public class ReadAndWriteToJson {
     }
 
     public void writeToJsonFile(OrderEntry reqBody, File file) throws IOException {
-        Collection<OrderEntry> orderEntries = readJsonFile(file);
+        List<OrderEntry> orderEntries = readJsonFile(file);
         orderEntries.add(reqBody);
 
         try (Writer writer = new FileWriter(file)) {
@@ -37,20 +42,20 @@ public class ReadAndWriteToJson {
 
     }
 
-    public Collection<OrderEntry> readJsonObjById(UUID id, File file) throws IOException {
-        Collection<OrderEntry> data = readJsonFile(file);
+    public List<OrderEntry> readJsonObjById(long id, File file) throws IOException {
+        List<OrderEntry> data = readJsonFile(file);
         return data.stream()
-                .filter(item -> item.getOrder_id().equals(id))
+                .filter(item -> item.getOrder_id() == id)
                 .collect(Collectors.toList());
     }
 
-    public void updateJsonObjById(UUID id, OrderEntry reqBody, File file) throws IOException {
+    public void updateJsonObjById(long id, OrderEntry reqBody, File file) throws IOException {
 
-        Collection<OrderEntry> orderEntries = readJsonFile(file);
+        List<OrderEntry> orderEntries = readJsonFile(file);
 
         // Find and update the entry with the matching order_id
         for (OrderEntry item : orderEntries) {
-            if (item.getOrder_id().equals(id)) {
+            if (item.getOrder_id() == id) {
                 item.setSecurity_symbol(reqBody.getSecurity_symbol());
                 item.setQuantity(reqBody.getQuantity());
                 item.setOrderSide(reqBody.getOrderSide());
@@ -61,17 +66,17 @@ public class ReadAndWriteToJson {
         }
 
         try (Writer writer = new FileWriter(file)) {
-            // Write the entire collection (with updated data) back to the file
+            // Write the entire List (with updated data) back to the file
             gson.toJson(orderEntries, writer);
         }
     }
 
-    public void deleteJsonObjById(UUID id, File file) throws IOException {
+    public void deleteJsonObjById(long id, File file) throws IOException {
 
-        Collection<OrderEntry> orderEntries = readJsonFile(file);
+        List<OrderEntry> orderEntries = readJsonFile(file);
 
         List<OrderEntry> updateOrderEntries = orderEntries.stream()
-                .filter(entry -> !entry.getOrder_id().equals(id))
+                .filter(entry -> entry.getOrder_id() != id)
                 .collect(Collectors.toList());
 
         try (Writer writer = new FileWriter(file)) {
@@ -79,6 +84,5 @@ public class ReadAndWriteToJson {
         }
 
     }
-
 
 }
