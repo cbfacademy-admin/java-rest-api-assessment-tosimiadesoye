@@ -59,4 +59,6 @@ build/
 .vscode/
 
 ### macOS ###
-.DS_Store
+.DS_Stor
+
+/api.env

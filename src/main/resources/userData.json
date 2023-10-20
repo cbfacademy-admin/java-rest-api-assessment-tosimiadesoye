@@ -1,0 +1,32 @@
+[
+  {
+    "id": "74693",
+    "age": 20,
+    "gender": "female",
+    "weight": 50.0,
+    "height": 160.0,
+    "fitness_goal": "flat stomach and run more",
+    "dietary_preference": "glutton free and vegan",
+    "allergy": "Yes"
+  },
+  {
+    "id": "443293",
+    "age": 28,
+    "gender": "male",
+    "weight": 80.0,
+    "height": 180.0,
+    "fitness_goal": "muscle and endurance",
+    "dietary_preference": "",
+    "allergy": "No"
+  },
+  {
+    "id": "dhdbs",
+    "age": 19,
+    "gender": "female",
+    "weight": 45.0,
+    "height": 150.0,
+    "fitness_goal": "tone stomach",
+    "dietary_preference": "Non",
+    "allergy": "Yes"
+  }
+]
