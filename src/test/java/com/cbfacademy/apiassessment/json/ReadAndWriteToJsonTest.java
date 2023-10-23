@@ -1,7 +1,7 @@
 package com.cbfacademy.apiassessment.json;
 
+import com.cbfacademy.apiassessment.CustomTypes.*;
 import com.cbfacademy.apiassessment.userData.UserData;
-import com.cbfacademy.apiassessment.userData.UserData.Allergic;
 
 import com.google.gson.GsonBuilder;
 
@@ -73,7 +73,7 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "writeToJsonFile() writes content")
     public void writeToJsonFile_writes() throws IOException {
 
-        UserData newUserData = new UserData("443293", 28, "male", 80, 180, "muscle and endurance", "", Allergic.No);
+        UserData newUserData = new UserData("443293", 28, "male", 80, 180, Goal.Glute, DietPreference.Gluten_free, Allergic.No);
         readAndWriteToJson.writeToJsonFile(newUserData, file);
 
         assertTrue(file.exists());
@@ -92,7 +92,7 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "writeToJsonFile() identify that user exist")
     public void writeToJsonFile_dontWriteBecauseUserExist() throws IOException {
 
-        UserData newUserData = new UserData("443293", 28, "male", 80, 180, "muscle and endurance", "", Allergic.No);
+        UserData newUserData = new UserData("443293", 28, "male", 80, 180, Goal.Cardiovascular_fitness, DietPreference.Lactose_free, Allergic.No);
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
             readAndWriteToJson.writeToJsonFile(newUserData, file);
@@ -121,7 +121,7 @@ public class ReadAndWriteToJsonTest {
     @Test
     @DisplayName(value = "updateJsonObjById() updates content")
     public void updateJsonObjById_UpdatedContent() throws IOException {
-        UserData newUserData = new UserData("443293", 18, "female", 45, 160, "glute", "Non", Allergic.Yes);
+        UserData newUserData = new UserData("443293", 18, "female", 45, 160, Goal.Lower_body, DietPreference.Non, Allergic.Yes);
         List<UserData> data = readAndWriteToJson.readJsonFile(file);
 
         readAndWriteToJson.updateJsonObjById("443293", newUserData, file);

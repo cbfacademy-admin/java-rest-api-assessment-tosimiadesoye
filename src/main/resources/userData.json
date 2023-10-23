@@ -5,8 +5,18 @@
     "gender": "female",
     "weight": 50.0,
     "height": 160.0,
-    "fitness_goal": "flat stomach and run more",
-    "dietary_preference": "glutton free and vegan",
+    "fitness_goal": "Upper_body",
+    "dietary_preference": "glutton free",
+    "allergy": "Yes"
+  },
+  {
+    "id": "dhdbs",
+    "age": 19,
+    "gender": "female",
+    "weight": 45.0,
+    "height": 150.0,
+    "fitness_goal": "Long_distance_running",
+    "dietary_preference": "Non",
     "allergy": "Yes"
   },
   {
@@ -15,18 +25,8 @@
     "gender": "male",
     "weight": 80.0,
     "height": 180.0,
-    "fitness_goal": "muscle and endurance",
-    "dietary_preference": "",
+    "fitness_goal": "Glute",
+    "dietary_preference": "Lactose_free",
     "allergy": "No"
-  },
-  {
-    "id": "dhdbs",
-    "age": 19,
-    "gender": "female",
-    "weight": 45.0,
-    "height": 150.0,
-    "fitness_goal": "tone stomach",
-    "dietary_preference": "Non",
-    "allergy": "Yes"
   }
 ]

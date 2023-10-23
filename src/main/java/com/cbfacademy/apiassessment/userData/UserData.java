@@ -1,16 +1,19 @@
 package com.cbfacademy.apiassessment.userData;
 
+import com.cbfacademy.apiassessment.CustomTypes.*;
+
 public class UserData {
     private String id;
     private int age;
     private String gender;
     private double weight;
     private double height;
-    private String fitness_goal;
-    private String dietary_preference;
+    private Goal fitness_goal;
+    private DietPreference dietary_preference;
     private Allergic allergy;
 
-    public UserData(String id, int age, String gender, double weight, double height, String fitness_goal, String dietary_preference, Allergic allergy) {
+    public UserData(String id, int age, String gender, double weight, double height, Goal fitness_goal,
+            DietPreference dietary_preference, Allergic allergy) {
         this.id = id;
         this.age = age;
         this.gender = gender;
@@ -62,19 +65,19 @@ public class UserData {
         this.height = height;
     }
 
-    public String getFitness_goal() {
+    public Goal getFitness_goal() {
         return fitness_goal;
     }
 
-    public void setFitness_goal(String fitness_goal) {
+    public void setFitness_goal(Goal fitness_goal) {
         this.fitness_goal = fitness_goal;
     }
 
-    public String getDietary_preference() {
+    public DietPreference getDietary_preference() {
         return dietary_preference;
     }
 
-    public void setDietary_preference(String dietary_preference) {
+    public void setDietary_preference(DietPreference dietary_preference) {
         this.dietary_preference = dietary_preference;
     }
 
@@ -99,9 +102,4 @@ public class UserData {
                 '}';
     }
 
-
-    public enum Allergic {
-        Yes,
-        No
-    }
 }
