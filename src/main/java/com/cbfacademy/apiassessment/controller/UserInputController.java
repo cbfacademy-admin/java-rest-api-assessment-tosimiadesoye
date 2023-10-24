@@ -1,9 +1,13 @@
-package com.cbfacademy.apiassessment.userData;
+package com.cbfacademy.apiassessment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.cbfacademy.apiassessment.NotFoundException;
+import com.cbfacademy.apiassessment.service.UserInputService;
+import com.cbfacademy.apiassessment.userData.UserData;
 
 import java.io.IOException;
 import java.util.List;

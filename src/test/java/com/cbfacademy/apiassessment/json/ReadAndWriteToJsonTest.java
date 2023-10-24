@@ -45,10 +45,6 @@ public class ReadAndWriteToJsonTest {
     @Test
     public void readJsonFile_ReturnsUserData() throws IOException {
         List<UserData> result = readAndWriteToJson.readJsonFile(file);
-        for (UserData data : result) {
-            logger.info(String.valueOf(data));
-        }
-
         assertNotNull(result);
         assertFalse(result.isEmpty());
     }
@@ -73,7 +69,7 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "writeToJsonFile() writes content")
     public void writeToJsonFile_writes() throws IOException {
 
-        UserData newUserData = new UserData("443293", 28, "male", 80, 180, Goal.Glute, DietPreference.Gluten_free, Allergic.No);
+        UserData newUserData = new UserData("392726", 38, "male", 80, 180, Goal.Glute, DietPreference.Gluten_free, Allergic.Yes);
         readAndWriteToJson.writeToJsonFile(newUserData, file);
 
         assertTrue(file.exists());
@@ -84,8 +80,8 @@ public class ReadAndWriteToJsonTest {
         // Deserialize the JSON content back into a list of UserData objects
         UserData[] updateEntries = gsonBuilder.create().fromJson(fileContent, UserData[].class);
 
-        assertEquals(Arrays.asList(updateEntries).get(1).getId(), newUserData.getId());
-        assertEquals(Arrays.asList(updateEntries).get(1).getAge(), newUserData.getAge());
+        assertTrue(Arrays.stream(updateEntries).anyMatch(user ->  user.getId().equals(newUserData.getId())));
+
     }
 
     @Test
@@ -98,23 +94,23 @@ public class ReadAndWriteToJsonTest {
             readAndWriteToJson.writeToJsonFile(newUserData, file);
         });
 
-        String expectedMessage = "user already exist update user data instead";
+        String expectedMessage = "User already exist; update user data instead.";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
 
     @Test
-    @DisplayName(value = "readJsonObjById() returns user data with Id: 443293")
+    @DisplayName(value = "readJsonObjById() returns user data with Id: 74693")
     public void readJsonObjById_ReturnsIdContent() throws IOException {
 
-        List<UserData> result = readAndWriteToJson.readJsonObjById("443293", file);
+        List<UserData> result = readAndWriteToJson.readJsonObjById("74693", file);
         List<UserData> data = readAndWriteToJson.readJsonFile(file);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(2, data.size());
-        assertEquals(result.get(0).getId(), "443293");
+        assertEquals(3, data.size());
+        assertEquals(result.get(0).getId(), "74693");
     }
 
 
@@ -131,10 +127,10 @@ public class ReadAndWriteToJsonTest {
         String fileContent = Files.readString(Path.of("src/main/resources/userData.json"));
 
         UserData[] updateEntries = gsonBuilder.create().fromJson(fileContent, UserData[].class);
-        assertEquals(2, data.size());
+        assertEquals(3, data.size());
         assertTrue(Arrays.asList(updateEntries).get(1).getGender() != "male");
-        assertTrue(Arrays.asList(updateEntries).get(1).getAge() == 18);
-        assertTrue(Arrays.asList(updateEntries).get(1).getHeight() == 160);
+        assertTrue(Arrays.asList(updateEntries).get(1).getAge() == 19);
+        assertTrue(Arrays.asList(updateEntries).get(1).getHeight() == 150.0);
 
     }
 

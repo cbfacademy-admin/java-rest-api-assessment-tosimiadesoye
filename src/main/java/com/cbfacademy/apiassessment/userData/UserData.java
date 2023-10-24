@@ -13,16 +13,19 @@ public class UserData {
     private Allergic allergy;
 
     public UserData(String id, int age, String gender, double weight, double height, Goal fitness_goal,
-            DietPreference dietary_preference, Allergic allergy) {
+                    DietPreference dietary_preference, Allergic allergy) {
         this.id = id;
         this.age = age;
         this.gender = gender;
-        this.weight = weight;/**/
+        this.weight = weight;
         this.height = height;
         this.fitness_goal = fitness_goal;
         this.allergy = allergy;
         this.dietary_preference = dietary_preference;
 
+    }
+
+    public UserData() {
     }
 
     public String getId() {

@@ -1,5 +1,4 @@
-package com.cbfacademy.apiassessment.userData;
-
+package com.cbfacademy.apiassessment;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {

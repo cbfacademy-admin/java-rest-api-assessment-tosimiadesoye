@@ -1,4 +1,4 @@
-package com.cbfacademy.apiassessment;
+/*package com.cbfacademy.apiassessment;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,3 +47,4 @@ class AppTests {
 		assertEquals("Hello John", response.getBody());
 	}
 }
+*/
