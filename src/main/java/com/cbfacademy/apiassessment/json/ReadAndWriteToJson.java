@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.json;
 
+import com.cbfacademy.apiassessment.Identifier;
 import com.cbfacademy.apiassessment.userData.UserData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -8,31 +9,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class ReadAndWriteToJson {
-    private static final Logger logger = LoggerFactory.getLogger(ReadAndWriteToJson.class);
-    private final Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
-    public List<UserData> readJsonFile(File file) throws IOException {
+    public static <T> List<T> readJsonFile(File file, Class<T> clazz) throws IOException {
         if (!file.exists()) {
             throw new FileNotFoundException("File not found");
         }
-        logger.info(String.valueOf(file));
+
         try (FileReader reader = new FileReader(file)) {
-
-            TypeToken<List<UserData>> userData = new TypeToken<>() {
-            };
-            logger.info(String.valueOf(userData));
-
-            return gson.fromJson(reader, userData);
+            Type listType = TypeToken.getParameterized(List.class, clazz).getType();
+            return gson.fromJson(reader, listType);
         }
     }
-
-    public boolean userExists(List<UserData> userEntries, String userId) {
-        for (UserData data : userEntries) {
+    public static <T extends Identifier>  boolean userExists(List<T> userEntries, String userId) {
+        for (T data : userEntries) {
             if (data.getId().equals(userId)) {
                 return true;
 
@@ -41,30 +37,29 @@ public class ReadAndWriteToJson {
         return false;
     }
 
-    public void writeToJsonFile(UserData reqBody, File file) throws IOException {
-        List<UserData> orderEntries = readJsonFile(file);
+    public static <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz) throws IOException {
+        List<T> dataEntries = readJsonFile(file, clazz);
 
-
-        if (userExists(orderEntries, reqBody.getId())) {
-            throw new RuntimeException("User already exist; update user data instead.");
+        if (userExists(dataEntries, reqBody.getId())) {
+            throw new RuntimeException("User already exists; update user data instead.");
         }
-        orderEntries.add(reqBody);
+        dataEntries.add(reqBody);
         try (Writer writer = new FileWriter(file)) {
-            gson.toJson(orderEntries, writer);
+            gson.toJson(dataEntries, writer);
         }
 
     }
 
-    public List<UserData> readJsonObjById(String id, File file) throws IOException {
-        List<UserData> data = readJsonFile(file);
+    public static <T extends Identifier> List<T>  readJsonObjById(String id, File file, Class<T> clazz) throws IOException {
+        List<T> data = readJsonFile(file, clazz);
         return data.stream()
                 .filter(item -> item.getId().equals(id))
                 .collect(Collectors.toList());
     }
 
-    public void updateJsonObjById(String id, UserData reqBody, File file) throws IOException {
+    public static void updateUserDataId(String id, UserData reqBody, File file) throws IOException {
 
-        List<UserData> userData = readJsonFile(file);
+        List<UserData> userData = readJsonFile(file, UserData.class);
         boolean found = false;
 
         for (UserData data : userData) {
@@ -90,11 +85,11 @@ public class ReadAndWriteToJson {
         }
     }
 
-    public void deleteJsonObjById(String id, File file) throws IOException {
+    public static <T extends Identifier> void deleteJsonObjById(String id, File file, Class<T> clazz) throws IOException {
 
-        List<UserData> orderEntries = readJsonFile(file);
+        List<T> orderEntries = readJsonFile(file, clazz);
 
-        List<UserData> updateOrderEntries = orderEntries.stream()
+        List<T> updateOrderEntries = orderEntries.stream()
                 .filter(entry -> !entry.getId().equals(id))
                 .collect(Collectors.toList());
 

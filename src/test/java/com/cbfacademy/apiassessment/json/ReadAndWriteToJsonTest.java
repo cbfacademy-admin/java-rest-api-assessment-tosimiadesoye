@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName(value = "I/O")
@@ -27,7 +28,6 @@ public class ReadAndWriteToJsonTest {
 
     public static Logger logger = LoggerFactory.getLogger(ReadAndWriteToJsonTest.class);
     GsonBuilder gsonBuilder;
-    ReadAndWriteToJson readAndWriteToJson;
 
     File file;
 
@@ -35,7 +35,7 @@ public class ReadAndWriteToJsonTest {
     @BeforeEach
 
     public void setUp() {
-        readAndWriteToJson = new ReadAndWriteToJson();
+
         gsonBuilder = new GsonBuilder();
         file = new File("src/main/resources/userData.json");
     }
@@ -44,10 +44,12 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "readJsonFile() returns user data")
     @Test
     public void readJsonFile_ReturnsUserData() throws IOException {
-        List<UserData> result = readAndWriteToJson.readJsonFile(file);
+        List<UserData> result = readJsonFile(file, UserData.class);
         assertNotNull(result);
         assertFalse(result.isEmpty());
     }
+
+
 
 
     @DisplayName(value = "readJsonFile() throws FileNotFoundException if it can't find the file")
@@ -56,7 +58,7 @@ public class ReadAndWriteToJsonTest {
 
         Exception exception = assertThrows(FileNotFoundException.class, () -> {
 
-            readAndWriteToJson.readJsonFile(new File("file.json"));
+            readJsonFile(new File("file.json"), UserData.class);
         });
 
         String expectedMessage = "File not found";
@@ -70,7 +72,7 @@ public class ReadAndWriteToJsonTest {
     public void writeToJsonFile_writes() throws IOException {
 
         UserData newUserData = new UserData("392726", 38, "male", 80, 180, Goal.Glute, DietPreference.Gluten_free, Allergic.Yes);
-        readAndWriteToJson.writeToJsonFile(newUserData, file);
+        writeToJsonFile(newUserData, file, UserData.class);
 
         assertTrue(file.exists());
 
@@ -80,7 +82,7 @@ public class ReadAndWriteToJsonTest {
         // Deserialize the JSON content back into a list of UserData objects
         UserData[] updateEntries = gsonBuilder.create().fromJson(fileContent, UserData[].class);
 
-        assertTrue(Arrays.stream(updateEntries).anyMatch(user ->  user.getId().equals(newUserData.getId())));
+        assertTrue(Arrays.stream(updateEntries).anyMatch(user -> user.getId().equals(newUserData.getId())));
 
     }
 
@@ -91,7 +93,7 @@ public class ReadAndWriteToJsonTest {
         UserData newUserData = new UserData("443293", 28, "male", 80, 180, Goal.Cardiovascular_fitness, DietPreference.Lactose_free, Allergic.No);
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
-            readAndWriteToJson.writeToJsonFile(newUserData, file);
+            writeToJsonFile(newUserData, file, UserData.class);
         });
 
         String expectedMessage = "User already exist; update user data instead.";
@@ -104,8 +106,8 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "readJsonObjById() returns user data with Id: 74693")
     public void readJsonObjById_ReturnsIdContent() throws IOException {
 
-        List<UserData> result = readAndWriteToJson.readJsonObjById("74693", file);
-        List<UserData> data = readAndWriteToJson.readJsonFile(file);
+        List<UserData> result = readJsonObjById("74693", file, UserData.class);
+        List<UserData> data = readJsonFile(file, UserData.class);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -118,9 +120,9 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "updateJsonObjById() updates content")
     public void updateJsonObjById_UpdatedContent() throws IOException {
         UserData newUserData = new UserData("443293", 18, "female", 45, 160, Goal.Lower_body, DietPreference.Non, Allergic.Yes);
-        List<UserData> data = readAndWriteToJson.readJsonFile(file);
+        List<UserData> data = readJsonFile(file, UserData.class);
 
-        readAndWriteToJson.updateJsonObjById("443293", newUserData, file);
+        updateUserDataId("443293", newUserData, file);
 
         assertTrue(file.exists());
 
@@ -139,7 +141,7 @@ public class ReadAndWriteToJsonTest {
     @DisplayName(value = "deleteJsonObjById() deletes content")
     public void deleteJsonObjById_DeletesContent() throws IOException {
 
-        readAndWriteToJson.deleteJsonObjById("443293", file);
+        deleteJsonObjById("443293", file, UserData.class);
 
         assertTrue(file.exists());
 

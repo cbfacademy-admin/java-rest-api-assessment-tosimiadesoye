@@ -1,0 +1,637 @@
+{
+  "meals": [
+    {
+      "name": "Breakfast",
+      "ideas": [
+        {
+          "name": "Oatmeal with Berries",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Low_carb",
+            "Mediterranean"
+          ],
+          "recipe": "1. Cook 1/2 cup of rolled oats in 1 cup of water or milk.\n2. Top with a handful of fresh mixed berries.\n3. Drizzle honey or maple syrup for sweetness.\n4. Sprinkle with chopped nuts for extra crunch.\n5. Enjoy!"
+        },
+        {
+          "name": "Greek Yogurt Parfait",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ],
+          "recipe": "1. Layer Greek yogurt, granola, and fresh fruit in a glass or bowl.\n2. Repeat the layers as desired.\n3. Top with a drizzle of honey or agave nectar.\n4. Serve and enjoy!"
+        },
+        {
+          "name": "Scrambled Eggs with Spinach",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Low_carb",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Smoked Salmon Bagel",
+          "suitable_for": [
+            "Pescatarian",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Avocado Toast",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Low_carb",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Bacon and Eggs",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Low_carb",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Fruit Salad",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Pancakes",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Smoothie Bowl",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "Egg and Cheese Breakfast Burrito",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Chia Pudding",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "French Toast",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian"
+          ]
+        },
+        {
+          "name": "Muesli with Yogurt and Nuts",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Egg White Omelette",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Low_carb"
+          ]
+        },
+        {
+          "name": "Breakfast Quesadilla",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian"
+          ]
+        },
+        {
+          "name": "Protein Pancakes",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "Frittata with Vegetables",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Quinoa Breakfast Bowl",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Cottage Cheese with Fruit",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "Sausage and Vegetable Skillet",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lunch",
+      "ideas": [
+        {
+          "name": "Grilled Chicken Salad",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ],
+          "recipe": "1. Grill chicken breast. \n2. Toss with mixed greens, cherry tomatoes, cucumbers, and balsamic vinaigrette. \n3. Serve and enjoy!"
+        },
+        {
+          "name": "Caprese Sandwich",
+          "suitable_for": [
+            "Vegetarian",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Quinoa and Black Bean Bowl",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "Tuna Salad Wrap",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Vegetable Stir-Fry",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Chickpea and Spinach Salad",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Miso Soup with Tofu",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "Turkey and Avocado Wrap",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free"
+          ]
+        },
+        {
+          "name": "Buddha Bowl with Hummus",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Egg Salad Sandwich",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Salmon and Asparagus",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Mushroom Risotto",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Avocado Chickpea Salad",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Chicken and Vegetable Wrap",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Pasta Primavera",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Cauliflower Rice Bowl",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Shrimp and Quinoa Salad",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Veggie Wrap with Hummus",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Tofu and Vegetable Stir-Fry",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Cobb Salad",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dinner",
+      "ideas": [
+        {
+          "name": "Grilled Salmon with Asparagus",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ],
+          "recipe": "1. Grill salmon fillets until cooked. \n2. Roast asparagus with olive oil, salt, and pepper. \n3. Serve together and enjoy!"
+        },
+        {
+          "name": "Vegetable Stir-Fry with Tofu",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Mushroom Risotto",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Grilled Chicken with Quinoa",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Pasta Primavera",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Chickpea Curry",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Tofu and Broccoli Stir-Fry",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Baked Cod with Vegetables",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Lentil Soup",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Beef and Broccoli Stir-Fry",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Spaghetti Squash with Pesto",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Stuffed Bell Peppers",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Salmon Teriyaki",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Chicken and Vegetable Skewers",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Quinoa and Black Bean Bowl",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Eggplant Parmesan",
+          "suitable_for": [
+            "Vegetarian",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Butternut Squash Soup",
+          "suitable_for": [
+            "Vegetarian",
+            "Vegan",
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Shrimp Scampi",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        },
+        {
+          "name": "Beef Stir-Fry",
+          "suitable_for": [
+            "Pescatarian",
+            "Keto",
+            "Gluten_free",
+            "Lactose_free",
+            "Mediterranean"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,9 @@
 package com.cbfacademy.apiassessment.userData;
 
 import com.cbfacademy.apiassessment.CustomTypes.*;
+import com.cbfacademy.apiassessment.Identifier;
 
-public class UserData {
+public class UserData implements Identifier {
     private String id;
     private int age;
     private String gender;
@@ -28,10 +29,12 @@ public class UserData {
     public UserData() {
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }

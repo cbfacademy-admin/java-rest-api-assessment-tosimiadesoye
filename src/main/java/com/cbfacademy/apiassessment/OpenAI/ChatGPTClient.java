@@ -1,25 +1,22 @@
 package com.cbfacademy.apiassessment.OpenAI;
 
-import com.cbfacademy.apiassessment.json.ReadAndWriteToJson;
 import com.cbfacademy.apiassessment.userData.UserData;
 import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.List;
 
+import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.readJsonFile;
+
 @Component
 public class ChatGPTClient {
     private static final String API_URL = "https://api.openai.com/v1/engines/davinci-codex/completions";
-    private final ReadAndWriteToJson jsonUtil;
+
     OkHttpClient client = new OkHttpClient();
 
-    @Autowired
-    public ChatGPTClient(ReadAndWriteToJson jsonUtil) {
-        this.jsonUtil = jsonUtil;
-    }
 
     public String communicateWithChatGPT() throws Exception {
 
@@ -29,7 +26,9 @@ public class ChatGPTClient {
                 .ignoreIfMissing()
                 .load();
 
-        List<UserData> getData = jsonUtil.readJsonFile(new File("src/main/resources/userData.json"));
+
+        List<UserData> getData = readJsonFile(new File("src/main/resources/userData.json"), UserData.class);
+
 
         String prompt = "I want to grow my" + getData.get(0).getFitness_goal() + ". give me  "
                 + getData.get(0).getFitness_goal() + " exercise workouts and healthy" + getData.get(0).getDietary_preference() + "ideas for breakfast, lunch and dinner that would help me achieve this";
