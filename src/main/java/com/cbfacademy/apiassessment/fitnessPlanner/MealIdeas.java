@@ -4,26 +4,31 @@ import com.cbfacademy.apiassessment.Identifier;
 
 import java.util.List;
 
+
 public class MealIdeas implements Identifier {
-    private String name;
+    private String mealType;
+    private List<Ideas> ideas;
 
-    public String getName() {
-        return name;
+    public String getMealType() {
+        return mealType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMealType(String mealType) {
+        this.mealType = mealType;
     }
 
-    public List<Idea> getIdeas() {
+    public List<Ideas> getIdeas() {
         return ideas;
     }
 
-    public void setIdeas(List<Idea> ideas) {
+    public MealIdeas(String mealType, List<Ideas> ideas) {
+        this.mealType = mealType;
         this.ideas = ideas;
     }
 
-    private List<Idea> ideas;
+    public void setIdeas(List<Ideas> ideas) {
+        this.ideas = ideas;
+    }
 
     @Override
     public String getId() {
@@ -38,7 +43,7 @@ public class MealIdeas implements Identifier {
     @Override
     public String toString() {
         return "MealIdeas{" +
-                "name='" + name + '\'' +
+                "mealType='" + mealType + '\'' +
                 ", ideas=" + ideas +
                 '}';
     }

@@ -1,17 +1,20 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
-
 import com.cbfacademy.apiassessment.userData.UserData;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+
+
 
 import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
 public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, WorkoutPlanner {
     private static final File DATA_FILE_PATH = new File("src/main/resources/meals.json");
+    public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     UserData user;
     ActivityLevel activityLevel;
     Double basalMetabolicRate;
@@ -19,6 +22,16 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     public PersonalisedFitnessPlan(UserData user, ActivityLevel activityLevel) {
         this.user = user;
         this.activityLevel = activityLevel;
+    }
+
+    public static void main(String args[]) {
+        UserData user = null;
+        try {
+            HashMap<String, Ideas> meal = new PersonalisedFitnessPlan(user, CalculateCalories.ActivityLevel.VERY_ACTIVE).generateFullDayMeal();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -38,35 +51,46 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return basalMetabolicRate * activityLevel.getMultiplier();
     }
 
-
-
-    public List<MealIdeas> getMealType(String type) throws IOException {
+    public List<Ideas> getMealType(String type) throws IOException {
         List<MealIdeas> allMeals = readJsonFile(DATA_FILE_PATH, MealIdeas.class);
-        return allMeals.stream().filter(meal -> meal.getName().equalsIgnoreCase(type)).collect(Collectors.toList());
+
+        List<Ideas> ideas = allMeals.stream().filter(meal -> meal.getMealType()
+                        .equalsIgnoreCase(type)).findFirst()
+                .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
+
+        logger.info(ideas.toString());
+        return ideas;
     }
 
     @Override
-    public List<MealIdeas> breakfast(String breakfast) throws IOException {
-        return getMealType(breakfast);
+    public Ideas generateMealPlan(String meal) throws IOException {
+        int min = 0;
+        int max = getMealType(meal).size();
+        int randomNum = randomNumber(max, min);
+        return getMealType(meal).get(randomNum);
     }
 
     @Override
-    public List<MealIdeas> lunch(String lunch) throws IOException {
-        return getMealType(lunch);
+    public HashMap<String, Ideas> generateFullDayMeal() throws IOException {
+        var breakfast = generateMealPlan("breakfast");
+        var lunch = generateMealPlan("lunch");
+        var dinner = generateMealPlan("dinner");
+        HashMap<String, Ideas> fullDaysMeal = new HashMap<>();
+        fullDaysMeal.put("breakfast", breakfast);
+        fullDaysMeal.put("lunch", lunch);
+        fullDaysMeal.put("dinner", dinner);
+        return fullDaysMeal;
     }
 
-    @Override
-    public List<MealIdeas> dinner(String dinner) throws IOException {
-        return getMealType(dinner);
+    public int randomNumber(int max, int min) {
+        return (int) (Math.random() * (max - min + 1)) + min;
     }
 
-    @Override
-    public String generateMealPlan() {
-        return null;
-    }
 
     @Override
     public String generateWorkout() {
+//        logger.info(String.valueOf(getMealType(meal).get(randomNum)));
         return null;
     }
+
 }

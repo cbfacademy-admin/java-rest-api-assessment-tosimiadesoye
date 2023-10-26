@@ -1,16 +1,14 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public interface MealPlanner {
 
+    public List<Ideas> getMealType(String type) throws IOException;
+    public Ideas generateMealPlan(String meal) throws IOException;
 
-    List<MealIdeas> breakfast(String breakfast) throws IOException;
-
-    public List<MealIdeas> lunch(String lunch) throws IOException;
-
-    public List<MealIdeas> dinner(String dinner) throws IOException;
-
-    public String generateMealPlan();
+    public HashMap<String, Ideas> generateFullDayMeal() throws IOException;
 }
