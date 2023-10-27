@@ -27,22 +27,12 @@ public class ReadAndWriteToJson {
             return gson.fromJson(reader, listType);
         }
     }
-    public static <T extends Identifier>  boolean userExists(List<T> userEntries, String userId) {
-        for (T data : userEntries) {
-            if (data.getId().equals(userId)) {
-                return true;
 
-            }
-        }
-        return false;
-    }
+
 
     public static <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz) throws IOException {
         List<T> dataEntries = readJsonFile(file, clazz);
 
-        if (userExists(dataEntries, reqBody.getId())) {
-            throw new RuntimeException("User already exists; update user data instead.");
-        }
         dataEntries.add(reqBody);
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(dataEntries, writer);

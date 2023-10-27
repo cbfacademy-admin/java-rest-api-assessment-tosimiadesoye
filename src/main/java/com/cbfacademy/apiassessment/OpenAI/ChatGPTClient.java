@@ -1,55 +1,105 @@
 package com.cbfacademy.apiassessment.OpenAI;
 
-import com.cbfacademy.apiassessment.userData.UserData;
 import io.github.cdimascio.dotenv.Dotenv;
-import okhttp3.*;
 
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.util.List;
-
-import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.readJsonFile;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Component
 public class ChatGPTClient {
-    private static final String API_URL = "https://api.openai.com/v1/engines/davinci-codex/completions";
+    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
-    OkHttpClient client = new OkHttpClient();
+    public static Logger logger = LoggerFactory.getLogger(ChatGPTClient.class);
 
-
-    public String communicateWithChatGPT() throws Exception {
-
+    public static String chatGPT(String value) {
+        String model = "gpt-3.5-turbo";
         Dotenv dotenv = Dotenv.configure()
-                .directory("./src/main/java/com/cbfacademy/apiassessment/OpenAI/")
+                .directory("src/main/java/com/cbfacademy/apiassessment/OpenAI/")
                 .ignoreIfMalformed()
                 .ignoreIfMissing()
                 .load();
 
-
-        List<UserData> getData = readJsonFile(new File("src/main/resources/userData.json"), UserData.class);
-
-
-        String prompt = "I want to grow my" + getData.get(0).getFitness_goal() + ". give me  "
-                + getData.get(0).getFitness_goal() + " exercise workouts and healthy" + getData.get(0).getDietary_preference() + "ideas for breakfast, lunch and dinner that would help me achieve this";
-
         String apiKey = dotenv.get("OPENAI_API_KEY");
 
-        MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\"prompt\": \"" + prompt + "\"}");
+        String prompt = "Give me a workout that's suitable for " +
+                value + " Your response should be in this format e.g  '{name: string, suitable_for:[]}' ";
 
-        Request request = new Request.Builder()
-                .url(API_URL)
-                .post(body)
-                .addHeader("Authorization", "Bearer " + apiKey)
-                .addHeader("Content-Type", "application/json")
-                .build();
 
-        Response response = client.newCall(request).execute();
-        String responseBody = response.body().string();
+        try {
+//            URL obj = new URL(API_URL);
+//            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+//            connection.setRequestMethod("POST");
+//            connection.setRequestProperty("Authorization", "Bearer " + apiKey);
+//            connection.setRequestProperty("Content-Type", "application/json");
+//            connection.setDoOutput(true);
+//
+//            // the request body
+//            String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt
+//                    + "\"}]}";
+//
+//            try (OutputStream os = connection.getOutputStream()) {
+//                byte[] input = body.getBytes("utf-8");
+//                os.write(input, 0, input.length);
+//            }
+//
+//            // ChatGPT response
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-        return responseBody;
+            BufferedReader br = getBufferedReader(apiKey, model, prompt);
+
+            String line;
+
+            StringBuilder response = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            return extractMessageFromJSONResponse(response.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @NotNull
+    private static BufferedReader getBufferedReader(String apiKey, String model, String prompt) throws IOException {
+        URL obj = new URL(API_URL);
+        HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Authorization", "Bearer " + apiKey);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setDoOutput(true);
+
+        // the request body
+        String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt
+                + "\"}]}";
+
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = body.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        // ChatGPT response
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        return br;
+    }
+
+    private static String extractMessageFromJSONResponse(String response) {
+        int start = response.indexOf("content") + 11;
+
+        int end = response.indexOf("\"", start);
+        logger.info(response.substring(start, end));
+        return response.substring(start, end);
     }
 
 }
-

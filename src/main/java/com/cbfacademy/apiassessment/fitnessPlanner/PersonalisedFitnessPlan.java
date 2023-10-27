@@ -1,19 +1,26 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
+import com.cbfacademy.apiassessment.OpenAI.*;
+
 import com.cbfacademy.apiassessment.userData.UserData;
+import com.google.gson.Gson;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.io.File;
+
 import java.io.IOException;
+
 import java.util.*;
 
 
-
+import static com.cbfacademy.apiassessment.OpenAI.ChatGPTClient.chatGPT;
 import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
 public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, WorkoutPlanner {
-    private static final File DATA_FILE_PATH = new File("src/main/resources/meals.json");
+    private static final File MEAL_DATA_FILE_PATH = new File("src/main/resources/meals.json");
+    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     UserData user;
     ActivityLevel activityLevel;
@@ -27,11 +34,11 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     public static void main(String args[]) {
         UserData user = null;
         try {
-            HashMap<String, Ideas> meal = new PersonalisedFitnessPlan(user, CalculateCalories.ActivityLevel.VERY_ACTIVE).generateFullDayMeal();
-        } catch (IOException e) {
+            List<Workout> workout = new PersonalisedFitnessPlan(user, CalculateCalories.ActivityLevel.VERY_ACTIVE)
+                    .generateWorkout("Running");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -52,7 +59,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     }
 
     public List<Ideas> getMealType(String type) throws IOException {
-        List<MealIdeas> allMeals = readJsonFile(DATA_FILE_PATH, MealIdeas.class);
+        List<MealIdeas> allMeals = readJsonFile(MEAL_DATA_FILE_PATH, MealIdeas.class);
 
         List<Ideas> ideas = allMeals.stream().filter(meal -> meal.getMealType()
                         .equalsIgnoreCase(type)).findFirst()
@@ -82,15 +89,58 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return fullDaysMeal;
     }
 
+    @Override
+    public List<MealIdeas> addMeal() throws IOException {
+        return null;
+    }
+
     public int randomNumber(int max, int min) {
         return (int) (Math.random() * (max - min + 1)) + min;
     }
 
 
     @Override
-    public String generateWorkout() {
-//        logger.info(String.valueOf(getMealType(meal).get(randomNum)));
-        return null;
+    public List<Workout> generateWorkout(String value) throws IOException {
+        List<Workout> workout = new ArrayList<>();
+        List<Workout> allWorkout = readJsonFile(WORKOUT_DATA_FILE_PATH, Workout.class);
+        var found = false;
+        for (Workout w : allWorkout) {
+            List<String> suitableForList = w.getSuitable_for();
+            if (suitableForList.contains(value)) {
+                found = true;
+                workout.add(w);
+            }
+        }
+        if (!found) {
+            Workout workoutRecommendationFromGPT = readChatGPTResponse(value);
+            addWorkout(workoutRecommendationFromGPT);
+            workout.add(workoutRecommendationFromGPT);
+        }
+        return workout;
     }
 
+
+    @Override
+    public void addWorkout(Workout workout) throws IOException {
+        writeToJsonFile(workout, WORKOUT_DATA_FILE_PATH, Workout.class);
+    }
+
+    public Workout readChatGPTResponse(String value) {
+        String chatGPT = chatGPT(value);
+        Gson gson = new Gson();
+//         java.lang.IllegalStateException: Expected BEGIN_OBJECT but was BEGIN_ARRAY at line 1 column 2 path $
+        ChatGPTResponse allWorkout = gson.fromJson(chatGPT, ChatGPTResponse.class);
+        logger.info(String.valueOf(allWorkout));
+//        Cannot invoke "java.util.List.get(int)" because the return value of "com.cbfacademy.apiassessment.OpenAI.ChatGPTResponse.getChoices()" is null
+        Choice c = allWorkout.getChoices().get(0);
+        String workout = c.getMessage().getContent();
+        return convertContentToWorkout(workout);
+
+    }
+
+    public Workout convertContentToWorkout(String content) {
+        Gson gson = new Gson();
+        content = content.replace("'", "\"");
+        return gson.fromJson(content, Workout.class);
+    }
 }

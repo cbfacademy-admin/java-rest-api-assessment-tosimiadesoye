@@ -4,7 +4,7 @@ import com.cbfacademy.apiassessment.OpenAI.ChatGPTClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+/*
 @Service
 public class ChatGPTOutputService {
 
@@ -19,3 +19,4 @@ public class ChatGPTOutputService {
         return chatGPTClient.communicateWithChatGPT();
     }
 }
+*/

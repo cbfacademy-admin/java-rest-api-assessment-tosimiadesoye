@@ -1,166 +1,289 @@
 [
   {
-    "name": "Push-Ups",
-    "suitable_for": ["Upper_body", "Strength_training"]
+    "name": "Push ups",
+    "suitable_for": [
+      "Upper body",
+      "Strength training"
+    ]
   },
   {
-    "name": "Sit-Ups",
-    "suitable_for": ["Flat_stomach", "Core_strength"]
+    "name": "Sit ups",
+    "suitable_for": [
+      "Flat stomach",
+      "Core strength"
+    ]
   },
   {
     "name": "Squats",
-    "suitable_for": ["Lower_body", "Strength_training"]
+    "suitable_for": [
+      "Lower body",
+      "Strength training"
+    ]
   },
   {
     "name": "Running",
-    "suitable_for": ["Endurance_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Endurance training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Cycling",
-    "suitable_for": ["Endurance_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Endurance training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Deadlifts",
-    "suitable_for": ["Strength_training", "Lower_body"]
+    "suitable_for": [
+      "Strength training",
+      "Lower body"
+    ]
   },
   {
     "name": "Yoga",
-    "suitable_for": ["Flexibility", "Mental_health"]
+    "suitable_for": [
+      "Flexibility",
+      "Mental health"
+    ]
   },
   {
     "name": "Bench Press",
-    "suitable_for": ["Upper_body", "Strength_training"]
+    "suitable_for": [
+      "Upper body",
+      "Strength training"
+    ]
   },
   {
     "name": "Swimming",
-    "suitable_for": ["Endurance_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Endurance training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "HIIT",
-    "suitable_for": ["Weight_loss", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Weight loss",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Rowing",
-    "suitable_for": ["Endurance_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Endurance training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "CrossFit",
-    "suitable_for": ["Strength_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Strength training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Jump Rope",
-    "suitable_for": ["Cardiovascular_fitness", "Weight_loss"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Weight loss"
+    ]
   },
   {
     "name": "Boxing",
-    "suitable_for": ["Strength_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Strength training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Pilates",
-    "suitable_for": ["Core_strength", "Flexibility"]
+    "suitable_for": [
+      "Core strength",
+      "Flexibility"
+    ]
   },
   {
     "name": "Martial Arts",
-    "suitable_for": ["Strength_training", "Mental_health"]
+    "suitable_for": [
+      "Strength training",
+      "Mental health"
+    ]
   },
   {
     "name": "Mountain Climbing",
-    "suitable_for": ["Strength_training", "Endurance_training"]
+    "suitable_for": [
+      "Strength training",
+      "Endurance training"
+    ]
   },
   {
     "name": "Plyometrics",
-    "suitable_for": ["Strength_training", "Power"]
+    "suitable_for": [
+      "Strength training",
+      "Power"
+    ]
   },
   {
     "name": "Hiking",
-    "suitable_for": ["Endurance_training", "Strength_training"]
+    "suitable_for": [
+      "Endurance training",
+      "Strength training"
+    ]
   },
   {
     "name": "Dancing",
-    "suitable_for": ["Cardiovascular_fitness", "Mental_health"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Mental health"
+    ]
   },
   {
     "name": "Kettlebell Swings",
-    "suitable_for": ["Strength_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Strength training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Climbing Stairs",
-    "suitable_for": ["Cardiovascular_fitness", "Leg_strength"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Leg strength"
+    ]
   },
   {
     "name": "Gardening",
-    "suitable_for": ["Low_intensity", "Mental_health"]
+    "suitable_for": [
+      "Low intensity",
+      "Mental health"
+    ]
   },
   {
     "name": "Canoeing",
-    "suitable_for": ["Endurance_training", "Upper_body"]
+    "suitable_for": [
+      "Endurance training",
+      "Upper body"
+    ]
   },
   {
     "name": "Circuit Training",
-    "suitable_for": ["Strength_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Strength training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Resistance Bands",
-    "suitable_for": ["Strength_training", "Flexibility"]
+    "suitable_for": [
+      "Strength training",
+      "Flexibility"
+    ]
   },
   {
     "name": "Yoga",
-    "suitable_for": ["Flexibility", "Mental_health"]
+    "suitable_for": [
+      "Flexibility",
+      "Mental health"
+    ]
   },
   {
     "name": "Aerobics",
-    "suitable_for": ["Cardiovascular_fitness", "Weight_loss"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Weight loss"
+    ]
   },
   {
     "name": "Trail Running",
-    "suitable_for": ["Endurance_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Endurance training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Rock Climbing",
-    "suitable_for": ["Strength_training", "Endurance_training"]
+    "suitable_for": [
+      "Strength training",
+      "Endurance training"
+    ]
   },
   {
     "name": "Rollerblading",
-    "suitable_for": ["Cardiovascular_fitness", "Leg_strength"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Leg strength"
+    ]
   },
   {
     "name": "Stretching",
-    "suitable_for": ["Flexibility", "Recovery"]
+    "suitable_for": [
+      "Flexibility",
+      "Recovery"
+    ]
   },
   {
     "name": "Rowing Machine",
-    "suitable_for": ["Cardiovascular_fitness", "Upper_body"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Upper body"
+    ]
   },
   {
     "name": "Biking",
-    "suitable_for": ["Endurance_training", "Cardiovascular_fitness"]
+    "suitable_for": [
+      "Endurance training",
+      "Cardiovascular fitness"
+    ]
   },
   {
     "name": "Meditation",
-    "suitable_for": ["Mental_health", "Stress_reduction"]
+    "suitable_for": [
+      "Mental health",
+      "Stress reduction"
+    ]
   },
   {
     "name": "Tai Chi",
-    "suitable_for": ["Flexibility", "Mental_health"]
+    "suitable_for": [
+      "Flexibility",
+      "Mental health"
+    ]
   },
   {
     "name": "Golf",
-    "suitable_for": ["Low_intensity", "Core_strength"]
+    "suitable_for": [
+      "Low intensity",
+      "Core strength"
+    ]
   },
   {
-    "name": "Paddleboarding",
-    "suitable_for": ["Cardiovascular_fitness", "Upper_body"]
+    "name": "Paddle boarding",
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Upper body"
+    ]
   },
   {
     "name": "Hula Hooping",
-    "suitable_for": ["Cardiovascular_fitness", "Core_strength"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Core strength"
+    ]
   },
   {
     "name": "Mowing the Lawn",
-    "suitable_for": ["Low_intensity", "Leg_strength"]
+    "suitable_for": [
+      "Low intensity",
+      "Leg strength"
+    ]
   },
   {
     "name": "Jumping Jacks",
-    "suitable_for": ["Cardiovascular_fitness", "Full_body"]
+    "suitable_for": [
+      "Cardiovascular fitness",
+      "Full body"
+    ]
   }
 ]

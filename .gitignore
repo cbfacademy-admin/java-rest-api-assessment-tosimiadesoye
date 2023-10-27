@@ -61,4 +61,4 @@ build/
 ### macOS ###
 .DS_Stor
 
-/src/main/java/com/cbfacademy/apiassessment/OpenAI/key.env
+/src/main/java/com/cbfacademy/apiassessment/OpenAI/.env

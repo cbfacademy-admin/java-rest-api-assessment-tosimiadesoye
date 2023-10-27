@@ -11,4 +11,5 @@ public interface MealPlanner {
     public Ideas generateMealPlan(String meal) throws IOException;
 
     public HashMap<String, Ideas> generateFullDayMeal() throws IOException;
+    public List<MealIdeas> addMeal()throws IOException;
 }
