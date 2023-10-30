@@ -42,10 +42,10 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     @Override
     public double calcDailyKcalConsumption(String gender, double weight,
                                            double height, int age,
-                                           double activityLevel) {
+                                           ActivityLevel activityLevel) {
         double BMR = calculateBMR(gender, weight, height, age);
 
-        return BMR * activityLevel;
+        return BMR * activityLevel.getMultiplier();
     }
 
     public List<Ideas> mealType(String type) throws IOException {
@@ -84,6 +84,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return (int) (Math.random() * (max - min + 1)) + min;
     }
 
+//    todo - check if goal is found, if not return create goal request
 //    return a personalised message if goal is not find e.g we are still updating our db send a request for fitness goal
     @Override
     public List<Workout> generateWorkout(String goal) throws IOException {
@@ -99,6 +100,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return workout;
     }
 
-//    createWorkout plan
+//   todo - createWorkout plan, track progress
 
 }

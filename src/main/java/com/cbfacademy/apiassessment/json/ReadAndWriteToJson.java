@@ -59,7 +59,6 @@ public class ReadAndWriteToJson {
                 data.setWeight(reqBody.getWeight());
                 data.setDietary_preference(reqBody.getDietary_preference());
                 data.setFitness_goal(reqBody.getFitness_goal());
-                data.setAllergy(reqBody.getAllergy());
                 found = true;
                 break;
             }

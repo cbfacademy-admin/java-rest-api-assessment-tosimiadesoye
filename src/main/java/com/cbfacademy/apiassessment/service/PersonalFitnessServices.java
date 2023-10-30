@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.service;
 
+import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.PersonalisedFitnessPlan;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
@@ -25,7 +26,7 @@ public class PersonalFitnessServices {
     }
 
     public Double getDailyKcalConsumption(String gender,double weight,
-                                          double height, int age, double activityLevel) throws RuntimeException {
+                                          double height, int age, CalculateCalories.ActivityLevel activityLevel) throws RuntimeException {
         return personalisedFitnessPlan.calcDailyKcalConsumption(gender, weight,
         height,  age, activityLevel);
     }

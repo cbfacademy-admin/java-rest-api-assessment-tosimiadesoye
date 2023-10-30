@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.controller;
 
+import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
@@ -32,7 +33,7 @@ public class PersonalFitnessController {
                                               @PathVariable double height, @PathVariable int age) {
         try {
             Double restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
-            ResponseEntity.ok(restingKcal);
+         return  ResponseEntity.ok(restingKcal);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -40,7 +41,7 @@ public class PersonalFitnessController {
 
     @GetMapping("/{gender}/{activityLevel}")
     public ResponseEntity<Double> readTDEE(@PathVariable String gender, @PathVariable double weight,
-                                           @PathVariable double height, @PathVariable int age, @PathVariable double activityLevel) {
+                                           @PathVariable double height, @PathVariable int age, @PathVariable CalculateCalories.ActivityLevel activityLevel) {
         try {
             Double kcalConsumption = personalFitnessServices.getDailyKcalConsumption(gender, weight,
                     height, age, activityLevel);

@@ -2,7 +2,7 @@ package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import java.util.List;
 
-class Ideas{
+public class Ideas{
 
     String food;
     List<String> suitable_for;

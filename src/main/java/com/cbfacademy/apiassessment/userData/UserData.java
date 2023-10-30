@@ -1,6 +1,5 @@
 package com.cbfacademy.apiassessment.userData;
 
-import com.cbfacademy.apiassessment.CustomTypes.*;
 import com.cbfacademy.apiassessment.Identifier;
 
 public class UserData implements Identifier {
@@ -9,19 +8,19 @@ public class UserData implements Identifier {
     private String gender;
     private double weight;
     private double height;
-    private Goal fitness_goal;
-    private DietPreference dietary_preference;
-    private Allergic allergy;
+    private String fitness_goal;
+    private String dietary_preference;
 
-    public UserData(String id, int age, String gender, double weight, double height, Goal fitness_goal,
-                    DietPreference dietary_preference, Allergic allergy) {
+
+    public UserData(String id, int age, String gender, double weight, double height, String fitness_goal,
+                    String dietary_preference) {
         this.id = id;
         this.age = age;
         this.gender = gender;
         this.weight = weight;
         this.height = height;
         this.fitness_goal = fitness_goal;
-        this.allergy = allergy;
+
         this.dietary_preference = dietary_preference;
 
     }
@@ -71,29 +70,22 @@ public class UserData implements Identifier {
         this.height = height;
     }
 
-    public Goal getFitness_goal() {
+    public String getFitness_goal() {
         return fitness_goal;
     }
 
-    public void setFitness_goal(Goal fitness_goal) {
+    public void setFitness_goal(String fitness_goal) {
         this.fitness_goal = fitness_goal;
     }
 
-    public DietPreference getDietary_preference() {
+    public String getDietary_preference() {
         return dietary_preference;
     }
 
-    public void setDietary_preference(DietPreference dietary_preference) {
+    public void setDietary_preference(String dietary_preference) {
         this.dietary_preference = dietary_preference;
     }
 
-    public Allergic getAllergy() {
-        return allergy;
-    }
-
-    public void setAllergy(Allergic allergy) {
-        this.allergy = allergy;
-    }
 
     @Override
     public String toString() {
