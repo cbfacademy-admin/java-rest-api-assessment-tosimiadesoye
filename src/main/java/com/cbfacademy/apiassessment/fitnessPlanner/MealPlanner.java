@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface MealPlanner {
 
-    public List<Ideas> getMealType(String type) throws IOException;
-    public Ideas generateMealPlan(String meal) throws IOException;
+    public List<Ideas> mealType(String type) throws IOException;
+    public Ideas generateMealPlan(String mealType) throws IOException;
 
     public HashMap<String, Ideas> generateFullDayMeal() throws IOException;
 }

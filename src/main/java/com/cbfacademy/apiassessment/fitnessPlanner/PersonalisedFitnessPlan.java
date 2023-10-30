@@ -1,19 +1,22 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import com.cbfacademy.apiassessment.userData.UserData;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
+
 import java.io.IOException;
+
 import java.util.*;
-
-
-
 import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
+@Component
 public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, WorkoutPlanner {
-    private static final File DATA_FILE_PATH = new File("src/main/resources/meals.json");
+    private static final File MEAL_DATA_FILE_PATH = new File("src/main/resources/meals.json");
+    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     UserData user;
     ActivityLevel activityLevel;
@@ -24,22 +27,12 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         this.activityLevel = activityLevel;
     }
 
-    public static void main(String args[]) {
-        UserData user = null;
-        try {
-            HashMap<String, Ideas> meal = new PersonalisedFitnessPlan(user, CalculateCalories.ActivityLevel.VERY_ACTIVE).generateFullDayMeal();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     @Override
-    public double CalculateBMR() {
-        if ("female".equalsIgnoreCase(user.getGender())) {
-            basalMetabolicRate = 447.593 + (9.247 * user.getWeight()) + (3.098 * user.getHeight()) - (4.330 * user.getAge());
-        } else if ("male".equalsIgnoreCase(user.getGender())) {
-            basalMetabolicRate = 88.364 + (13.397 * user.getWeight()) + (4.799 * user.getHeight()) - (5.677 * user.getAge());
+    public double calculateBMR(String gender, double weight, double height, int age) {
+        if ("female".equalsIgnoreCase(gender)) {
+            basalMetabolicRate = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+        } else if ("male".equalsIgnoreCase(gender)) {
+            basalMetabolicRate = 88.364 + (13.397 * weight) + (4.799 * height) - (5.677 * weight);
         } else {
             throw new RuntimeException("Invalid gender: " + user.getGender());
         }
@@ -47,27 +40,32 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     }
 
     @Override
-    public double CalcDailyKcalConsumption() {
-        return basalMetabolicRate * activityLevel.getMultiplier();
+    public double calcDailyKcalConsumption(String gender, double weight,
+                                           double height, int age,
+                                           double activityLevel) {
+        double BMR = calculateBMR(gender, weight, height, age);
+
+        return BMR * activityLevel;
     }
 
-    public List<Ideas> getMealType(String type) throws IOException {
-        List<MealIdeas> allMeals = readJsonFile(DATA_FILE_PATH, MealIdeas.class);
+    public List<Ideas> mealType(String type) throws IOException {
+        List<MealIdeas> allMeals = readJsonFile(MEAL_DATA_FILE_PATH, MealIdeas.class);
 
         List<Ideas> ideas = allMeals.stream().filter(meal -> meal.getMealType()
-                        .equalsIgnoreCase(type)).findFirst()
+                .equalsIgnoreCase(type)).findFirst()
                 .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
 
         logger.info(ideas.toString());
         return ideas;
     }
 
+//    add dietary preference
     @Override
-    public Ideas generateMealPlan(String meal) throws IOException {
+    public Ideas generateMealPlan(String mealType) throws IOException {
         int min = 0;
-        int max = getMealType(meal).size();
+        int max = mealType(mealType).size();
         int randomNum = randomNumber(max, min);
-        return getMealType(meal).get(randomNum);
+        return mealType(mealType).get(randomNum);
     }
 
     @Override
@@ -86,11 +84,21 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return (int) (Math.random() * (max - min + 1)) + min;
     }
 
-
+//    return a personalised message if goal is not find e.g we are still updating our db send a request for fitness goal
     @Override
-    public String generateWorkout() {
-//        logger.info(String.valueOf(getMealType(meal).get(randomNum)));
-        return null;
+    public List<Workout> generateWorkout(String goal) throws IOException {
+        List<Workout> workout = new ArrayList<>();
+        List<Workout> allWorkout = readJsonFile(WORKOUT_DATA_FILE_PATH, Workout.class);
+        for (Workout w : allWorkout) {
+            List<String> suitableForList = w.getSuitable_for();
+            if (suitableForList.contains(goal)) {
+
+                workout.add(w);
+            }
+        }
+        return workout;
     }
+
+//    createWorkout plan
 
 }

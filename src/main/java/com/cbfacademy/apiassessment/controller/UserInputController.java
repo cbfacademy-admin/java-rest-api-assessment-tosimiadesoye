@@ -25,7 +25,7 @@ public class UserInputController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserData>> readUserDataApi() throws IOException {
+    public ResponseEntity<List<UserData>> readUserDataApi()  {
         try {
             List<UserData> entries = userDataService.getUserInput();
             return ResponseEntity.ok(entries);
@@ -75,7 +75,7 @@ public class UserInputController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteuserDataById(@PathVariable String id) {
+    public ResponseEntity<Void> deleteUserDataById(@PathVariable String id) {
         try {
             userDataService.deleteUserInputById(id);
             return ResponseEntity.noContent().build();

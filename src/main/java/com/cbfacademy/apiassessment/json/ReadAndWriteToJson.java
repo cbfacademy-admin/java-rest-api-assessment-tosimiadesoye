@@ -4,8 +4,7 @@ import com.cbfacademy.apiassessment.Identifier;
 import com.cbfacademy.apiassessment.userData.UserData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -27,22 +26,12 @@ public class ReadAndWriteToJson {
             return gson.fromJson(reader, listType);
         }
     }
-    public static <T extends Identifier>  boolean userExists(List<T> userEntries, String userId) {
-        for (T data : userEntries) {
-            if (data.getId().equals(userId)) {
-                return true;
 
-            }
-        }
-        return false;
-    }
+
 
     public static <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz) throws IOException {
         List<T> dataEntries = readJsonFile(file, clazz);
 
-        if (userExists(dataEntries, reqBody.getId())) {
-            throw new RuntimeException("User already exists; update user data instead.");
-        }
         dataEntries.add(reqBody);
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(dataEntries, writer);

@@ -1,8 +1,8 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 public interface CalculateCalories {
-    public double CalculateBMR();
-    public double CalcDailyKcalConsumption();
+    public double calculateBMR(String gender, double weight, double height, int age);
+    public double calcDailyKcalConsumption(String gender, double weight, double height, int age, double activityLevel);
 
     enum ActivityLevel {
         SEDENTARY(1.2), //little or no exercise
