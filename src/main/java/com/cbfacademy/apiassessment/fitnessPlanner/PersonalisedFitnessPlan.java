@@ -1,5 +1,7 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
+import com.cbfacademy.apiassessment.OpenAI.ChatGPTResponse;
+
 import com.cbfacademy.apiassessment.userData.UserData;
 
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,10 @@ import java.io.File;
 import java.io.IOException;
 
 import java.util.*;
+
+import com.google.gson.Gson;
+
+import static com.cbfacademy.apiassessment.OpenAI.ChatGPTClient.chatGPT;
 import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
 @Component
@@ -18,13 +24,17 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     private static final File MEAL_DATA_FILE_PATH = new File("src/main/resources/meals.json");
     private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
-    UserData user;
-    ActivityLevel activityLevel;
+
     Double basalMetabolicRate;
 
-    public PersonalisedFitnessPlan(UserData user, ActivityLevel activityLevel) {
-        this.user = user;
-        this.activityLevel = activityLevel;
+    public static void main(String args[]) {
+
+        try {
+            var workout = new PersonalisedFitnessPlan()
+                    .generateWorkout("Running");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -34,7 +44,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         } else if ("male".equalsIgnoreCase(gender)) {
             basalMetabolicRate = 88.364 + (13.397 * weight) + (4.799 * height) - (5.677 * weight);
         } else {
-            throw new RuntimeException("Invalid gender: " + user.getGender());
+            throw new RuntimeException("Invalid gender: " + gender);
         }
         return basalMetabolicRate;
     }
@@ -48,18 +58,18 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return BMR * activityLevel.getMultiplier();
     }
 
-    public List<Ideas> mealType(String type) throws IOException {
+    @Override
+    public List<Ideas> mealType(String mealType) throws IOException {
         List<MealIdeas> allMeals = readJsonFile(MEAL_DATA_FILE_PATH, MealIdeas.class);
 
         List<Ideas> ideas = allMeals.stream().filter(meal -> meal.getMealType()
-                .equalsIgnoreCase(type)).findFirst()
+                        .equalsIgnoreCase(mealType)).findFirst()
                 .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
 
         logger.info(ideas.toString());
         return ideas;
     }
 
-//    add dietary preference
     @Override
     public Ideas generateMealPlan(String mealType) throws IOException {
         int min = 0;
@@ -84,22 +94,50 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return (int) (Math.random() * (max - min + 1)) + min;
     }
 
-//    todo - check if goal is found, if not return create goal request
-//    return a personalised message if goal is not find e.g we are still updating our db send a request for fitness goal
+
     @Override
     public List<Workout> generateWorkout(String goal) throws IOException {
         List<Workout> workout = new ArrayList<>();
         List<Workout> allWorkout = readJsonFile(WORKOUT_DATA_FILE_PATH, Workout.class);
+
+        var found = false;
         for (Workout w : allWorkout) {
             List<String> suitableForList = w.getSuitable_for();
             if (suitableForList.contains(goal)) {
-
+                found = true;
                 workout.add(w);
             }
         }
+        if (!found) {
+
+            Workout newWorkout = readChatGPTResponse(goal);
+            if (newWorkout != null) {
+                logger.info(String.valueOf(newWorkout));
+                workout.add(newWorkout);
+                addWorkout(newWorkout);
+            }
+        }
         return workout;
+
     }
 
-//   todo - createWorkout plan, track progress
+    @Override
+    public void addWorkout(Workout workout) throws IOException {
+        writeToJsonFile(workout, WORKOUT_DATA_FILE_PATH, Workout.class);
+    }
+
+    public Workout readChatGPTResponse(String goal) {
+        ChatGPTResponse chatGPT = chatGPT(goal);
+
+       Gson gson = new Gson();
+//        String response = gson.toJson(chatGPT, ChatGPTResponse.class);
+//        logger.info(String.valueOf(chatGPT));
+       var response = chatGPT.getChoices().get(0).getMessage().getContent();
+       logger.info(response);
+//       var r = gson.toJson(response, Workout.class);
+//       logger.info(r);
+        return null;
+    }
+
 
 }

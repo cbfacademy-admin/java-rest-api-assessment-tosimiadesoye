@@ -27,7 +27,7 @@ public class PersonalisedFitnessPlanTest {
 
     public void setUp() {
         file = new File("src/main/resources/meals.json");
-        personalisedFitnessPlan = new PersonalisedFitnessPlan(user, CalculateCalories.ActivityLevel.VERY_ACTIVE);
+        personalisedFitnessPlan = new PersonalisedFitnessPlan();
         ideas.addAll(List.of(
                         new Ideas("Oatmeal with Berries",
                                 List.of("Vegetarian", "Vegan", "Pescatarian", "Keto", "Gluten_free", "Lactose_free", "Low_carb", "Mediterranean"),

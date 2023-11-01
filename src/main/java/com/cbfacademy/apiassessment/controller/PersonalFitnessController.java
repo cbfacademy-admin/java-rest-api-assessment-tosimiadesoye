@@ -1,6 +1,6 @@
 package com.cbfacademy.apiassessment.controller;
 
-import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories;
+import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
@@ -39,9 +39,9 @@ public class PersonalFitnessController {
         }
     }
 
-    @GetMapping("/{gender}/{activityLevel}")
+    @GetMapping("/{gender}/{weight}/{height}/{age}/{activityLevel}")
     public ResponseEntity<Double> readTDEE(@PathVariable String gender, @PathVariable double weight,
-                                           @PathVariable double height, @PathVariable int age, @PathVariable CalculateCalories.ActivityLevel activityLevel) {
+                                           @PathVariable double height, @PathVariable int age, @PathVariable ActivityLevel activityLevel) {
         try {
             Double kcalConsumption = personalFitnessServices.getDailyKcalConsumption(gender, weight,
                     height, age, activityLevel);
@@ -51,7 +51,7 @@ public class PersonalFitnessController {
         }
     }
 
-    @GetMapping("/{mealType}")
+    @GetMapping("/meal/type/{mealType}")
     public ResponseEntity<Ideas> readMealPlan(@PathVariable String mealType) {
         try {
             Ideas ideas = personalFitnessServices.getMealPlan(mealType);
@@ -61,6 +61,7 @@ public class PersonalFitnessController {
         }
     }
 
+    // todo - test in postman once all issues are resolved
     @GetMapping("/dailyMeal")
     public ResponseEntity<HashMap<String, Ideas>> readDailyMealPlan() {
         try {

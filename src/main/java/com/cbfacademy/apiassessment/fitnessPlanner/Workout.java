@@ -8,6 +8,7 @@ public class Workout implements Identifier {
     String name;
     List<String> suitable_for;
 
+
     public Workout(String name, List<String> suitable_for) {
         this.name = name;
         this.suitable_for = suitable_for;
@@ -38,14 +39,6 @@ public class Workout implements Identifier {
     @Override
     public void setId(String id) {
 
-    }
-
-    @Override
-    public String toString() {
-        return "Workout{" +
-                "name='" + name + '\'' +
-                ", suitable_for=" + suitable_for +
-                '}';
     }
 
 }

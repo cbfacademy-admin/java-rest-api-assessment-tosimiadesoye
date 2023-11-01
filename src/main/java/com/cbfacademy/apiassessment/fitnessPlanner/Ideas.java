@@ -38,12 +38,4 @@ public class Ideas{
         this.recipe = recipe;
     }
 
-    @Override
-    public String toString() {
-        return "Idea{" +
-                "food='" + food + '\'' +
-                ", suitable_for=" + suitable_for +
-                ", recipe='" + recipe + '\'' +
-                '}';
-    }
 }

@@ -40,12 +40,5 @@ public class MealIdeas implements Identifier {
 
     }
 
-    @Override
-    public String toString() {
-        return "MealIdeas{" +
-                "mealType='" + mealType + '\'' +
-                ", ideas=" + ideas +
-                '}';
-    }
 }
 
