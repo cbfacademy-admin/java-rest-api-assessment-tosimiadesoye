@@ -25,7 +25,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
 
-    Double basalMetabolicRate;
 
     public static void main(String args[]) {
 
@@ -39,10 +38,11 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
     @Override
     public double calculateBMR(String gender, double weight, double height, int age) {
+        double basalMetabolicRate;
         if ("female".equalsIgnoreCase(gender)) {
             basalMetabolicRate = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         } else if ("male".equalsIgnoreCase(gender)) {
-            basalMetabolicRate = 88.364 + (13.397 * weight) + (4.799 * height) - (5.677 * weight);
+            basalMetabolicRate = 88.364 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
         } else {
             throw new RuntimeException("Invalid gender: " + gender);
         }
@@ -56,6 +56,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         double BMR = calculateBMR(gender, weight, height, age);
 
         return BMR * activityLevel.getMultiplier();
+
     }
 
     @Override
@@ -66,7 +67,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
                         .equalsIgnoreCase(mealType)).findFirst()
                 .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
 
-        logger.info(ideas.toString());
         return ideas;
     }
 
@@ -129,11 +129,11 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     public Workout readChatGPTResponse(String goal) {
         ChatGPTResponse chatGPT = chatGPT(goal);
 
-       Gson gson = new Gson();
+        Gson gson = new Gson();
 //        String response = gson.toJson(chatGPT, ChatGPTResponse.class);
 //        logger.info(String.valueOf(chatGPT));
-       var response = chatGPT.getChoices().get(0).getMessage().getContent();
-       logger.info(response);
+        var response = chatGPT.getChoices().get(0).getMessage().getContent();
+        logger.info(response);
 //       var r = gson.toJson(response, Workout.class);
 //       logger.info(r);
         return null;

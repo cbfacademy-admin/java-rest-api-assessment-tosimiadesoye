@@ -4,6 +4,7 @@ import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLev
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@OpenAPIDefinition
 @RequestMapping("/api/v1/personalisedFitness")
 public class PersonalFitnessController {
 

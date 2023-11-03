@@ -1,50 +1,76 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
-import com.cbfacademy.apiassessment.userData.UserData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(value = "PersonalisedFitnessPlan")
 public class PersonalisedFitnessPlanTest {
 
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     PersonalisedFitnessPlan personalisedFitnessPlan;
-    File file;
-    UserData user;
-    // Create an ArrayList to store ideas
-    List<Ideas> ideas = new ArrayList<>();
 
-    @BeforeEach
 
-    public void setUp() {
-        file = new File("src/main/resources/meals.json");
-        personalisedFitnessPlan = new PersonalisedFitnessPlan();
-        ideas.addAll(List.of(
-                        new Ideas("Oatmeal with Berries",
-                                List.of("Vegetarian", "Vegan", "Pescatarian", "Keto", "Gluten_free", "Lactose_free", "Low_carb", "Mediterranean"),
-                                "1. Cook 1/2 cup of rolled oats in 1 cup of water or milk.\n2. Top with a handful of fresh mixed berries.\n3. Drizzle honey or maple syrup for sweetness.\n4. Sprinkle with chopped nuts for extra crunch.\n5. Enjoy!"),
-
-                        new Ideas("Greek Yogurt Parfait",
-                                List.of("Vegetarian", "Pescatarian", "Gluten_free", "Lactose_free", "Mediterranean"),
-                                "1. Layer Greek yogurt, granola, and fresh fruit in a glass or bowl.\n2. Repeat the layers as desired.\n3. Top with a drizzle of honey or agave nectar.\n4. Serve and enjoy!")
-                )
+    public static Stream<Arguments> calculateBMRArguments() {
+        return Stream.of(
+                Arguments.of("female", 50, 160, 21, 1314.693),
+                Arguments.of("male", 50, 160, 21, 1406.837)
         );
     }
 
+
+    public static Stream<Arguments> calcDailyKcalConsumption() {
+        return Stream.of(
+                Arguments.of("female", 50, 160, 21, "SEDENTARY",1577.6316),
+                Arguments.of("male", 50, 160, 21, "LIGHTLY_ACTIVE", 1934.400875),
+                Arguments.of("female", 45, 160, 18, "MODERATELY_ACTIVE",1986.2443999999998),
+                Arguments.of("male", 70, 180, 25, "VERY_ACTIVE",3015.3845250000004),
+                Arguments.of("female", 60, 170, 35, "SUPER_ACTIVE",2617.2936999999997)
+        );
+    }
+
+    @BeforeEach
+    public void setUp() {
+        personalisedFitnessPlan = new PersonalisedFitnessPlan();
+    }
+
+    @ParameterizedTest
+    @MethodSource("calculateBMRArguments")
+    @DisplayName("should return BMR")
+    public void calculateBMR_shouldReturnBMR(String gender, double weight, double height, int age, double expected) {
+        double actual = personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
+        assertEquals(expected, actual);
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("calcDailyKcalConsumption")
+    @DisplayName("should return TDEE")
+    public void calcDailyKcalConsumption_shouldReturnTDEE(String gender, double weight, double height, int age, CalculateCalories.ActivityLevel activityLevel, double expected) {
+        double actual = personalisedFitnessPlan.calcDailyKcalConsumption(gender, weight, height, age, activityLevel);
+        assertEquals(expected, actual);
+    }
+
+
+
     @DisplayName(value = "getMealType() returns meal list")
     @Test
-    public void getMealType_ReturnsListOfMeaL() throws IOException {
+    public void mealType_ReturnsListOfMeaL() throws IOException {
+//        ReadAndWriteToJson readAndWriteToJson =Mockito.mock(ReadAndWriteToJson.class);
+//        when(readAndWriteToJson.readJsonFile(Mockito.anyString(), Mockito.eq(MealIdeas.class)))
+//                .thenReturn()
 //        var actual = personalisedFitnessPlan.getMealType("breakfast");
-        List<Ideas> expected = ideas;
 
     }
 

@@ -3,7 +3,6 @@ package com.cbfacademy.apiassessment.OpenAI;
 import com.google.gson.Gson;
 import io.github.cdimascio.dotenv.Dotenv;
 
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -65,7 +64,7 @@ public class ChatGPTClient {
 
     }
 
-    @NotNull
+
     private static BufferedReader getBufferedReader(String apiKey, String model, String prompt) throws IOException {
         URL obj = new URL(API_URL);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
