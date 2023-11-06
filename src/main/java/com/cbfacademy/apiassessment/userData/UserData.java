@@ -20,13 +20,10 @@ public class UserData implements Identifier {
         this.weight = weight;
         this.height = height;
         this.fitness_goal = fitness_goal;
-
         this.dietary_preference = dietary_preference;
 
     }
 
-    public UserData() {
-    }
 
     @Override
     public String getId() {

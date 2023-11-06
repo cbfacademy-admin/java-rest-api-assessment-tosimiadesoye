@@ -1,22 +1,20 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Description;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DisplayName(value = "PersonalisedFitnessPlan")
-public class PersonalisedFitnessPlanTest {
+@Description(value = "Calories")
+public class CaloriesTest {
 
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     PersonalisedFitnessPlan personalisedFitnessPlan;
@@ -47,7 +45,7 @@ public class PersonalisedFitnessPlanTest {
 
     @ParameterizedTest
     @MethodSource("calculateBMRArguments")
-    @DisplayName("should return BMR")
+    @Description("should return BMR")
     public void calculateBMR_shouldReturnBMR(String gender, double weight, double height, int age, double expected) {
         double actual = personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
         assertEquals(expected, actual);
@@ -56,27 +54,10 @@ public class PersonalisedFitnessPlanTest {
 
     @ParameterizedTest
     @MethodSource("calcDailyKcalConsumption")
-    @DisplayName("should return TDEE")
+    @Description("should return TDEE")
     public void calcDailyKcalConsumption_shouldReturnTDEE(String gender, double weight, double height, int age, CalculateCalories.ActivityLevel activityLevel, double expected) {
         double actual = personalisedFitnessPlan.calcDailyKcalConsumption(gender, weight, height, age, activityLevel);
         assertEquals(expected, actual);
     }
 
-
-
-    @DisplayName(value = "getMealType() returns meal list")
-    @Test
-    public void mealType_ReturnsListOfMeaL() throws IOException {
-//        ReadAndWriteToJson readAndWriteToJson =Mockito.mock(ReadAndWriteToJson.class);
-//        when(readAndWriteToJson.readJsonFile(Mockito.anyString(), Mockito.eq(MealIdeas.class)))
-//                .thenReturn()
-//        var actual = personalisedFitnessPlan.getMealType("breakfast");
-
-    }
-
-    @DisplayName(value = "generateMealPlan() returns one meal idea")
-    @Test
-    public void generateMealPlan_ReturnsIdea() throws IOException {
-//        var actual = personalisedFitnessPlan.generateMealPlan("breakfast");
-    }
 }

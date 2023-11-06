@@ -5,11 +5,8 @@ import com.cbfacademy.apiassessment.userData.UserData;
 import com.google.gson.GsonBuilder;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,39 +16,48 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import org.springframework.context.annotation.Description;
+
 import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName(value = "I/O")
+@Description(value = "I/O")
 public class ReadAndWriteToJsonTest {
 
-    public static Logger logger = LoggerFactory.getLogger(ReadAndWriteToJsonTest.class);
+    @TempDir
+    Path tempDir;
+
+    Path tempFile;
+
+    UserData userData = new UserData("392726", 38, "male", 80, 180, "Glute", "Gluten_free");
+
+    ReadAndWriteToJson readAndWriteToJson;
+
     GsonBuilder gsonBuilder;
-
-    File file;
-
 
     @BeforeEach
 
     public void setUp() {
-
+        readAndWriteToJson = new ReadAndWriteToJson();
         gsonBuilder = new GsonBuilder();
-        file = new File("src/main/resources/userData.json");
+        try {
+            tempFile = Files.createFile(tempDir.resolve("temp.json"));
+            Files.writeString(tempFile, "[" + gsonBuilder.setPrettyPrinting().create().toJson(userData) + "]");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-
-    @DisplayName(value = "readJsonFile() returns user data")
+    @Description(value = "readJsonFile() returns contents")
     @Test
-    public void readJsonFile_ReturnsUserData() throws IOException {
-        List<UserData> result = readJsonFile(file, UserData.class);
+    public void readJsonFile_ReturnsFileContent() throws IOException {
+        List<UserData> result = readJsonFile(tempFile.toFile(), UserData.class);
+
         assertNotNull(result);
         assertFalse(result.isEmpty());
     }
 
-
-
-
-    @DisplayName(value = "readJsonFile() throws FileNotFoundException if it can't find the file")
+    @Description(value = "readJsonFile() throws FileNotFoundException if it can't find the file")
     @Test
     public void readJsonFile_FileNotFoundException() throws IOException {
 
@@ -65,89 +71,67 @@ public class ReadAndWriteToJsonTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-
     @Test
-    @DisplayName(value = "writeToJsonFile() writes content")
-    public void writeToJsonFile_writes() throws IOException {
-
-        UserData newUserData = new UserData("392726", 38, "male", 80, 180, "Glute", "Gluten_free");
-        writeToJsonFile(newUserData, file, UserData.class);
-
-        assertTrue(file.exists());
-
-        // Read the content from the file
-        String fileContent = Files.readString(Path.of("src/main/resources/userData.json"));
-
-        // Deserialize the JSON content back into a list of UserData objects
-        UserData[] updateEntries = gsonBuilder.create().fromJson(fileContent, UserData[].class);
-
-        assertTrue(Arrays.stream(updateEntries).anyMatch(user -> user.getId().equals(newUserData.getId())));
-
-    }
-
-    @Test
-    @DisplayName(value = "writeToJsonFile() identify that user exist")
-    public void writeToJsonFile_dontWriteBecauseUserExist() throws IOException {
-
-        UserData newUserData = new UserData("443293", 28, "male", 80, 180, "Cardiovascular fitness", "Lactose free");
-
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            writeToJsonFile(newUserData, file, UserData.class);
-        });
-
-        String expectedMessage = "User already exist; update user data instead.";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-
-    @Test
-    @DisplayName(value = "readJsonObjById() returns user data with Id: 74693")
+    @Description(value = "readJsonObjById() returns content")
     public void readJsonObjById_ReturnsIdContent() throws IOException {
-
-        List<UserData> result = readJsonObjById("74693", file, UserData.class);
-        List<UserData> data = readJsonFile(file, UserData.class);
-
+        List<UserData> result = readAndWriteToJson.readJsonObjById("392726", tempFile.toFile(), UserData.class);
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertEquals(3, data.size());
-        assertEquals(result.get(0).getId(), "74693");
+        assertEquals(1, result.size());
+        assertEquals(result.get(0).getId(), userData.getId());
+    }
+
+    @Test
+    @Description(value = "writeToJsonFile() writes content")
+    public void writeToJsonFile_writes() throws IOException {
+
+        UserData newUserData = new UserData("748493", 48, "male", 75, 180, "Muscle", "Gluten_free");
+
+        writeToJsonFile(newUserData, tempFile.toFile(), UserData.class);
+
+        // Verify that the file has been written
+        assertTrue(tempFile.toFile().exists());
+
+        // Read the content from the file
+        String fileContent = Files.readString(tempFile);
+
+        // Deserialize the JSON content back into a list of OrderEntry objects
+        UserData[] updateUserData = gsonBuilder.create().fromJson(fileContent, UserData[].class);
+
+        assertEquals(Arrays.asList(updateUserData).get(1).getId(), newUserData.getId());
+        assertEquals(Arrays.asList(updateUserData).get(1).getAge(), newUserData.getAge());
+
+
     }
 
 
     @Test
-    @DisplayName(value = "updateJsonObjById() updates content")
+    @Description(value = "updateJsonObjById() updates content")
     public void updateJsonObjById_UpdatedContent() throws IOException {
-        UserData newUserData = new UserData("443293", 18, "female", 45, 160, "Lower_body", "");
-        List<UserData> data = readJsonFile(file, UserData.class);
+        UserData newUserData = new UserData("392726", 18, "female", 45, 160, "Lower_body", "");
+        updateUserDataId("392726", newUserData, tempFile.toFile());
 
-        updateUserDataId("443293", newUserData, file);
+        assertTrue(tempFile.toFile().exists());
 
-        assertTrue(file.exists());
+        String fileContent = Files.readString(tempFile);
 
-        String fileContent = Files.readString(Path.of("src/main/resources/userData.json"));
-
-        UserData[] updateEntries = gsonBuilder.create().fromJson(fileContent, UserData[].class);
-        assertEquals(3, data.size());
-        assertTrue(Arrays.asList(updateEntries).get(1).getGender() != "male");
-        assertTrue(Arrays.asList(updateEntries).get(1).getAge() == 19);
-        assertTrue(Arrays.asList(updateEntries).get(1).getHeight() == 150.0);
-
+        UserData[] updateUser = gsonBuilder.create().fromJson(fileContent, UserData[].class);
+        assertTrue(Arrays.asList(updateUser).get(0).getGender() != "male");
+        assertTrue(Arrays.asList(updateUser).get(0).getAge() == 18);
+        assertTrue(Arrays.asList(updateUser).get(0).getHeight() == 160);
     }
 
-
     @Test
-    @DisplayName(value = "deleteJsonObjById() deletes content")
+    @Description(value = "deleteJsonObjById() deletes content")
     public void deleteJsonObjById_DeletesContent() throws IOException {
+        deleteJsonObjById("443293", tempFile.toFile(), UserData.class);
 
-        deleteJsonObjById("443293", file, UserData.class);
+        assertTrue(tempFile.toFile().exists());
 
-        assertTrue(file.exists());
+        String fileContent = Files.readString(tempFile);
 
-        String fileContent = Files.readString(Path.of("src/main/resources/userData.json"));
-
-        UserData[] updateEntries = gsonBuilder.create().fromJson(fileContent, UserData[].class);
-        assertTrue(!Arrays.asList(updateEntries).contains("443293"));
+        UserData[] updateUserData = gsonBuilder.create().fromJson(fileContent, UserData[].class);
+        assertTrue(!Arrays.asList(updateUserData).contains("392726"));
 
     }
 

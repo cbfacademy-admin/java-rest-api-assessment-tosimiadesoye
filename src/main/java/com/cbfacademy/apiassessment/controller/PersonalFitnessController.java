@@ -63,7 +63,6 @@ public class PersonalFitnessController {
         }
     }
 
-    // todo - test in postman once all issues are resolved
     @GetMapping("/dailyMeal")
     public ResponseEntity<HashMap<String, Ideas>> readDailyMealPlan() {
         try {

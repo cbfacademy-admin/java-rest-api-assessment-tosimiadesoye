@@ -18,14 +18,6 @@ public class ChatGPTClient {
 
     public static Logger logger = LoggerFactory.getLogger(ChatGPTClient.class);
 
-//    public static void main(String args[]) {
-//
-//        try {
-//            chatGPT("Running");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     public static  ChatGPTResponse chatGPT(String value) {
         String model = "gpt-3.5-turbo";
         Dotenv dotenv = Dotenv.configure()
@@ -35,7 +27,7 @@ public class ChatGPTClient {
                 .load();
 
         String apiKey = dotenv.get("OPENAI_API_KEY");
-        logger.info(apiKey);
+
         String prompt = "Give me a workout that I can do for achieving this goal: " +
                 value + ". give me the json back as a jsonString only in this format: {name: workout I should do for" +
                 " achieving my " + value + " goal, suitable_for:[" + value + ", etc]}";
@@ -49,7 +41,6 @@ public class ChatGPTClient {
             StringBuilder response = new StringBuilder();
             Gson gson = new Gson();
 
-            logger.info(String.valueOf(response));
             while ((line = br.readLine()) != null) {
                 response.append(line);
             }

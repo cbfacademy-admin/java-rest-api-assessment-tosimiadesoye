@@ -2,8 +2,6 @@ package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import com.cbfacademy.apiassessment.OpenAI.ChatGPTResponse;
 
-import com.cbfacademy.apiassessment.userData.UserData;
-
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
@@ -25,16 +23,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
 
-
-    public static void main(String args[]) {
-
-        try {
-            var workout = new PersonalisedFitnessPlan()
-                    .generateWorkout("Running");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public double calculateBMR(String gender, double weight, double height, int age) {
@@ -109,7 +97,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
             }
         }
         if (!found) {
-
             Workout newWorkout = readChatGPTResponse(goal);
             if (newWorkout != null) {
                 logger.info(String.valueOf(newWorkout));
@@ -129,14 +116,12 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     public Workout readChatGPTResponse(String goal) {
         ChatGPTResponse chatGPT = chatGPT(goal);
 
-        Gson gson = new Gson();
-//        String response = gson.toJson(chatGPT, ChatGPTResponse.class);
-//        logger.info(String.valueOf(chatGPT));
         var response = chatGPT.getChoices().get(0).getMessage().getContent();
-        logger.info(response);
-//       var r = gson.toJson(response, Workout.class);
-//       logger.info(r);
-        return null;
+
+        Gson gson = new Gson();
+        Workout workout = gson.fromJson(response, Workout.class);
+        logger.info(String.valueOf(workout));
+        return workout;
     }
 
 
