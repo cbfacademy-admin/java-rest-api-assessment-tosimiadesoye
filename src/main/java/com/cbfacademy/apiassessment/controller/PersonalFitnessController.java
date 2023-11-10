@@ -29,23 +29,23 @@ public class PersonalFitnessController {
         this.personalFitnessServices = personalFitnessServices;
     }
 
-    @GetMapping("/{gender}/{weight}/{height}/{age}")
+    @GetMapping("/BMR/{gender}/{weight}/{height}/{age}")
     public ResponseEntity<Double> restingKcal(@PathVariable String gender,
-                                              @PathVariable double weight,
-                                              @PathVariable double height, @PathVariable int age) {
+            @PathVariable double weight,
+            @PathVariable double height, @PathVariable int age) {
         try {
             Double restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
-         return  ResponseEntity.ok(restingKcal);
+            return ResponseEntity.ok(restingKcal);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    @GetMapping("/{gender}/{weight}/{height}/{age}/{activityLevel}")
+    @GetMapping("/TDEE/{gender}/{weight}/{height}/{age}/{activityLevel}")
     public ResponseEntity<Double> readTDEE(@PathVariable String gender, @PathVariable double weight,
-                                           @PathVariable double height, @PathVariable int age, @PathVariable ActivityLevel activityLevel) {
+            @PathVariable double height, @PathVariable int age, @PathVariable ActivityLevel activityLevel) {
         try {
-            Double kcalConsumption = personalFitnessServices.getDailyKcalConsumption(gender, weight,
+            Double kcalConsumption = personalFitnessServices.getTDEE(gender, weight,
                     height, age, activityLevel);
             return ResponseEntity.ok(kcalConsumption);
         } catch (RuntimeException e) {
@@ -53,7 +53,7 @@ public class PersonalFitnessController {
         }
     }
 
-    @GetMapping("/meal/type/{mealType}")
+    @GetMapping("/mealType/{mealType}")
     public ResponseEntity<Ideas> readMealPlan(@PathVariable String mealType) {
         try {
             Ideas ideas = personalFitnessServices.getMealPlan(mealType);
@@ -73,7 +73,7 @@ public class PersonalFitnessController {
         }
     }
 
-    @GetMapping("/{goal}")
+    @GetMapping("/fitnessGoal/{goal}")
     public ResponseEntity<List<Workout>> readWorkoutPlan(@PathVariable String goal) {
         try {
             List<Workout> workout = personalFitnessServices.getWorkoutPlan(goal);

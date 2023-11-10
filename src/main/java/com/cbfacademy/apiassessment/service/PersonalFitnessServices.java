@@ -27,12 +27,11 @@ public class PersonalFitnessServices {
         return personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
     }
 
-    public Double getDailyKcalConsumption(String gender, double weight,
-                                          double height, int age, ActivityLevel activityLevel) throws RuntimeException {
-        return personalisedFitnessPlan.calcDailyKcalConsumption(gender, weight,
+    public Double getTDEE(String gender, double weight,
+            double height, int age, ActivityLevel activityLevel) throws RuntimeException {
+        return personalisedFitnessPlan.totalDailyEnergyExpenditure(gender, weight,
                 height, age, activityLevel);
     }
-
 
     public Ideas getMealPlan(String mealType) throws IOException {
         return personalisedFitnessPlan.generateMealPlan(mealType);
@@ -45,6 +44,5 @@ public class PersonalFitnessServices {
     public List<Workout> getWorkoutPlan(String goal) throws IOException {
         return personalisedFitnessPlan.generateWorkout(goal);
     }
-
 
 }
