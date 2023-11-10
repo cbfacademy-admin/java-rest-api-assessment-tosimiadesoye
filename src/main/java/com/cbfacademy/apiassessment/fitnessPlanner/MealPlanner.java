@@ -9,6 +9,5 @@ public interface MealPlanner {
 
     public List<Ideas> mealType(String type) throws IOException;
     public Ideas generateMealPlan(String mealType) throws IOException;
-
     public HashMap<String, Ideas> generateFullDayMeal() throws IOException;
 }

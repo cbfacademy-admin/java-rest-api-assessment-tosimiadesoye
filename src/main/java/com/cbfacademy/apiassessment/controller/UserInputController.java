@@ -65,15 +65,15 @@ public class UserInputController {
     @Operation(
             description = "User post service",
             responses = {
-                    @ApiResponse(responseCode = "200", ref = "badRequestAPI"),
+                    @ApiResponse(responseCode = "201", ref = "badRequestAPI"),
                     @ApiResponse(
-                            responseCode = "200",
+                            responseCode = "201",
                             description = "Successfully created user!",
                             content = @Content(
                                     mediaType = "application/json",
                                     examples = {
                                             @ExampleObject(
-                                                    value = "{\"code\" : 200, \"Status\" : \"Ok!\", \"Message\" :\"Successfully created user!\"}"
+                                                    value = "{\"code\" : 201, \"Status\" : \"Created!\", \"Message\" :\"Successfully created user!\"}"
                                             ),
                                     }
                             )
@@ -84,47 +84,28 @@ public class UserInputController {
 
         try {
             userDataService.createUserInput(userData);
-            return new ResponseEntity<>(new WebResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), "Successfully created user!"), HttpStatus.OK);
+            return new ResponseEntity<>(new WebResponse(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), "Successfully created user!"), HttpStatus.CREATED);
         } catch (IOException e) {
             return new ResponseEntity<>(new WebResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/{id}")
-    @Operation(
-            description = "User put service",
-            responses = {
-                    @ApiResponse(responseCode = "200", ref = "badRequestAPI"),
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "Successfully created user!",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    examples = {
-                                            @ExampleObject(
-                                                    value = "{\"code\" : 200, \"Status\" : \"Ok!\", \"Message\" :\"Successfully updated user!\"}"
-                                            ),
-                                    }
-                            )
-                    )
-            }
-    )
     public ResponseEntity<WebResponse> updateUserDataById(@PathVariable String id, @RequestBody UserData userData) {
 
         try {
             userDataService.updateUserInputById(id, userData);
-            return new ResponseEntity<>(new WebResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), "Successfully updated user!"), HttpStatus.OK);
+            return ResponseEntity.noContent().build();
         } catch (IOException e) {
             return new ResponseEntity<>(new WebResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserDataById(@PathVariable String id) {
+    public ResponseEntity<WebResponse> deleteUserDataById(@PathVariable String id) {
         try {
             userDataService.deleteUserInputById(id);
             return ResponseEntity.noContent().build();
-
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

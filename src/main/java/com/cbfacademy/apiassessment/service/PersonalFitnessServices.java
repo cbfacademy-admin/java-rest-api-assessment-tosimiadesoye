@@ -5,8 +5,10 @@ import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.PersonalisedFitnessPlan;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -21,15 +23,14 @@ public class PersonalFitnessServices {
         this.personalisedFitnessPlan = personalisedFitnessPlan;
     }
 
-
     public double getRestingCalories(String gender, double weight, double height, int age) throws RuntimeException {
         return personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
     }
 
-    public Double getDailyKcalConsumption(String gender,double weight,
+    public Double getDailyKcalConsumption(String gender, double weight,
                                           double height, int age, ActivityLevel activityLevel) throws RuntimeException {
         return personalisedFitnessPlan.calcDailyKcalConsumption(gender, weight,
-        height,  age, activityLevel);
+                height, age, activityLevel);
     }
 
 

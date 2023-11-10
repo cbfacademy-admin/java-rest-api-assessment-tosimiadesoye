@@ -4,6 +4,7 @@ import com.cbfacademy.apiassessment.OpenAI.ChatGPTResponse;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -19,11 +20,15 @@ import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
 @Component
 public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, WorkoutPlanner {
-    private static final File MEAL_DATA_FILE_PATH = new File("src/main/resources/meals.json");
-    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
+    private final File mealDataFilePath;
+    private final File workOutDataFilePath;
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
 
-
+    public PersonalisedFitnessPlan(@Value("${mealDataFilePath}") String mealDataFilePath, @Value("${workOutDataFilePath}") String workOutDataFilePath) {
+        this.mealDataFilePath = new File(mealDataFilePath);
+        this.workOutDataFilePath = new File(workOutDataFilePath);
+    }
+    
     @Override
     public double calculateBMR(String gender, double weight, double height, int age) {
         double basalMetabolicRate;
@@ -39,8 +44,8 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
     @Override
     public double calcDailyKcalConsumption(String gender, double weight,
-                                           double height, int age,
-                                           ActivityLevel activityLevel) {
+            double height, int age,
+            ActivityLevel activityLevel) {
         double BMR = calculateBMR(gender, weight, height, age);
 
         return BMR * activityLevel.getMultiplier();
@@ -49,10 +54,10 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
     @Override
     public List<Ideas> mealType(String mealType) throws IOException {
-        List<MealIdeas> allMeals = readJsonFile(MEAL_DATA_FILE_PATH, MealIdeas.class);
+        List<MealIdeas> allMeals = readJsonFile(mealDataFilePath, MealIdeas.class);
 
         List<Ideas> ideas = allMeals.stream().filter(meal -> meal.getMealType()
-                        .equalsIgnoreCase(mealType)).findFirst()
+                .equalsIgnoreCase(mealType)).findFirst()
                 .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
 
         return ideas;
@@ -82,11 +87,10 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return (int) (Math.random() * (max - min + 1)) + min;
     }
 
-
     @Override
     public List<Workout> generateWorkout(String goal) throws IOException {
         List<Workout> workout = new ArrayList<>();
-        List<Workout> allWorkout = readJsonFile(WORKOUT_DATA_FILE_PATH, Workout.class);
+        List<Workout> allWorkout = readJsonFile(workOutDataFilePath, Workout.class);
 
         var found = false;
         for (Workout w : allWorkout) {
@@ -110,7 +114,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
     @Override
     public void addWorkout(Workout workout) throws IOException {
-        writeToJsonFile(workout, WORKOUT_DATA_FILE_PATH, Workout.class);
+        writeToJsonFile(workout, workOutDataFilePath, Workout.class);
     }
 
     public Workout readChatGPTResponse(String goal) {
@@ -123,6 +127,5 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         logger.info(String.valueOf(workout));
         return workout;
     }
-
 
 }
