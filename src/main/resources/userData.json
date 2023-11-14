@@ -5,18 +5,7 @@
     "gender": "female",
     "weight": 50.0,
     "height": 160.0,
-    "fitness_goal": "Upper_body",
-    "allergy": "Yes"
-  },
-  {
-    "id": "dhdbs",
-    "age": 19,
-    "gender": "female",
-    "weight": 45.0,
-    "height": 150.0,
-    "fitness_goal": "Long_distance_running",
-    "dietary_preference": "Non",
-    "allergy": "Yes"
+    "fitness_goal": "Upper_body"
   },
   {
     "id": "443293",
@@ -25,7 +14,6 @@
     "weight": 45.0,
     "height": 160.0,
     "fitness_goal": "Lower_body",
-    "dietary_preference": "Non",
-    "allergy": "Yes"
+    "dietary_preference": "Non"
   }
 ]

@@ -32,16 +32,15 @@ public class UserInputController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserData>> readUserDataApi()  {
-
+    public ResponseEntity<List<UserData>> readUserData()  {
             List<UserData> entries = userDataService.getUserInput();
             return ResponseEntity.ok(entries);
 
 
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<UserData>> readUserDataByIdApi(@RequestParam String id) {
+    @GetMapping("/userId")
+    public ResponseEntity<List<UserData>> readUserDataById(@RequestParam String id) {
 
             List<UserData> entry = userDataService.getUserInputById(id);
             if (entry.isEmpty()) {
@@ -72,7 +71,7 @@ public class UserInputController {
                     )
             }
     )
-    public ResponseEntity<WebResponse> createUserDataApi(@RequestBody UserData userData) {
+    public ResponseEntity<WebResponse> createUserData(@RequestBody UserData userData) {
 
 
             userDataService.createUserInput(userData);
@@ -80,7 +79,7 @@ public class UserInputController {
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<WebResponse> updateUserDataById(@RequestParam String id, @RequestBody UserData userData) {
 
 
@@ -89,7 +88,7 @@ public class UserInputController {
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     public ResponseEntity<WebResponse> deleteUserDataById(@RequestParam String id) {
 
             userDataService.deleteUserInputById(id);

@@ -1,0 +1,57 @@
+[
+  {
+    "mealType": "Breakfast",
+    "ideas": [
+      {
+        "food": "Oatmeal with Berries",
+        "type": "Breakfast",
+        "suitable_for": [
+          "Vegetarian",
+          "Vegan",
+          "Pescatarian",
+          "Keto",
+          "Gluten_free",
+          "Lactose_free",
+          "Low_carb",
+          "Mediterranean"
+        ],
+        "recipe": "1. Cook 1/2 cup of rolled oats in 1 cup of water or milk.\n2. Top with a handful of fresh mixed berries.\n3. Drizzle honey or maple syrup for sweetness.\n4. Sprinkle with chopped nuts for extra crunch.\n5. Enjoy!"
+      }
+    ]
+  },
+  {
+    "mealType": "Dinner",
+    "ideas": [
+      {
+        "food": "Grilled Salmon with Asparagus",
+        "type": "Dinner",
+        "suitable_for": [
+          "Pescatarian",
+          "Keto",
+          "Gluten_free",
+          "Lactose_free",
+          "Mediterranean"
+        ],
+        "recipe": "1. Grill salmon fillets until cooked. \n2. Roast asparagus with olive oil, salt, and pepper. \n3. Serve together and enjoy!"
+      }
+    ]
+  },
+  {
+    "mealType": "Lunch",
+    "ideas": [
+      {
+        "food": "Grilled Chicken Salad",
+        "type": "Lunch",
+        "suitable_for": [
+          "Vegetarian",
+          "Pescatarian",
+          "Keto",
+          "Gluten_free",
+          "Lactose_free",
+          "Mediterranean"
+        ],
+        "recipe": "1. Grill chicken breast. \n2. Toss with mixed greens, cherry tomatoes, cucumbers, and balsamic vinaigrette. \n3. Serve and enjoy!"
+      }
+    ]
+  }
+]

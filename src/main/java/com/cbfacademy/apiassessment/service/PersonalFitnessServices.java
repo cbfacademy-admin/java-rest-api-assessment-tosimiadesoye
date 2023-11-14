@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class PersonalFitnessServices {
@@ -19,12 +20,12 @@ public class PersonalFitnessServices {
     private final ReadAndWriteToJson readAndWriteToJson = new ReadAndWriteToJson();
     private final PersonalisedFitnessPlan personalisedFitnessPlan = new PersonalisedFitnessPlan(readAndWriteToJson);
 
-    public double getRestingCalories(CalculateCalories.Gender gender, double weight, double height, int age) {
+    public long getRestingCalories(CalculateCalories.Gender gender, double weight, double height, int age) {
         return personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
     }
 
-    public Double getTDEE(CalculateCalories.Gender gender, double weight,
-                          double height, int age, ActivityLevel activityLevel) {
+    public long getTDEE(CalculateCalories.Gender gender, double weight,
+                        double height, int age, ActivityLevel activityLevel) {
 
         return personalisedFitnessPlan.calculateTDEE(gender, weight,
                 height, age, activityLevel);
@@ -32,10 +33,14 @@ public class PersonalFitnessServices {
 
     public Ideas getMealPlan(String mealType) {
         try {
-            if (mealType.equals(MealType.BREAKFAST.name()) || mealType.equals(MealType.LUNCH.name()) || mealType.equals(MealType.DINNER.name())) {
-                throw new IllegalArgumentException("Invalid mealType. Expected value is BREAKFAST or LUNCH, or DINNER.");
+            String newMeal = mealType.toUpperCase(Locale.forLanguageTag(mealType));
+            if (newMeal.equals(MealType.BREAKFAST.name()) ||
+                    newMeal.equals(MealType.LUNCH.name()) ||
+                    newMeal.equals(MealType.DINNER.name())) {
+                return personalisedFitnessPlan.generateMealIdea(newMeal, MEAL_DATA_FILE_PATH);
             } else {
-                return personalisedFitnessPlan.generateMealIdea(mealType, MEAL_DATA_FILE_PATH);
+                throw new IllegalArgumentException("Invalid mealType. Expected value is BREAKFAST or LUNCH, or DINNER.");
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

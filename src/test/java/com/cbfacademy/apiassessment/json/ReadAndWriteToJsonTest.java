@@ -18,7 +18,6 @@ import java.util.*;
 
 import org.springframework.context.annotation.Description;
 
-import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Description(value = "I/O")
@@ -44,7 +43,7 @@ public class ReadAndWriteToJsonTest {
             tempFile = Files.createFile(tempDir.resolve("temp.json"));
             Files.writeString(tempFile, "[" + gsonBuilder.setPrettyPrinting().create().toJson(userData) + "]");
         } catch (IOException e) {
-            e.printStackTrace();
+           throw new RuntimeException(e);
         }
     }
 
@@ -116,9 +115,9 @@ public class ReadAndWriteToJsonTest {
         String fileContent = Files.readString(tempFile);
 
         UserData[] updateUser = gsonBuilder.create().fromJson(fileContent, UserData[].class);
-        assertTrue(Arrays.asList(updateUser).get(0).getGender() != "male");
-        assertTrue(Arrays.asList(updateUser).get(0).getAge() == 18);
-        assertTrue(Arrays.asList(updateUser).get(0).getHeight() == 160);
+        assertNotSame("male", Arrays.asList(updateUser).get(0).getGender());
+        assertEquals(18, Arrays.asList(updateUser).get(0).getAge());
+        assertEquals(160, Arrays.asList(updateUser).get(0).getHeight());
     }
 
     @Test
@@ -131,7 +130,7 @@ public class ReadAndWriteToJsonTest {
         String fileContent = Files.readString(tempFile);
 
         UserData[] updateUserData = gsonBuilder.create().fromJson(fileContent, UserData[].class);
-        assertTrue(!Arrays.asList(updateUserData).contains("392726"));
+        assertFalse(Arrays.asList(updateUserData).contains("392726"));
 
     }
 

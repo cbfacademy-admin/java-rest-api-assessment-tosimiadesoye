@@ -36,7 +36,7 @@ class ActivityLevelControllerTest {
     }
 
     @Test
-    @Description("//api/v1/activityLevel endpoint returns response for activity level")
+    @Description("/api/v1/activityLevel endpoint returns response for activity level")
     public void activityLevel_ExpectedResponseWithActivityLevel() {
         ResponseEntity<String> response = restTemplate.getForEntity(base.toString(), String.class);
         assertEquals(200, response.getStatusCode().value());

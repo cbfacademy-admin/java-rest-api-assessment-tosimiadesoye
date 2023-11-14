@@ -65,8 +65,9 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      */
 
     @Override
-    public double calculateBMR(Gender gender, double weight, double height, int age) {
-        double basalMetabolicRate;
+    public long calculateBMR(Gender gender, double weight, double height, int age) {
+
+        long basalMetabolicRate;
 
         if (!(weight > 0 && height > 0 && age > 0)) {
             throw new IllegalArgumentException("Weight, height, and age must be non zero or a non-negative values.");
@@ -74,15 +75,15 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
         switch (gender) {
             case FEMALE:
-                basalMetabolicRate = WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height) - (WOMEN_AGE_COEFFICIENT * age);
+                basalMetabolicRate = (long) (WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height) - (WOMEN_AGE_COEFFICIENT * age));
                 break;
             case MALE:
-                basalMetabolicRate = MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height) - (MEN_AGE_COEFFICIENT * age);
+                basalMetabolicRate = (long) (MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height) - (MEN_AGE_COEFFICIENT * age));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid gender: " + gender);
         }
-        return basalMetabolicRate;
+        return  Math.round(basalMetabolicRate);
     }
 
     /**
@@ -97,12 +98,12 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return Total calories a user burns per day (TDEE)
      */
     @Override
-    public double calculateTDEE(Gender gender, double weight,
-                                double height, int age,
-                                ActivityLevel activityLevel) {
+    public long calculateTDEE(Gender gender, double weight,
+                              double height, int age,
+                              ActivityLevel activityLevel) {
         double BMR = calculateBMR(gender, weight, height, age);
 
-        return BMR * activityLevel.getMultiplier();
+        return Math.round(BMR * activityLevel.getMultiplier());
 
     }
 
@@ -113,8 +114,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return A list of meal ideas corresponding to the specified meal type
      * @throws IOException if there is a problem reading the input file
      */
-
-
     @Override
     public List<Ideas> getMealsFromType(String mealType, File mealDataFile) throws IOException {
 
@@ -140,7 +139,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     @Override
     public Ideas generateMealIdea(String mealType, File mealDataFile) throws IOException {
         int min = 0;
-        int max = getMealsFromType(mealType,mealDataFile ).size();
+        int max = getMealsFromType(mealType,mealDataFile).size() - 1;
         int randomNum = getRandomNumber(max, min);
         return getMealsFromType(mealType, mealDataFile).get(randomNum);
     }
@@ -182,7 +181,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         List<Workout> workout = new ArrayList<>();
         List<Workout> allWorkout = readAndWriteToJson.readJsonFile(workOutDataFile, Workout.class);
 
-        var found = false;
+        boolean found = false;
         for (Workout w : allWorkout) {
             List<String> suitableForList = w.getSuitable_for();
             if (suitableForList.contains(goal)) {
@@ -222,7 +221,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     public Workout readChatGPTResponse(String goal) {
         ChatGPTResponse chatGPT = chatGPT(goal);
 
-        var response = chatGPT.getChoices().get(0).getMessage().getContent();
+        String response = chatGPT.getChoices().get(0).getMessage().getContent();
 
         Gson gson = new Gson();
         Workout workout = gson.fromJson(response, Workout.class);

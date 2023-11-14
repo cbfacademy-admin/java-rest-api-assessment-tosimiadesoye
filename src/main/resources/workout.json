@@ -285,5 +285,11 @@
       "Cardiovascular_fitness",
       "Full_body"
     ]
+  },
+  {
+    "name": "Thigh Tone Workout",
+    "suitable_for": [
+      "tone_thigh"
+    ]
   }
 ]

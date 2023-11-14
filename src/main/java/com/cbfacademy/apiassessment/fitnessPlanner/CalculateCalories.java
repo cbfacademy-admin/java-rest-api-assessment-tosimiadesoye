@@ -1,10 +1,10 @@
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 public interface CalculateCalories {
-    public double calculateBMR(Gender gender, double weight, double height, int age);
+    public long calculateBMR(Gender gender, double weight, double height, int age);
 
-    public double calculateTDEE(Gender gender, double weight, double height, int age,
-                                ActivityLevel activityLevel);
+    public long calculateTDEE(Gender gender, double weight, double height, int age,
+                              ActivityLevel activityLevel);
 
     public static enum ActivityLevel {
         SEDENTARY(1.2), // little or no exercise

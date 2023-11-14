@@ -1,6 +1,6 @@
 package com.cbfacademy.apiassessment.controller;
 
-import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories;
+import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.Gender;
 import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
@@ -26,30 +26,28 @@ public class PersonalFitnessController {
         this.personalFitnessServices = personalFitnessServices;
     }
 
-    @GetMapping("/BMR/{gender}/{weight}/{height}/{age}")
-    public ResponseEntity<Double> restingKcal(@RequestParam CalculateCalories.Gender
-                                                          gender,
-            @RequestParam double weight,
-            @RequestParam double height, @RequestParam int age) {
+    @GetMapping("/BMR")
+    public ResponseEntity<Long> restingKcal(@RequestParam Gender gender,
+                                            @RequestParam double weight,
+                                            @RequestParam double height,
+                                            @RequestParam int age) {
 
-            Double restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
+        Long restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
             return ResponseEntity.ok(restingKcal);
 
     }
 
-    @GetMapping("/TDEE/{gender}/{weight}/{height}/{age}/{activityLevel}")
-    public ResponseEntity<Double> readTDEE(@RequestParam CalculateCalories.Gender gender, @RequestParam double weight,
+    @GetMapping("/TDEE")
+    public ResponseEntity<Long> readTDEE(@RequestParam Gender gender, @RequestParam double weight,
                                            @RequestParam double height, @RequestParam int age, @RequestParam ActivityLevel activityLevel) {
-
-            Double kcalConsumption = personalFitnessServices.getTDEE(gender, weight,
+            Long kcalConsumption = personalFitnessServices.getTDEE(gender, weight,
                     height, age, activityLevel);
             return ResponseEntity.ok(kcalConsumption);
 
     }
 
-    @GetMapping("/mealType/{mealType}")
+@GetMapping
     public ResponseEntity<Ideas> readMealPlan(@RequestParam String mealType) {
-
             Ideas ideas = personalFitnessServices.getMealPlan(mealType);
             return ResponseEntity.ok(ideas);
 
@@ -57,15 +55,13 @@ public class PersonalFitnessController {
 
     @GetMapping("/dailyMeal")
     public ResponseEntity<HashMap<String, Ideas>> readDailyMealPlan() {
-
             HashMap<String, Ideas> dailyMeal = personalFitnessServices.getDailyMeal();
             return ResponseEntity.ok(dailyMeal);
 
     }
 
-    @GetMapping("/fitnessGoal/{goal}")
+    @GetMapping("/fitnessGoal")
     public ResponseEntity<List<Workout>> readWorkoutPlan(@RequestParam String goal) {
-
             List<Workout> workout = personalFitnessServices.getWorkoutPlan(goal);
             return ResponseEntity.ok(workout);
 
