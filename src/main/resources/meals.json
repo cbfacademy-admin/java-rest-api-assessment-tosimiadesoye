@@ -4,6 +4,7 @@
     "ideas": [
       {
         "food": "Oatmeal with Berries",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -18,6 +19,7 @@
       },
       {
         "food": "Greek Yogurt Parfait",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -29,6 +31,7 @@
       },
       {
         "food": "Scrambled Eggs with Spinach",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -40,10 +43,12 @@
       },
       {
         "food": "Smoked Salmon Bagel",
+        "type": "Breakfast",
         "suitable_for": ["Pescatarian", "Lactose_free", "Mediterranean"]
       },
       {
         "food": "Avocado Toast",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -57,6 +62,7 @@
       },
       {
         "food": "Bacon and Eggs",
+        "type": "Breakfast",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -67,6 +73,7 @@
       },
       {
         "food": "Fruit Salad",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -79,10 +86,12 @@
       },
       {
         "food": "Pancakes",
+        "type": "Breakfast",
         "suitable_for": ["Vegetarian", "Pescatarian", "Mediterranean"]
       },
       {
         "food": "Smoothie Bowl",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -93,10 +102,12 @@
       },
       {
         "food": "Egg and Cheese Breakfast Burrito",
+        "type": "Breakfast",
         "suitable_for": ["Vegetarian", "Pescatarian", "Mediterranean"]
       },
       {
         "food": "Chia Pudding",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -108,14 +119,17 @@
       },
       {
         "food": "French Toast",
+        "type": "Breakfast",
         "suitable_for": ["Vegetarian", "Pescatarian"]
       },
       {
         "food": "Muesli with Yogurt and Nuts",
+        "type": "Breakfast",
         "suitable_for": ["Vegetarian", "Pescatarian", "Mediterranean"]
       },
       {
         "food": "Egg White Omelette",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -127,10 +141,12 @@
       },
       {
         "food": "Breakfast Quesadilla",
+        "type": "Breakfast",
         "suitable_for": ["Vegetarian", "Pescatarian"]
       },
       {
         "food": "Protein Pancakes",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -141,6 +157,7 @@
       },
       {
         "food": "Frittata with Vegetables",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -152,6 +169,7 @@
       },
       {
         "food": "Quinoa Breakfast Bowl",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -164,6 +182,7 @@
       },
       {
         "food": "Cottage Cheese with Fruit",
+        "type": "Breakfast",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -174,6 +193,7 @@
       },
       {
         "food": "Sausage and Vegetable Skillet",
+        "type": "Breakfast",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -189,6 +209,7 @@
     "ideas": [
       {
         "food": "Grilled Chicken Salad",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -201,10 +222,12 @@
       },
       {
         "food": "Caprese Sandwich",
+        "type": "Lunch",
         "suitable_for": ["Vegetarian", "Mediterranean"]
       },
       {
         "food": "Quinoa and Black Bean Bowl",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -216,6 +239,7 @@
       },
       {
         "food": "Tuna Salad Wrap",
+        "type": "Lunch",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -226,6 +250,7 @@
       },
       {
         "food": "Vegetable Stir-Fry",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -238,6 +263,7 @@
       },
       {
         "food": "Chickpea and Spinach Salad",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -250,6 +276,7 @@
       },
       {
         "food": "Miso Soup with Tofu",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -260,10 +287,12 @@
       },
       {
         "food": "Turkey and Avocado Wrap",
+        "type": "Lunch",
         "suitable_for": ["Pescatarian", "Keto", "Gluten_free", "Lactose_free"]
       },
       {
         "food": "Buddha Bowl with Hummus",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -276,6 +305,7 @@
       },
       {
         "food": "Egg Salad Sandwich",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -287,6 +317,7 @@
       },
       {
         "food": "Salmon and Asparagus",
+        "type": "Lunch",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -297,6 +328,7 @@
       },
       {
         "food": "Mushroom Risotto",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -307,6 +339,7 @@
       },
       {
         "food": "Avocado Chickpea Salad",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -319,6 +352,7 @@
       },
       {
         "food": "Chicken and Vegetable Wrap",
+        "type": "Lunch",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -329,10 +363,12 @@
       },
       {
         "food": "Pasta Primavera",
+        "type": "Lunch",
         "suitable_for": ["Vegetarian", "Pescatarian", "Mediterranean"]
       },
       {
         "food": "Cauliflower Rice Bowl",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -345,6 +381,7 @@
       },
       {
         "food": "Shrimp and Quinoa Salad",
+        "type": "Lunch",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -355,6 +392,7 @@
       },
       {
         "food": "Veggie Wrap with Hummus",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -367,6 +405,7 @@
       },
       {
         "food": "Tofu and Vegetable Stir-Fry",
+        "type": "Lunch",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -379,6 +418,7 @@
       },
       {
         "food": "Cobb Salad",
+        "type": "Lunch",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -394,6 +434,7 @@
     "ideas": [
       {
         "food": "Grilled Salmon with Asparagus",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -405,6 +446,7 @@
       },
       {
         "food": "Vegetable Stir-Fry with Tofu",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -417,6 +459,7 @@
       },
       {
         "food": "Mushroom Risotto",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -427,6 +470,7 @@
       },
       {
         "food": "Grilled Chicken with Quinoa",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -437,10 +481,12 @@
       },
       {
         "food": "Pasta Primavera",
+        "type": "Dinner",
         "suitable_for": ["Vegetarian", "Pescatarian", "Mediterranean"]
       },
       {
         "food": "Chickpea Curry",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -452,6 +498,7 @@
       },
       {
         "food": "Tofu and Broccoli Stir-Fry",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -464,6 +511,7 @@
       },
       {
         "food": "Baked Cod with Vegetables",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -474,6 +522,7 @@
       },
       {
         "food": "Lentil Soup",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -486,6 +535,7 @@
       },
       {
         "food": "Beef and Broccoli Stir-Fry",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -496,6 +546,7 @@
       },
       {
         "food": "Spaghetti Squash with Pesto",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -508,6 +559,7 @@
       },
       {
         "food": "Stuffed Bell Peppers",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -519,6 +571,7 @@
       },
       {
         "food": "Salmon Teriyaki",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -529,6 +582,7 @@
       },
       {
         "food": "Chicken and Vegetable Skewers",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -539,6 +593,7 @@
       },
       {
         "food": "Quinoa and Black Bean Bowl",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -551,6 +606,7 @@
       },
       {
         "food": "Eggplant Parmesan",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Pescatarian",
@@ -562,6 +618,7 @@
       },
       {
         "food": "Butternut Squash Soup",
+        "type": "Dinner",
         "suitable_for": [
           "Vegetarian",
           "Vegan",
@@ -574,6 +631,7 @@
       },
       {
         "food": "Shrimp Scampi",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",
@@ -584,6 +642,7 @@
       },
       {
         "food": "Beef Stir-Fry",
+        "type": "Dinner",
         "suitable_for": [
           "Pescatarian",
           "Keto",

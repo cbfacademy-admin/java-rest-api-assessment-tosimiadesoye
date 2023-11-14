@@ -3,7 +3,7 @@ package com.cbfacademy.apiassessment.controller;
 import com.cbfacademy.apiassessment.service.ActivityLevelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +25,9 @@ public class ActivityLevelController {
 
     @GetMapping
     public ResponseEntity<List<String>> readActivityLevel(){
-        try {
+
             List<String> activityLevel = activityLevelService.getActivityLevelAsAList();
             return ResponseEntity.ok(activityLevel);
-        }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 }

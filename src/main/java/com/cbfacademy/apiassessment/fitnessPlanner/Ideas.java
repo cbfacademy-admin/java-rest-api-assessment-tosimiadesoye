@@ -2,16 +2,20 @@ package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import java.util.List;
 
-public class Ideas{
+public class Ideas {
 
     String food;
+
+    String type;
+
     List<String> suitable_for;
     String recipe;
 
-    public Ideas(String food, List<String> suitable_for, String recipe) {
+    public Ideas(String food, String type, List<String> suitable_for, String recipe) {
         this.food = food;
         this.suitable_for = suitable_for;
         this.recipe = recipe;
+        this.type = type;
     }
 
     public String getFood() {
@@ -36,6 +40,14 @@ public class Ideas{
 
     public void setRecipe(String recipe) {
         this.recipe = recipe;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

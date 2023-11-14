@@ -1,19 +1,16 @@
 package com.cbfacademy.apiassessment.controller;
 
+import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories;
 import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,57 +27,48 @@ public class PersonalFitnessController {
     }
 
     @GetMapping("/BMR/{gender}/{weight}/{height}/{age}")
-    public ResponseEntity<Double> restingKcal(@PathVariable String gender,
-            @PathVariable double weight,
-            @PathVariable double height, @PathVariable int age) {
-        try {
+    public ResponseEntity<Double> restingKcal(@RequestParam CalculateCalories.Gender
+                                                          gender,
+            @RequestParam double weight,
+            @RequestParam double height, @RequestParam int age) {
+
             Double restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
             return ResponseEntity.ok(restingKcal);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @GetMapping("/TDEE/{gender}/{weight}/{height}/{age}/{activityLevel}")
-    public ResponseEntity<Double> readTDEE(@PathVariable String gender, @PathVariable double weight,
-            @PathVariable double height, @PathVariable int age, @PathVariable ActivityLevel activityLevel) {
-        try {
+    public ResponseEntity<Double> readTDEE(@RequestParam CalculateCalories.Gender gender, @RequestParam double weight,
+                                           @RequestParam double height, @RequestParam int age, @RequestParam ActivityLevel activityLevel) {
+
             Double kcalConsumption = personalFitnessServices.getTDEE(gender, weight,
                     height, age, activityLevel);
             return ResponseEntity.ok(kcalConsumption);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @GetMapping("/mealType/{mealType}")
-    public ResponseEntity<Ideas> readMealPlan(@PathVariable String mealType) {
-        try {
+    public ResponseEntity<Ideas> readMealPlan(@RequestParam String mealType) {
+
             Ideas ideas = personalFitnessServices.getMealPlan(mealType);
             return ResponseEntity.ok(ideas);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @GetMapping("/dailyMeal")
     public ResponseEntity<HashMap<String, Ideas>> readDailyMealPlan() {
-        try {
+
             HashMap<String, Ideas> dailyMeal = personalFitnessServices.getDailyMeal();
             return ResponseEntity.ok(dailyMeal);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @GetMapping("/fitnessGoal/{goal}")
-    public ResponseEntity<List<Workout>> readWorkoutPlan(@PathVariable String goal) {
-        try {
+    public ResponseEntity<List<Workout>> readWorkoutPlan(@RequestParam String goal) {
+
             List<Workout> workout = personalFitnessServices.getWorkoutPlan(goal);
             return ResponseEntity.ok(workout);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
 }

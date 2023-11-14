@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ReadAndWriteToJson {
-    private static final Gson gson = new Gson();
+public class ReadAndWriteToJson implements JsonDataStore {
+    private final Gson gson = new Gson();
 
-    public static <T> List<T> readJsonFile(File file, Class<T> clazz) throws IOException {
+    @Override
+    public <T> List<T> readJsonFile(File file, Class<T> clazz) throws FileNotFoundException {
         if (!file.exists()) {
             throw new FileNotFoundException("File not found");
         }
@@ -24,29 +25,33 @@ public class ReadAndWriteToJson {
         try (FileReader reader = new FileReader(file)) {
             Type listType = TypeToken.getParameterized(List.class, clazz).getType();
             return gson.fromJson(reader, listType);
+        }catch (IOException e){
+           throw new RuntimeException(e);
         }
     }
 
-
-
-    public static <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz) throws IOException {
+    @Override
+    public <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz) throws FileNotFoundException {
         List<T> dataEntries = readJsonFile(file, clazz);
 
         dataEntries.add(reqBody);
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(dataEntries, writer);
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
 
     }
 
-    public static <T extends Identifier> List<T>  readJsonObjById(String id, File file, Class<T> clazz) throws IOException {
+    @Override
+    public <T extends Identifier> List<T>  readJsonObjById(String id, File file, Class<T> clazz) throws FileNotFoundException {
         List<T> data = readJsonFile(file, clazz);
         return data.stream()
                 .filter(item -> item.getId().equals(id))
                 .collect(Collectors.toList());
     }
 
-    public static void updateUserDataId(String id, UserData reqBody, File file) throws IOException {
+    public void updateUserDataId(String id, UserData reqBody, File file) throws FileNotFoundException {
 
         List<UserData> userData = readJsonFile(file, UserData.class);
         boolean found = false;
@@ -70,10 +75,13 @@ public class ReadAndWriteToJson {
         try (Writer writer = new FileWriter(file)) {
             // Write the entire List (with updated data) back to the file
             gson.toJson(userData, writer);
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
     }
 
-    public static <T extends Identifier> void deleteJsonObjById(String id, File file, Class<T> clazz) throws IOException {
+    @Override
+    public <T extends Identifier> void deleteJsonObjById(String id, File file, Class<T> clazz) throws FileNotFoundException {
 
         List<T> orderEntries = readJsonFile(file, clazz);
 
@@ -83,6 +91,8 @@ public class ReadAndWriteToJson {
 
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(updateOrderEntries, writer);
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
 
     }

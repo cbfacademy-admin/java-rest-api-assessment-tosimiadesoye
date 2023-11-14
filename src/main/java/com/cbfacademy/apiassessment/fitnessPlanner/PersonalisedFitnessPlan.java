@@ -16,9 +16,9 @@ package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import com.cbfacademy.apiassessment.OpenAI.ChatGPTResponse;
 
+import com.cbfacademy.apiassessment.json.ReadAndWriteToJson;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -30,25 +30,28 @@ import java.util.*;
 import com.google.gson.Gson;
 
 import static com.cbfacademy.apiassessment.OpenAI.ChatGPTClient.chatGPT;
-import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
 @Component
 public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, WorkoutPlanner {
-    public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
-    private final File mealDataFilePath;
-    private final File workOutDataFilePath;
 
-    /**
-     * Constructs a PersonalisedFitnessPlan instance with the specified file paths for meal and workout data.
-     *
-     * @param mealDataFilePath    the file path for meal data that can be found in application.properties
-     * @param workOutDataFilePath the file path for workout data that can be found in application.properties
-     */
-    public PersonalisedFitnessPlan(@Value("${mealDataFilePath}") String mealDataFilePath,
-            @Value("${workOutDataFilePath}") String workOutDataFilePath) {
-        this.mealDataFilePath = new File(mealDataFilePath);
-        this.workOutDataFilePath = new File(workOutDataFilePath);
+    // Constants for the Harris-Benedict Equation
+    private static final double MEN_BMR_CONSTANT = 88.362;
+    private static final double MEN_WEIGHT_COEFFICIENT = 13.397;
+    private static final double MEN_HEIGHT_COEFFICIENT = 4.799;
+    private static final double MEN_AGE_COEFFICIENT = 5.677;
+
+    private static final double WOMEN_BMR_CONSTANT = 447.593;
+    private static final double WOMEN_WEIGHT_COEFFICIENT = 9.247;
+    private static final double WOMEN_HEIGHT_COEFFICIENT = 3.098;
+    private static final double WOMEN_AGE_COEFFICIENT = 4.330;
+
+    private final ReadAndWriteToJson readAndWriteToJson;
+    public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
+
+    public PersonalisedFitnessPlan(ReadAndWriteToJson readAndWriteToJson){
+        this.readAndWriteToJson = readAndWriteToJson;
     }
+
 
     /**
      * Calculates the Basal Metabolic Rate (BMR) based on the user's gender, weight, height, and age.
@@ -60,15 +63,24 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return Resting calories representing the Basal Metabolic Rate (BMR)
      * @throws RuntimeException if the provided gender is neither "male" nor "female"
      */
+
     @Override
-    public double calculateBMR(String gender, double weight, double height, int age) {
+    public double calculateBMR(Gender gender, double weight, double height, int age) {
         double basalMetabolicRate;
-        if ("female".equalsIgnoreCase(gender)) {
-            basalMetabolicRate = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-        } else if ("male".equalsIgnoreCase(gender)) {
-            basalMetabolicRate = 88.364 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-        } else {
-            throw new RuntimeException("Invalid gender: " + gender);
+
+        if (!(weight > 0 && height > 0 && age > 0)) {
+            throw new IllegalArgumentException("Weight, height, and age must be non zero or a non-negative values.");
+        }
+
+        switch (gender) {
+            case FEMALE:
+                basalMetabolicRate = WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height) - (WOMEN_AGE_COEFFICIENT * age);
+                break;
+            case MALE:
+                basalMetabolicRate = MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height) - (MEN_AGE_COEFFICIENT * age);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid gender: " + gender);
         }
         return basalMetabolicRate;
     }
@@ -85,9 +97,9 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return Total calories a user burns per day (TDEE)
      */
     @Override
-    public double totalDailyEnergyExpenditure(String gender, double weight,
-            double height, int age,
-            ActivityLevel activityLevel) {
+    public double calculateTDEE(Gender gender, double weight,
+                                double height, int age,
+                                ActivityLevel activityLevel) {
         double BMR = calculateBMR(gender, weight, height, age);
 
         return BMR * activityLevel.getMultiplier();
@@ -101,15 +113,20 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return A list of meal ideas corresponding to the specified meal type
      * @throws IOException if there is a problem reading the input file
      */
+
+
     @Override
-    public List<Ideas> mealType(String mealType) throws IOException {
-        List<MealIdeas> allMeals = readJsonFile(mealDataFilePath, MealIdeas.class);
+    public List<Ideas> getMealsFromType(String mealType, File mealDataFile) throws IOException {
 
-        List<Ideas> ideas = allMeals.stream().filter(meal -> meal.getMealType()
-                .equalsIgnoreCase(mealType)).findFirst()
-                .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
+            return fetchAllMeals(mealDataFile).stream().filter(meal -> meal.getMealType()
+                            .equalsIgnoreCase(mealType)).findFirst()
+                    .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
 
-        return ideas;
+    }
+
+
+    public List<MealIdeas> fetchAllMeals( File mealDataFile) throws IOException {
+        return readAndWriteToJson.readJsonFile(mealDataFile, MealIdeas.class);
     }
 
     /**
@@ -119,12 +136,13 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return A randomly selected meal idea for the specified meal type
      * @throws IOException if there is a problem reading the input file
      */
+
     @Override
-    public Ideas generateMealPlan(String mealType) throws IOException {
+    public Ideas generateMealIdea(String mealType, File mealDataFile) throws IOException {
         int min = 0;
-        int max = mealType(mealType).size();
-        int randomNum = randomNumber(max, min);
-        return mealType(mealType).get(randomNum);
+        int max = getMealsFromType(mealType,mealDataFile ).size();
+        int randomNum = getRandomNumber(max, min);
+        return getMealsFromType(mealType, mealDataFile).get(randomNum);
     }
 
     /**
@@ -134,10 +152,10 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @throws IOException if there is a problem reading the input file
      */
     @Override
-    public HashMap<String, Ideas> generateFullDayMeal() throws IOException {
-        var breakfast = generateMealPlan("breakfast");
-        var lunch = generateMealPlan("lunch");
-        var dinner = generateMealPlan("dinner");
+    public HashMap<String, Ideas> generateFullDayMealIdea(File mealDataFile) throws IOException {
+        Ideas breakfast = generateMealIdea("breakfast", mealDataFile);
+        Ideas lunch = generateMealIdea("lunch", mealDataFile);
+        Ideas dinner = generateMealIdea("dinner", mealDataFile);
         HashMap<String, Ideas> fullDaysMeal = new HashMap<>();
         fullDaysMeal.put("breakfast", breakfast);
         fullDaysMeal.put("lunch", lunch);
@@ -145,7 +163,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         return fullDaysMeal;
     }
 
-    public int randomNumber(int max, int min) {
+    public int getRandomNumber(int max, int min) {
         return (int) (Math.random() * (max - min + 1)) + min;
     }
 
@@ -158,10 +176,11 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @return a list of workouts tailored to the fitness goal
      * @throws IOException if there is a problem reading the input file or updating it
      */
+
     @Override
-    public List<Workout> generateWorkout(String goal) throws IOException {
+    public List<Workout> generateWorkout(String goal, File workOutDataFile) throws IOException {
         List<Workout> workout = new ArrayList<>();
-        List<Workout> allWorkout = readJsonFile(workOutDataFilePath, Workout.class);
+        List<Workout> allWorkout = readAndWriteToJson.readJsonFile(workOutDataFile, Workout.class);
 
         var found = false;
         for (Workout w : allWorkout) {
@@ -176,7 +195,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
             if (newWorkout != null) {
                 logger.info(String.valueOf(newWorkout));
                 workout.add(newWorkout);
-                addWorkout(newWorkout);
+                addWorkout(newWorkout,workOutDataFile);
             }
         }
         return workout;
@@ -190,8 +209,8 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
      * @throws IOException if there is a problem updating the JSON file
      */
     @Override
-    public void addWorkout(Workout workout) throws IOException {
-        writeToJsonFile(workout, workOutDataFilePath, Workout.class);
+    public void addWorkout(Workout workout, File workOutDataFile) throws IOException {
+        readAndWriteToJson.writeToJsonFile(workout, workOutDataFile, Workout.class);
     }
 
     /**

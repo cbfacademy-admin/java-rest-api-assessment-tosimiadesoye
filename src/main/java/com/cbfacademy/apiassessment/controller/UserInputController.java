@@ -13,11 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cbfacademy.apiassessment.NotFoundException;
 import com.cbfacademy.apiassessment.service.UserInputService;
 import com.cbfacademy.apiassessment.userData.UserData;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,30 +32,24 @@ public class UserInputController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserData>> readUserDataApi() {
-        try {
+    public ResponseEntity<List<UserData>> readUserDataApi()  {
+
             List<UserData> entries = userDataService.getUserInput();
             return ResponseEntity.ok(entries);
 
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<UserData>> readUserDataByIdApi(@PathVariable String id) {
-        try {
+    public ResponseEntity<List<UserData>> readUserDataByIdApi(@RequestParam String id) {
+
             List<UserData> entry = userDataService.getUserInputById(id);
             if (entry.isEmpty()) {
                 return ResponseEntity.notFound().build();
             } else {
                 return ResponseEntity.ok(entry);
             }
-        } catch (NotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
 
     }
 
@@ -82,33 +74,27 @@ public class UserInputController {
     )
     public ResponseEntity<WebResponse> createUserDataApi(@RequestBody UserData userData) {
 
-        try {
+
             userDataService.createUserInput(userData);
             return new ResponseEntity<>(new WebResponse(HttpStatus.CREATED.value(), HttpStatus.CREATED.getReasonPhrase(), "Successfully created user!"), HttpStatus.CREATED);
-        } catch (IOException e) {
-            return new ResponseEntity<>(new WebResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<WebResponse> updateUserDataById(@PathVariable String id, @RequestBody UserData userData) {
+    public ResponseEntity<WebResponse> updateUserDataById(@RequestParam String id, @RequestBody UserData userData) {
 
-        try {
+
             userDataService.updateUserInputById(id, userData);
             return ResponseEntity.noContent().build();
-        } catch (IOException e) {
-            return new ResponseEntity<>(new WebResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<WebResponse> deleteUserDataById(@PathVariable String id) {
-        try {
+    public ResponseEntity<WebResponse> deleteUserDataById(@RequestParam String id) {
+
             userDataService.deleteUserInputById(id);
             return ResponseEntity.noContent().build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
     }
 
 }

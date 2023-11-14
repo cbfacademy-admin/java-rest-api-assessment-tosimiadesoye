@@ -51,7 +51,7 @@ public class ReadAndWriteToJsonTest {
     @Description(value = "readJsonFile() returns contents")
     @Test
     public void readJsonFile_ReturnsFileContent() throws IOException {
-        List<UserData> result = readJsonFile(tempFile.toFile(), UserData.class);
+        List<UserData> result = readAndWriteToJson.readJsonFile(tempFile.toFile(), UserData.class);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -63,7 +63,7 @@ public class ReadAndWriteToJsonTest {
 
         Exception exception = assertThrows(FileNotFoundException.class, () -> {
 
-            readJsonFile(new File("file.json"), UserData.class);
+            readAndWriteToJson.readJsonFile(new File("file.json"), UserData.class);
         });
 
         String expectedMessage = "File not found";
@@ -87,7 +87,7 @@ public class ReadAndWriteToJsonTest {
 
         UserData newUserData = new UserData("748493", 48, "male", 75, 180, "Muscle", "Gluten_free");
 
-        writeToJsonFile(newUserData, tempFile.toFile(), UserData.class);
+        readAndWriteToJson.writeToJsonFile(newUserData, tempFile.toFile(), UserData.class);
 
         // Verify that the file has been written
         assertTrue(tempFile.toFile().exists());
@@ -109,7 +109,7 @@ public class ReadAndWriteToJsonTest {
     @Description(value = "updateJsonObjById() updates content")
     public void updateJsonObjById_UpdatedContent() throws IOException {
         UserData newUserData = new UserData("392726", 18, "female", 45, 160, "Lower_body", "");
-        updateUserDataId("392726", newUserData, tempFile.toFile());
+        readAndWriteToJson.updateUserDataId("392726", newUserData, tempFile.toFile());
 
         assertTrue(tempFile.toFile().exists());
 
@@ -124,7 +124,7 @@ public class ReadAndWriteToJsonTest {
     @Test
     @Description(value = "deleteJsonObjById() deletes content")
     public void deleteJsonObjById_DeletesContent() throws IOException {
-        deleteJsonObjById("443293", tempFile.toFile(), UserData.class);
+        readAndWriteToJson.deleteJsonObjById("443293", tempFile.toFile(), UserData.class);
 
         assertTrue(tempFile.toFile().exists());
 

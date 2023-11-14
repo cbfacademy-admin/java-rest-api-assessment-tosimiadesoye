@@ -1,5 +1,7 @@
 package com.cbfacademy.apiassessment.service;
 
+import com.cbfacademy.apiassessment.json.ReadAndWriteToJson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cbfacademy.apiassessment.NotFoundException;
@@ -10,40 +12,72 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static com.cbfacademy.apiassessment.json.ReadAndWriteToJson.*;
 
 @Service
 public class UserInputService {
     private static final String DATA_FILE_PATH = "src/main/resources/userData.json";
+    ReadAndWriteToJson readAndWriteToJson;
 
-
-    public List<UserData> getUserInput() throws IOException {
-
-        return readJsonFile(new File(DATA_FILE_PATH), UserData.class);
-
+    @Autowired
+    public UserInputService() {
+        readAndWriteToJson = new ReadAndWriteToJson();
     }
 
-    public List<UserData> getUserInputById(String id) throws IOException {
+    public List<UserData> getUserInput() {
 
-        List<UserData> entry = readJsonObjById(id, new File(DATA_FILE_PATH), UserData.class);
-        if (entry.isEmpty()) {
-            throw new NotFoundException("User not found with ID: " + id);
+        try {
+            return readAndWriteToJson.readJsonFile(new File(DATA_FILE_PATH), UserData.class);
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
-        return entry;
+
 
     }
 
-    public void createUserInput(UserData UserInput) throws IOException {
-        writeToJsonFile(UserInput, new File(DATA_FILE_PATH), UserData.class);
+    public List<UserData> getUserInputById(String id) {
+
+        try {
+            List<UserData> entry = readAndWriteToJson.readJsonObjById(id, new File(DATA_FILE_PATH), UserData.class);
+            if (entry.isEmpty()) {
+                throw new NotFoundException("User not found with ID: " + id);
+            }
+            return entry;
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
+
     }
 
-    public void updateUserInputById(String id, UserData UserInput) throws IOException {
-        updateUserDataId(id, UserInput, new File(DATA_FILE_PATH));
+    public void createUserInput(UserData UserInput) {
+
+        try {
+            readAndWriteToJson.writeToJsonFile(UserInput, new File(DATA_FILE_PATH), UserData.class);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
 
     }
 
-    public void deleteUserInputById(String id) throws IOException {
-        deleteJsonObjById(id, new File(DATA_FILE_PATH), UserData.class);
+    public void updateUserInputById(String id, UserData UserInput) {
+
+        try {
+
+            readAndWriteToJson.updateUserDataId(id, UserInput, new File(DATA_FILE_PATH));
+
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteUserInputById(String id){
+
+        try {
+            readAndWriteToJson.deleteJsonObjById(id, new File(DATA_FILE_PATH), UserData.class);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
