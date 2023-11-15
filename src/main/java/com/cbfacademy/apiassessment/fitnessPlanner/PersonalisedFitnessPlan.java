@@ -32,9 +32,9 @@ import com.google.gson.Gson;
 import static com.cbfacademy.apiassessment.OpenAI.ChatGPTClient.chatGPT;
 
 @Component
-public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, WorkoutPlanner {
+public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedictCalculator, WorkoutPlanner {
 
-    // Constants for the Harris-Benedict Equation
+
     private static final double MEN_BMR_CONSTANT = 88.362;
     private static final double MEN_WEIGHT_COEFFICIENT = 13.397;
     private static final double MEN_HEIGHT_COEFFICIENT = 4.799;
@@ -44,25 +44,14 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
     private static final double WOMEN_WEIGHT_COEFFICIENT = 9.247;
     private static final double WOMEN_HEIGHT_COEFFICIENT = 3.098;
     private static final double WOMEN_AGE_COEFFICIENT = 4.330;
-
-    private final ReadAndWriteToJson readAndWriteToJson;
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
+    private final ReadAndWriteToJson readAndWriteToJson;
 
-    public PersonalisedFitnessPlan(ReadAndWriteToJson readAndWriteToJson){
+    public PersonalisedFitnessPlan(ReadAndWriteToJson readAndWriteToJson) {
+        super(readAndWriteToJson);
         this.readAndWriteToJson = readAndWriteToJson;
     }
 
-
-    /**
-     * Calculates the Basal Metabolic Rate (BMR) based on the user's gender, weight, height, and age.
-     *
-     * @param gender User's gender ("male" or "female")
-     * @param weight User's weight in kilograms
-     * @param height User's height in centimeters
-     * @param age    User's age in years
-     * @return Resting calories representing the Basal Metabolic Rate (BMR)
-     * @throws RuntimeException if the provided gender is neither "male" nor "female"
-     */
 
     @Override
     public long calculateBMR(Gender gender, double weight, double height, int age) {
@@ -107,64 +96,6 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
     }
 
-    /**
-     * Retrieves a list of meal ideas for a specific meal type (e.g., breakfast, lunch, or dinner).
-     *
-     * @param mealType The type of meal (e.g., breakfast, lunch, or dinner)
-     * @return A list of meal ideas corresponding to the specified meal type
-     * @throws IOException if there is a problem reading the input file
-     */
-    @Override
-    public List<Ideas> getMealsFromType(String mealType, File mealDataFile) throws IOException {
-
-            return fetchAllMeals(mealDataFile).stream().filter(meal -> meal.getMealType()
-                            .equalsIgnoreCase(mealType)).findFirst()
-                    .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
-
-    }
-
-
-    public List<MealIdeas> fetchAllMeals( File mealDataFile) throws IOException {
-        return readAndWriteToJson.readJsonFile(mealDataFile, MealIdeas.class);
-    }
-
-    /**
-     * Generates a meal idea for a specific meal type (e.g., Grilled Chicken Salad for lunch).
-     *
-     * @param mealType The type of meal (e.g., breakfast, lunch, or dinner)
-     * @return A randomly selected meal idea for the specified meal type
-     * @throws IOException if there is a problem reading the input file
-     */
-
-    @Override
-    public Ideas generateMealIdea(String mealType, File mealDataFile) throws IOException {
-        int min = 0;
-        int max = getMealsFromType(mealType,mealDataFile).size() - 1;
-        int randomNum = getRandomNumber(max, min);
-        return getMealsFromType(mealType, mealDataFile).get(randomNum);
-    }
-
-    /**
-     * Generates a full-day meal plan consisting of breakfast, lunch, and dinner.
-     *
-     * @return A HashMap containing meal ideas for breakfast, lunch, and dinner
-     * @throws IOException if there is a problem reading the input file
-     */
-    @Override
-    public HashMap<String, Ideas> generateFullDayMealIdea(File mealDataFile) throws IOException {
-        Ideas breakfast = generateMealIdea("breakfast", mealDataFile);
-        Ideas lunch = generateMealIdea("lunch", mealDataFile);
-        Ideas dinner = generateMealIdea("dinner", mealDataFile);
-        HashMap<String, Ideas> fullDaysMeal = new HashMap<>();
-        fullDaysMeal.put("breakfast", breakfast);
-        fullDaysMeal.put("lunch", lunch);
-        fullDaysMeal.put("dinner", dinner);
-        return fullDaysMeal;
-    }
-
-    public int getRandomNumber(int max, int min) {
-        return (int) (Math.random() * (max - min + 1)) + min;
-    }
 
     /**
      * Provides functionality to generate a list of workouts based on a user's fitness goal.
@@ -192,9 +123,9 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
         if (!found) {
             Workout newWorkout = readChatGPTResponse(goal);
             if (newWorkout != null) {
-                logger.info(String.valueOf(newWorkout));
+                logger.info("newWorkout" + newWorkout);
                 workout.add(newWorkout);
-                addWorkout(newWorkout,workOutDataFile);
+                addWorkout(newWorkout, workOutDataFile);
             }
         }
         return workout;
@@ -225,7 +156,7 @@ public class PersonalisedFitnessPlan implements MealPlanner, CalculateCalories, 
 
         Gson gson = new Gson();
         Workout workout = gson.fromJson(response, Workout.class);
-        logger.info(String.valueOf(workout));
+        logger.info("workout" + workout);
         return workout;
     }
 

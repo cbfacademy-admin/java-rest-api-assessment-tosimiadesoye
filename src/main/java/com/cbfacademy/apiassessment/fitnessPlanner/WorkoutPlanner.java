@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface WorkoutPlanner {
-    public List<Workout> generateWorkout(String goal, File workOutDataFile) throws IOException;
-    public void addWorkout(Workout workout, File workOutDataFile) throws IOException;
+   List<Workout> generateWorkout(String goal, File workOutDataFile) throws IOException;
+   void addWorkout(Workout workout, File workOutDataFile) throws IOException;
 
 }

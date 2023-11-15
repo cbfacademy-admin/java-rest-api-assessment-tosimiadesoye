@@ -1,7 +1,7 @@
 package com.cbfacademy.apiassessment.service;
 
 import com.cbfacademy.apiassessment.fitnessPlanner.*;
-import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLevel;
+import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.ActivityLevel;
 import com.cbfacademy.apiassessment.json.ReadAndWriteToJson;
 import org.springframework.stereotype.Service;
 import com.cbfacademy.apiassessment.fitnessPlanner.MealPlanner.MealType;
@@ -20,18 +20,19 @@ public class PersonalFitnessServices {
     private final ReadAndWriteToJson readAndWriteToJson = new ReadAndWriteToJson();
     private final PersonalisedFitnessPlan personalisedFitnessPlan = new PersonalisedFitnessPlan(readAndWriteToJson);
 
-    public long getRestingCalories(CalculateCalories.Gender gender, double weight, double height, int age) {
+    public long getRestingCalories(HarrisBenedictCalculator.Gender gender, double weight, double height, int age) {
         return personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
+
     }
 
-    public long getTDEE(CalculateCalories.Gender gender, double weight,
+    public long getTDEE(HarrisBenedictCalculator.Gender gender, double weight,
                         double height, int age, ActivityLevel activityLevel) {
 
         return personalisedFitnessPlan.calculateTDEE(gender, weight,
                 height, age, activityLevel);
     }
 
-    public Ideas getMealPlan(String mealType) {
+    public Ideas getMealPlan(String mealType) throws IllegalArgumentException {
         try {
             String newMeal = mealType.toUpperCase(Locale.forLanguageTag(mealType));
             if (newMeal.equals(MealType.BREAKFAST.name()) ||

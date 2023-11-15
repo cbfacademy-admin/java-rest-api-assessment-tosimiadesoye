@@ -1,6 +1,6 @@
 package com.cbfacademy.apiassessment.service;
 
-import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLevel;
+import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.ActivityLevel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

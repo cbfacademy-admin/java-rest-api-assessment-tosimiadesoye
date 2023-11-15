@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Description(value = "Personalised Fitness Plan")
@@ -74,6 +75,7 @@ public class PersonalisedFitnessPlanTest {
     public void setUp() {
 
         readAndWriteToJson = new ReadAndWriteToJson();
+
         personalisedFitnessPlan = new PersonalisedFitnessPlan(readAndWriteToJson);
 
     }
@@ -81,7 +83,7 @@ public class PersonalisedFitnessPlanTest {
     @ParameterizedTest
     @MethodSource("calculateBMRArguments")
     @Description("should return BMR")
-    public void calculateBMR_shouldReturnBMR(CalculateCalories.Gender gender, double weight, double height, int age,
+    public void calculateBMR_shouldReturnBMR(HarrisBenedictCalculator.Gender gender, double weight, double height, int age,
                                              double expected) {
         double actual = personalisedFitnessPlan.calculateBMR(gender, weight, height, age);
         assertEquals(expected, actual);
@@ -91,9 +93,9 @@ public class PersonalisedFitnessPlanTest {
     @ParameterizedTest
     @MethodSource("totalDailyEnergyExpenditure")
     @Description("should return TDEE")
-    public void totalDailyEnergyExpenditure_shouldReturnTDEE(CalculateCalories.Gender gender, double weight,
+    public void totalDailyEnergyExpenditure_shouldReturnTDEE(HarrisBenedictCalculator.Gender gender, double weight,
                                                              double height, int age,
-                                                             CalculateCalories.ActivityLevel activityLevel, double expected) {
+                                                             HarrisBenedictCalculator.ActivityLevel activityLevel, double expected) {
         double actual = personalisedFitnessPlan.calculateTDEE(gender, weight, height, age, activityLevel);
         assertEquals(expected, actual);
     }
@@ -178,6 +180,7 @@ public class PersonalisedFitnessPlanTest {
     @Description(value = "generateWorkout() returns workout")
     public void generateWorkout_returnWorkout(String goal, File workOutDataFile) {
         try {
+
             List<Workout> result = personalisedFitnessPlan.generateWorkout(goal, workOutDataFile);
             assertFalse(result.isEmpty());
 
@@ -189,7 +192,7 @@ public class PersonalisedFitnessPlanTest {
             throw new RuntimeException(e);
         }
     }
-
+    
     @Test
     @Description(value = "readChatGPTResponse() returns workout")
     public void readChatGPTResponse_returnWorkout() {

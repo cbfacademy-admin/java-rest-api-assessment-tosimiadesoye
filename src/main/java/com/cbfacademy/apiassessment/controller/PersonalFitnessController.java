@@ -1,7 +1,7 @@
 package com.cbfacademy.apiassessment.controller;
 
-import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.Gender;
-import com.cbfacademy.apiassessment.fitnessPlanner.CalculateCalories.ActivityLevel;
+import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.Gender;
+import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
@@ -32,8 +32,10 @@ public class PersonalFitnessController {
                                             @RequestParam double height,
                                             @RequestParam int age) {
 
+
         Long restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
             return ResponseEntity.ok(restingKcal);
+
 
     }
 
@@ -48,8 +50,10 @@ public class PersonalFitnessController {
 
 @GetMapping
     public ResponseEntity<Ideas> readMealPlan(@RequestParam String mealType) {
-            Ideas ideas = personalFitnessServices.getMealPlan(mealType);
-            return ResponseEntity.ok(ideas);
+
+                Ideas ideas = personalFitnessServices.getMealPlan(mealType);
+                return ResponseEntity.ok(ideas);
+
 
     }
 
