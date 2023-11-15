@@ -23,6 +23,15 @@ public interface HarrisBenedictCalculator {
         public double getMultiplier() {
             return multiplier;
         }
+
+        public static ActivityLevel fromString(String value){
+            try {
+                return ActivityLevel.valueOf(value.toUpperCase());
+            }catch (IllegalArgumentException e){
+                throw new IllegalArgumentException("Invalid Activity Level value. Accepted values are 'SEDENTARY' or 'LIGHTLY_ACTIVE' or 'MODERATELY_ACTIVE' or 'VERY_ACTIVE' or 'SUPER_ACTIVE'. Received: '" + value + "'");
+            }
+        }
+
     }
 
 

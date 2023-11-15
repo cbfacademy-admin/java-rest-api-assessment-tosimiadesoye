@@ -28,11 +28,11 @@ public class PersonalFitnessServices {
     }
 
     public long getTDEE(String gender, double weight,
-                        double height, int age, ActivityLevel activityLevel) {
-
+                        double height, int age, String activityLevel) {
+        ActivityLevel activeLevel = ActivityLevel.fromString(activityLevel);
        Gender userGender = Gender.fromString(gender);
         return personalisedFitnessPlan.calculateTDEE(userGender, weight,
-                height, age, activityLevel);
+                height, age, activeLevel);
     }
 
     public Ideas getMealPlan(String mealType) {
@@ -57,7 +57,8 @@ public class PersonalFitnessServices {
 
     public List<Workout> getWorkoutPlan(String goal) {
         try {
-            return personalisedFitnessPlan.generateWorkout(goal, WORKOUT_DATA_FILE_PATH);
+            String userGoal = goal.replace(" ", "_");
+            return personalisedFitnessPlan.generateWorkout(userGoal, WORKOUT_DATA_FILE_PATH);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
