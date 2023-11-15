@@ -1,6 +1,5 @@
 package com.cbfacademy.apiassessment.controller;
 
-import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.Gender;
 import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Ideas;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
@@ -27,7 +26,7 @@ public class PersonalFitnessController {
     }
 
     @GetMapping("/BMR")
-    public ResponseEntity<Long> restingKcal(@RequestParam Gender gender,
+    public ResponseEntity<Long> restingKcal(@RequestParam String gender,
                                             @RequestParam double weight,
                                             @RequestParam double height,
                                             @RequestParam int age) {
@@ -40,7 +39,7 @@ public class PersonalFitnessController {
     }
 
     @GetMapping("/TDEE")
-    public ResponseEntity<Long> readTDEE(@RequestParam Gender gender, @RequestParam double weight,
+    public ResponseEntity<Long> readTDEE(@RequestParam String gender, @RequestParam double weight,
                                            @RequestParam double height, @RequestParam int age, @RequestParam ActivityLevel activityLevel) {
             Long kcalConsumption = personalFitnessServices.getTDEE(gender, weight,
                     height, age, activityLevel);

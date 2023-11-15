@@ -25,9 +25,19 @@ public interface HarrisBenedictCalculator {
         }
     }
 
+
  enum Gender{
-        FEMALE,
-        MALE
+
+     FEMALE,
+     MALE;
+     public static Gender fromString(String value){
+         try {
+             return Gender.valueOf(value.toUpperCase());
+         }catch (IllegalArgumentException e){
+             throw new IllegalArgumentException("Invalid gender value. Accepted values are 'FEMALE' or 'MALE'. Received: '" + value + "'");
+         }
+     }
     }
+
 
 }

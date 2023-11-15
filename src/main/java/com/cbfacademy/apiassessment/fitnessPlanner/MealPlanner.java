@@ -26,10 +26,10 @@ public abstract class MealPlanner {
      * @throws IOException if there is a problem reading the input file
      */
 
-    public List<Ideas> getMealsFromType(String mealType, File mealDataFile) throws IOException {
+    public List<Ideas> getMealsFromType(MealType mealType, File mealDataFile) throws IOException {
 
         return fetchAllMeals(mealDataFile).stream().filter(meal -> meal.getMealType()
-                        .equalsIgnoreCase(mealType)).findFirst()
+                        .equalsIgnoreCase(mealType.name())).findFirst()
                 .map(MealIdeas::getIdeas).orElse(Collections.emptyList());
 
     }
@@ -47,7 +47,7 @@ public abstract class MealPlanner {
      */
 
 
-    public Ideas generateMealIdea(String mealType, File mealDataFile) throws IOException {
+    public Ideas generateMealIdea(MealType mealType, File mealDataFile) throws IOException {
         int min = 0;
         int max = getMealsFromType(mealType, mealDataFile).size() - 1;
         int randomNum = getRandomNumber(max, min);
@@ -62,9 +62,9 @@ public abstract class MealPlanner {
      */
 
     public HashMap<String, Ideas> generateFullDayMealIdea(File mealDataFile) throws IOException {
-        Ideas breakfast = generateMealIdea(BREAKFAST, mealDataFile);
-        Ideas lunch = generateMealIdea(LUNCH, mealDataFile);
-        Ideas dinner = generateMealIdea(DINNER, mealDataFile);
+        Ideas breakfast = generateMealIdea(MealType.BREAKFAST, mealDataFile);
+        Ideas lunch = generateMealIdea(MealType.LUNCH, mealDataFile);
+        Ideas dinner = generateMealIdea(MealType.DINNER, mealDataFile);
         HashMap<String, Ideas> fullDaysMeal = new HashMap<>();
         fullDaysMeal.put(BREAKFAST, breakfast);
         fullDaysMeal.put(LUNCH, lunch);
@@ -79,7 +79,16 @@ public abstract class MealPlanner {
     public enum MealType {
         BREAKFAST,
         LUNCH,
-        DINNER
+        DINNER;
+
+        public static MealType fromString(String value){
+            try {
+                return MealType.valueOf(value.toUpperCase());
+            }catch (IllegalArgumentException e){
+                throw new IllegalArgumentException("Invalid meal type. Accepted values are 'BREAKFAST' or 'LUNCH' or 'DINNER'. Received: '" + value + "'");
+            }
+        }
+        
     }
 
 }

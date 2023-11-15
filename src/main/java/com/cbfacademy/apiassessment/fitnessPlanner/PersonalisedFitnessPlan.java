@@ -59,19 +59,15 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
         long basalMetabolicRate;
 
         if (!(weight > 0 && height > 0 && age > 0)) {
-            throw new IllegalArgumentException("Weight, height, and age must be non zero or a non-negative values.");
+            throw new IllegalArgumentException("Weight, height, and age must not be zero or a negative values.");
         }
 
-        switch (gender) {
-            case FEMALE:
-                basalMetabolicRate = (long) (WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height) - (WOMEN_AGE_COEFFICIENT * age));
-                break;
-            case MALE:
-                basalMetabolicRate = (long) (MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height) - (MEN_AGE_COEFFICIENT * age));
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid gender: " + gender);
-        }
+        basalMetabolicRate = switch (gender) {
+            case FEMALE ->
+                    (long) (WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height) - (WOMEN_AGE_COEFFICIENT * age));
+            case MALE ->
+                    (long) (MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height) - (MEN_AGE_COEFFICIENT * age));
+        };
         return  Math.round(basalMetabolicRate);
     }
 
