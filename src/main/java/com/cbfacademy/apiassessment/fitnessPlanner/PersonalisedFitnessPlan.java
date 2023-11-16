@@ -1,12 +1,18 @@
 /**
- * The PersonalisedFitnessPlan class provides functionality for generating personalized fitness plans,
- * including meal plans and workout recommendations based on user inputs and preferences.
- * <p>
- * It implements the MealPlanner, CalculateCalories, and WorkoutPlanner interfaces to encapsulate
- * the respective functionalities related to meal planning, calorie calculation, and workout generation.
- * <p>
- * The class uses external JSON files to store meal and workout data, and it incorporates ChatGPT for
- * workout recommendations if the desired workout goal is not found in the existing data.
+ *The PersonalisedFitnessPlan class offers functionalities for generating personalized fitness plans,
+ * encompassing meal plans and workout recommendations based on user inputs and preferences.
+ * It extends the MealPlanner class and implements interfaces like CalculateCalories and WorkoutPlanner to
+ * encapsulate meal planning, calorie calculation, and workout generation functionalities.
+ *<p>
+ * Key Features:
+ * Meal and Workout Data: Utilizes external JSON files to store meal and workout data,
+ * and integrates ChatGPT for workout recommendations when desired goals are unavailable in the existing data.
+ *<p>
+ * Calorie Calculation: Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure
+ * (TDEE) based on user's gender, weight, height, age, and activity level.
+ *<p>
+ * Workout Generation: Provides functionality to generate workout recommendations tailored to a user's fitness goal.
+ * Queries ChatGPT for workout ideas if no matching workouts are found in the stored data.
  *
  * @author Tosimi
  * @version 1.0
@@ -34,7 +40,6 @@ import static com.cbfacademy.apiassessment.OpenAI.ChatGPTClient.chatGPT;
 @Component
 public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedictCalculator, WorkoutPlanner {
 
-
     private static final double MEN_BMR_CONSTANT = 88.362;
     private static final double MEN_WEIGHT_COEFFICIENT = 13.397;
     private static final double MEN_HEIGHT_COEFFICIENT = 4.799;
@@ -53,7 +58,6 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
         super(readAndWriteToJson);
         this.readAndWriteToJson = readAndWriteToJson;
     }
-
 
     @Override
     public long calculateBMR(Gender gender, double weight, double height, int age) {
@@ -94,7 +98,6 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
 
     }
 
-
     /**
      * Provides functionality to generate a list of workouts based on a user's fitness goal.
      * If no matching workouts are found in the JSON file, it queries ChatGPT, retrieves the
@@ -130,6 +133,11 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
 
     }
 
+    /**
+     * Retrieves a list of workout
+     * @return A list of workout
+     * @throws IOException if there is a problem reading the input file
+     */
     public List<Workout> fetchWorkouts() throws IOException {
         return readAndWriteToJson.readJsonFile(WORKOUT_DATA_FILE_PATH, Workout.class);
     }

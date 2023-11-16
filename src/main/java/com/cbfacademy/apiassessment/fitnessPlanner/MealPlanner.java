@@ -1,3 +1,15 @@
+/**
+ * The MealPlanner abstract class serves as a base for meal planning functionalities.
+ * It contains methods to generate meal ideas for breakfast, lunch, and dinner, as well as to create full-day meal
+ * plans based on stored meal data.
+ *<p>
+ * Key Features:
+ * Meal Generation: Generates meal ideas for specific meal types (breakfast, lunch, dinner)
+ * and full-day meal plans using stored meal data.
+ *
+ * @author Tosimi
+ * @version 1.0
+ */
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import com.cbfacademy.apiassessment.json.ReadAndWriteToJson;
@@ -37,6 +49,11 @@ public abstract class MealPlanner {
 
     }
 
+    /**
+     * Retrieves a list of meal Idea
+     * @return A list of meal Idea
+     * @throws IOException if there is a problem reading the input file
+     */
     public List<MealIdea> fetchAllMeals() throws IOException {
         return readAndWriteToJson.readJsonFile(MEAL_DATA_FILE_PATH, MealIdea.class);
     }

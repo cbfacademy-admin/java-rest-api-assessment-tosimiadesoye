@@ -1,8 +1,53 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)
-# **Java API Assessment**
+# **Name: Personalised Fitness Planner**
+The app provides personalized fitness plans by generating tailored meal plans and workout recommendations based on user preferences.
 
-# **To view API documentation**
-http://localhost:8080/swagger-ui/index.html
+- **Meal Planning:** Offers diverse meal options for breakfast, lunch, and dinner.
+- **Calorie Calculation:** Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) based on user details.
+- **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilizes stored data and ChatGPT integration for comprehensive workout suggestions.
+
+## **Key Features**
+
+- **Tailored Plans:** Customized meal and workout plans based on user input.
+- **ChatGPT Integration:** Leverages ChatGPT for workout recommendations when specific goals aren't available in the app's data.
+- **User Data Management:** Enables users to manage their data, allowing creation, retrieval, update, and deletion of information.
+
+## **To View the API documentation in the browser**
+[Run the Application](####3.running-the-application)
+then click on the link: http://localhost:8080/swagger-ui/index.html or add it to your browser
+
+#### The documentation should look like this:
+![Screenshot 2023-11-16 at 14.11.54.png](assets%2FScreenshot%202023-11-16%20at%2014.11.54.png)
+
+### **Examples of expected URI
+- **Personalised Fitness**
+  - BMR:http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18
+  - TDEE:http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=1&activityLevel=SEDENTARY
+  - Generate meal: [http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST)
+  - Generate Full Day Meal:http://localhost:8080/api/v1/personalisedFitness/dailyMeal
+  - Fitness Goal:[http://localhost:8080/api/v1/personalisedFitness](http://localhost:8080/api/v1/personalisedFitness/dailyMeal/fitnessGoal?goal=Strength_training)
+  - fitnessGoal:[http://localhost:8080/api/v1/personalisedFitness](http://localhost:8080/api/v1/personalisedFitness/dailyMeal/fitnessGoal?goal=tone_thigh)
+
+- **User Details**
+    - post:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfil](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
+    - get: [http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
+    - getById:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693)
+    - put:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
+    - delete:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
+
+- **ActivityLevel**
+    - Activity LevelController:[http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
+
+
+#### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
+![personalisedFitnessPlanFlow.svg](assets%2FpersonalisedFitnessPlanFlow.svg)
+
+#### **The below diagram shows the flow of User Details across the infrastructure.**
+
+![UserDetailsFlow.svg](assets%2FUserDetailsFlow.svg)
+## **Requirement**
+
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)
+## **Java API Assessment**
 
 ## **Introduction**
 Dive into the world of API development using Java and SpringBoot. We're handing over a skeleton codebase; your challenge is to shape a top-notch API from it.
@@ -10,21 +55,21 @@ Dive into the world of API development using Java and SpringBoot. We're handing 
 You can build any API of your choosing, but it must include the following:
 
 1. At least one algorithm
-1. Unit test at least one class
-1. Store the data in a JSON file 
-1. Exception handling 
-1. Evidence of inheritance
-1. Good use of HTTP Protocols - methods, request and response, have full CRUD operations supported 
-1. Documentation
+2. Unit test at least one class
+3. Store the data in a JSON file 
+4. Exception handling 
+5. Evidence of inheritance
+6. Good use of HTTP Protocols - methods, request and response, have full CRUD operations supported 
+7. Documentation
 
 ### **Learning Outcomes:**
 
 By the end of this assessment, you should be able to:
 
 1. **Design and Architect APIs**: Get to grips with the nitty-gritty of curating a top-quality API, focusing on data flow and endpoint interactions.
-1. **Implement Best Practices**: Showcase your adherence to Java & SpringBoot coding standards, error handling, and optimal project structure.
-1. **Code Integration**: Seamlessly combine your creations with the provided skeleton codebase.
-1. **Exception Management**: Efficiently handle exceptions, ensuring your API remains sturdy and dependable.
+2. **Implement Best Practices**: Showcase your adherence to Java & SpringBoot coding standards, error handling, and optimal project structure.
+3. **Code Integration**: Seamlessly combine your creations with the provided skeleton codebase.
+4. **Exception Management**: Efficiently handle exceptions, ensuring your API remains sturdy and dependable.
 
 Onward with this assessment, you're set for a deep dive into API development with Java and SpringBoot.
 
