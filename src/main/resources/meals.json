@@ -1,7 +1,7 @@
 [
   {
     "mealType": "Breakfast",
-    "ideas": [
+    "Idea": [
       {
         "food": "Oatmeal with Berries",
         "type": "Breakfast",
@@ -206,7 +206,7 @@
   },
   {
     "mealType": "Lunch",
-    "ideas": [
+    "Idea": [
       {
         "food": "Grilled Chicken Salad",
         "type": "Lunch",
@@ -431,7 +431,7 @@
   },
   {
     "mealType": "Dinner",
-    "ideas": [
+    "Idea": [
       {
         "food": "Grilled Salmon with Asparagus",
         "type": "Dinner",

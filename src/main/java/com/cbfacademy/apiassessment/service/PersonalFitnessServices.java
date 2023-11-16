@@ -7,17 +7,13 @@ import com.cbfacademy.apiassessment.json.ReadAndWriteToJson;
 import org.springframework.stereotype.Service;
 import com.cbfacademy.apiassessment.fitnessPlanner.MealPlanner.MealType;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-
 @Service
 public class PersonalFitnessServices {
 
-    private static final File MEAL_DATA_FILE_PATH = new File("src/main/resources/meals.json");
-    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     private final ReadAndWriteToJson readAndWriteToJson = new ReadAndWriteToJson();
     private final PersonalisedFitnessPlan personalisedFitnessPlan = new PersonalisedFitnessPlan(readAndWriteToJson);
 
@@ -28,27 +24,27 @@ public class PersonalFitnessServices {
     }
 
     public long getTDEE(String gender, double weight,
-                        double height, int age, String activityLevel) {
+            double height, int age, String activityLevel) {
         ActivityLevel activeLevel = ActivityLevel.fromString(activityLevel);
-       Gender userGender = Gender.fromString(gender);
+        Gender userGender = Gender.fromString(gender);
         return personalisedFitnessPlan.calculateTDEE(userGender, weight,
                 height, age, activeLevel);
     }
 
-    public Ideas getMealPlan(String mealType) {
+    public Idea getMealPlan(String mealType) {
 
         try {
             MealType meal = MealType.fromString(mealType);
-                return personalisedFitnessPlan.generateMealIdea(meal, MEAL_DATA_FILE_PATH);
+            return personalisedFitnessPlan.generateMealIdea(meal);
         } catch (IOException e) {
-            throw new RuntimeException( e);
+            throw new RuntimeException(e);
         }
 
     }
 
-    public HashMap<String, Ideas> getDailyMeal() {
+    public HashMap<String, Idea> getDailyMeal() {
         try {
-            return personalisedFitnessPlan.generateFullDayMealIdea(MEAL_DATA_FILE_PATH);
+            return personalisedFitnessPlan.generateFullDayMealIdea();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,7 +54,7 @@ public class PersonalFitnessServices {
     public List<Workout> getWorkoutPlan(String goal) {
         try {
             String userGoal = goal.replace(" ", "_");
-            return personalisedFitnessPlan.generateWorkout(userGoal, WORKOUT_DATA_FILE_PATH);
+            return personalisedFitnessPlan.generateWorkout(userGoal);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

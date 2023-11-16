@@ -47,6 +47,8 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     private final ReadAndWriteToJson readAndWriteToJson;
 
+    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
+
     public PersonalisedFitnessPlan(ReadAndWriteToJson readAndWriteToJson) {
         super(readAndWriteToJson);
         this.readAndWriteToJson = readAndWriteToJson;
@@ -104,12 +106,12 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
      */
 
     @Override
-    public List<Workout> generateWorkout(String goal, File workOutDataFile) throws IOException {
+    public List<Workout> generateWorkout(String goal) throws IOException {
         List<Workout> workout = new ArrayList<>();
-        List<Workout> allWorkout = readAndWriteToJson.readJsonFile(workOutDataFile, Workout.class);
+
 
         boolean found = false;
-        for (Workout w : allWorkout) {
+        for (Workout w : fetchWorkouts()) {
             List<String> suitableForList = w.getSuitable_for();
             if (suitableForList.contains(goal)) {
                 found = true;
@@ -121,11 +123,15 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
             if (newWorkout != null) {
                 logger.info("newWorkout" + newWorkout);
                 workout.add(newWorkout);
-                addWorkout(newWorkout, workOutDataFile);
+                addWorkout(newWorkout);
             }
         }
         return workout;
 
+    }
+
+    public List<Workout> fetchWorkouts() throws IOException {
+        return readAndWriteToJson.readJsonFile(WORKOUT_DATA_FILE_PATH, Workout.class);
     }
 
     /**
@@ -135,8 +141,8 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
      * @throws IOException if there is a problem updating the JSON file
      */
     @Override
-    public void addWorkout(Workout workout, File workOutDataFile) throws IOException {
-        readAndWriteToJson.writeToJsonFile(workout, workOutDataFile, Workout.class);
+    public void addWorkout(Workout workout) throws IOException {
+        readAndWriteToJson.writeToJsonFile(workout, WORKOUT_DATA_FILE_PATH, Workout.class);
     }
 
     /**
