@@ -4,8 +4,8 @@ The app provides personalized fitness plans by generating tailored meal plans an
 
 - **Meal Planning:** Offers diverse meal options for breakfast, lunch, and dinner.
 - **Calorie Calculation:** Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) based on user details.
-  - BMR Definition: Basal metabolic rate is the amount of energy per unit of time that a person needs to keep the body functioning at rest. Some of those processes are breathing, blood circulation, controlling body temperature, cell growth, brain and nerve function, and contraction of muscles.
-  - TDEE: Your Total Daily Energy Expenditure (TDEE) is an estimation of how many calories you burn per day when exercise is taken into account.
+  - **BMR Definition:** Basal metabolic rate is the amount of energy per unit of time that a person needs to keep the body functioning at rest. Some of those processes are breathing, blood circulation, controlling body temperature, cell growth, brain and nerve function, and contraction of muscles.
+  - **TDEE Definition:** Your Total Daily Energy Expenditure (TDEE) is an estimation of how many calories you burn per day when exercise is taken into account.
 - **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilises stored data and ChatGPT integration for comprehensive workout suggestions.
 
 ## **Key Features**
@@ -13,6 +13,14 @@ The app provides personalized fitness plans by generating tailored meal plans an
 - **Tailored Plans:** Customised meal and workout plans based on user input.
 - **ChatGPT Integration:** Leverages ChatGPT for workout recommendations when specific goals aren't available in the app's data.
 - **User Data Management:** Enables users to manage their data, allowing creation, retrieval, update, and deletion of information.
+
+## **Accessing the ChatGPT feature**
+
+The project utilises ChatGPT API
+
+- You will need an api key to have access to the ChatGPT feature.
+- You can get the API key from [here](https://platform.openai.com/api-keys)
+- Store the API key in this file: `/src/main/java/com/cbfacademy/apiassessment/OpenAI/.env`
 
 ## **To View the API documentation in the browser**
 
@@ -55,14 +63,6 @@ then click on the link: [http://localhost:8080/swagger-ui/index.html](http://loc
 
 - **ActivityLevel**
   - Activity LevelController: [http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
-
-## **Accessing the ChatGPT feature**
-
-The project utilises ChatGPT API
-
-- You will need an api key to have access to the ChatGPT feature.
-- You can get the API key from [here](https://platform.openai.com/api-keys)
-- Store the API key in this file: `/src/main/java/com/cbfacademy/apiassessment/OpenAI/.env`
 
 ### **Testing**
 
