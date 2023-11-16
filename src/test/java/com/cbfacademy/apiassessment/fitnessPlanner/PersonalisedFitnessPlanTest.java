@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 
 @Description(value = "Personalised Fitness Plan")
 public class PersonalisedFitnessPlanTest {
-    private static final File DATA_FILE_PATH = new File("src/test/resources/data.json");
+    private static final File DATA_FILE_PATH = new File("src/test/resources");
 
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     PersonalisedFitnessPlan personalisedFitnessPlan;
