@@ -1,4 +1,4 @@
-# **Name: Personalised Fitness Planner**
+# **Personalised Fitness Planner**
 The app provides personalized fitness plans by generating tailored meal plans and workout recommendations based on user preferences.
 
 - **Meal Planning:** Offers diverse meal options for breakfast, lunch, and dinner.
@@ -18,7 +18,14 @@ then click on the link: http://localhost:8080/swagger-ui/index.html or add it to
 #### The documentation should look like this:
 ![Screenshot 2023-11-16 at 14.11.54.png](assets%2FScreenshot%202023-11-16%20at%2014.11.54.png)
 
-### **Examples of expected URI
+#### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
+![personalisedFitnessPlanFlow.svg](assets%2FpersonalisedFitnessPlanFlow.svg)
+
+#### **The below diagram shows the flow of User Details across the infrastructure.**
+
+![UserDetailsFlow.svg](assets%2FUserDetailsFlow.svg)
+
+### Examples of expected URI
 - **Personalised Fitness**
   - BMR:http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18
   - TDEE:http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=1&activityLevel=SEDENTARY
@@ -28,25 +35,18 @@ then click on the link: http://localhost:8080/swagger-ui/index.html or add it to
   - fitnessGoal:[http://localhost:8080/api/v1/personalisedFitness](http://localhost:8080/api/v1/personalisedFitness/dailyMeal/fitnessGoal?goal=tone_thigh)
 
 - **User Details**
-    - post:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfil](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
-    - get: [http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
-    - getById:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693)
-    - put:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
-    - delete:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
+  - post:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfil](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
+  - get: [http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
+  - getById:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693)
+  - put:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
+  - delete:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
 
 - **ActivityLevel**
-    - Activity LevelController:[http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
+  - Activity LevelController:[http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
 
-
-#### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
-![personalisedFitnessPlanFlow.svg](assets%2FpersonalisedFitnessPlanFlow.svg)
-
-#### **The below diagram shows the flow of User Details across the infrastructure.**
-
-![UserDetailsFlow.svg](assets%2FUserDetailsFlow.svg)
 ## **Requirement**
-
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)
+
 ## **Java API Assessment**
 
 ## **Introduction**
