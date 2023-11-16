@@ -1,6 +1,5 @@
 package com.cbfacademy.apiassessment.response;
 
-
 public class WebResponse {
     private Integer code;
 

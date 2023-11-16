@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Description;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +18,6 @@ import java.io.IOException;
 
 import java.util.*;
 import java.util.stream.Stream;
-
-import org.slf4j.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +27,6 @@ import static org.mockito.Mockito.when;
 public class PersonalisedFitnessPlanTest {
     private static final File DATA_FILE_PATH = new File("src/test/resources");
 
-    public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     PersonalisedFitnessPlan personalisedFitnessPlan;
     ReadAndWriteToJson readAndWriteToJson;
 

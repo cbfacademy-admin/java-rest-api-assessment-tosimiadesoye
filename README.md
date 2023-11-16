@@ -1,8 +1,11 @@
 # **Personalised Fitness Planner**
+
 The app provides personalized fitness plans by generating tailored meal plans and workout recommendations based on user preferences.
 
 - **Meal Planning:** Offers diverse meal options for breakfast, lunch, and dinner.
 - **Calorie Calculation:** Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) based on user details.
+  - BMR Definition: Basal metabolic rate is the amount of energy per unit of time that a person needs to keep the body functioning at rest. Some of those processes are breathing, blood circulation, controlling body temperature, cell growth, brain and nerve function, and contraction of muscles.
+  - TDEE: Your Total Daily Energy Expenditure (TDEE) is an estimation of how many calories you burn per day when exercise is taken into account.
 - **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilises stored data and ChatGPT integration for comprehensive workout suggestions.
 
 ## **Key Features**
@@ -12,54 +15,77 @@ The app provides personalized fitness plans by generating tailored meal plans an
 - **User Data Management:** Enables users to manage their data, allowing creation, retrieval, update, and deletion of information.
 
 ## **To View the API documentation in the browser**
-[Run the Application](#setup)
-then click on the link: http://localhost:8080/swagger-ui/index.html or add it to your browser
-#### The documentation should look like this:
+
+[Run the Application](#3-running-the-application)
+then click on the link: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) or add it to your browser
+
+### The documentation should look like this
+
 ![Screenshot 2023-11-16 at 14.11.54.png](assets%2FScreenshot%202023-11-16%20at%2014.11.54.png)
 ![swagger.gif](assets%2Fswagger.gif)
 
-#### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
+## **Infrastructure Diagram**
+
+### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
+
 ![personalisedFitnessPlanFlow.svg](assets%2FpersonalisedFitnessPlanFlow.svg)
 
 #### **The below diagram shows the flow of User Details across the infrastructure.**
 
 ![UserDetailsFlow.svg](assets%2FUserDetailsFlow.svg)
 
-### Examples of expected URI
+### Examples of expected URI endpoints
+
+[http://localhost:8080/](http://localhost:8080/)
+
 - **Personalised Fitness**
-  - Get BMR: http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18
-  - Get TDEE: http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=18&activityLevel=SEDENTARY
-  - Get Meal Plan: http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST
-  - Get Full Day Meal Plan: http://localhost:8080/api/v1/personalisedFitness/dailyMeal
-  - Get Fitness Goal: http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=Strength_training
-  - Get Fitness Goal: http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=core_strength
+  - Get BMR: [http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18](http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18)
+  - Get TDEE: [http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=18&activityLevel=SEDENTARY](http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=18&activityLevel=SEDENTARY)
+  - Get Meal Plan: [http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST](http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST)
+  - Get Full Day Meal Plan: [http://localhost:8080/api/v1/personalisedFitness/dailyMeal](http://localhost:8080/api/v1/personalisedFitness/dailyMeal)
+  - Get Fitness Goal: [http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=Strength_training](http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=Strength_training)
+  - Get Fitness Goal: [http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=core_strength](http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=core_strength)
 
 - **User Details**
-  - Post User Details: http://localhost:8080/api/v1/userProfile
-  - Get User Details: http://localhost:8080/api/v1/userProfile
-  - Get User Details by Id: http://localhost:8080/api/v1/userProfile/userId?id=74693
-  - Put User Details by Id: http://localhost:8080/api/v1/userProfile?id=74693
-  - Delete User Details by Id: http://localhost:8080/api/v1/userProfile?id=74693
+  - Post User Details: [http://localhost:8080/api/v1/userProfile](http://localhost:8080/api/v1/userProfile)
+  - Get User Details: [http://localhost:8080/api/v1/userProfile](http://localhost:8080/api/v1/userProfile)
+  - Get User Details by Id: [http://localhost:8080/api/v1/userProfile/userId?id=74693](http://localhost:8080/api/v1/userProfile/userId?id=74693)
+  - Put User Details by Id: [http://localhost:8080/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/userProfile?id=74693)
+  - Delete User Details by Id: [http://localhost:8080/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/userProfile?id=74693)
 
 - **ActivityLevel**
-  - Activity LevelController: http://localhost:8080/api/v1/activityLevel
+  - Activity LevelController: [http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
 
-## **Requirement**
+## **Accessing the ChatGPT feature**
+
+The project utilises ChatGPT API
+
+- You will need an api key to have access to the ChatGPT feature.
+- You can get the API key from [here](https://platform.openai.com/api-keys)
+- Store the API key in this file: `/src/main/java/com/cbfacademy/apiassessment/OpenAI/.env`
+
+### **Testing**
+
+Testing the application is pretty straight forward. Click on the run Icon in your IDE once in the test class you want to run
+
+## **Requirements**
+
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)
 
 ## **Java API Assessment**
 
 ## **Introduction**
+
 Dive into the world of API development using Java and SpringBoot. We're handing over a skeleton codebase; your challenge is to shape a top-notch API from it.
 
 You can build any API of your choosing, but it must include the following:
 
 1. At least one algorithm
 2. Unit test at least one class
-3. Store the data in a JSON file 
-4. Exception handling 
+3. Store the data in a JSON file
+4. Exception handling
 5. Evidence of inheritance
-6. Good use of HTTP Protocols - methods, request and response, have full CRUD operations supported 
+6. Good use of HTTP Protocols - methods, request and response, have full CRUD operations supported
 7. Documentation
 
 ### **Learning Outcomes:**
@@ -76,14 +102,17 @@ Onward with this assessment, you're set for a deep dive into API development wit
 ## **Design & Requirements**
 
 ### **Design Considerations:**
+
 - **API Flow**: Map out your API's progression, from endpoints to their functionalities.
 
 ### **Requirements List:**
+
 - **Core**: Make use of Java and SpringBoot.
 - **End Points**: Ensure they are detailed and fully operational.
 - **Error Handling**: Your API should handle mishaps gracefully and return informative feedback.
 
 ### **Learning Outcomes:**
+
 - Acknowledge the pivotal role of a focused design in APIs.
 - See firsthand how a detailed requirements list can pave the way for successful development.
 
