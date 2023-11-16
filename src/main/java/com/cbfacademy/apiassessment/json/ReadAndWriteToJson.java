@@ -70,7 +70,7 @@ public class ReadAndWriteToJson implements JsonDataStore {
         }
 
         if (!found) {
-            throw new RuntimeException("user with ID:" + id + " Not found");
+            throw new RuntimeException("user with ID: " + id + ". Not found");
         }
         try (Writer writer = new FileWriter(file)) {
             // Write the entire List (with updated data) back to the file

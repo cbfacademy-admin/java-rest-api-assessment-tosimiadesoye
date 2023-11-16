@@ -53,7 +53,8 @@ public class PersonalFitnessServices {
 
     public List<Workout> getWorkoutPlan(String goal) {
         try {
-            String userGoal = goal.replace(" ", "_");
+
+            String userGoal = goal.replace(" ", "_").toLowerCase();
             return personalisedFitnessPlan.generateWorkout(userGoal);
         } catch (IOException e) {
             throw new RuntimeException(e);

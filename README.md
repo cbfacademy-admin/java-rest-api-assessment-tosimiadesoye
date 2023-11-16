@@ -3,20 +3,20 @@ The app provides personalized fitness plans by generating tailored meal plans an
 
 - **Meal Planning:** Offers diverse meal options for breakfast, lunch, and dinner.
 - **Calorie Calculation:** Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) based on user details.
-- **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilizes stored data and ChatGPT integration for comprehensive workout suggestions.
+- **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilises stored data and ChatGPT integration for comprehensive workout suggestions.
 
 ## **Key Features**
 
-- **Tailored Plans:** Customized meal and workout plans based on user input.
+- **Tailored Plans:** Customised meal and workout plans based on user input.
 - **ChatGPT Integration:** Leverages ChatGPT for workout recommendations when specific goals aren't available in the app's data.
 - **User Data Management:** Enables users to manage their data, allowing creation, retrieval, update, and deletion of information.
 
 ## **To View the API documentation in the browser**
-[Run the Application](####3.running-the-application)
+[Run the Application](#setup)
 then click on the link: http://localhost:8080/swagger-ui/index.html or add it to your browser
 
 #### The documentation should look like this:
-![Screenshot 2023-11-16 at 14.11.54.png](assets%2FScreenshot%202023-11-16%20at%2014.11.54.png)
+![swagger.gif](assets%2Fswagger.gif)
 
 #### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
 ![personalisedFitnessPlanFlow.svg](assets%2FpersonalisedFitnessPlanFlow.svg)
@@ -27,22 +27,22 @@ then click on the link: http://localhost:8080/swagger-ui/index.html or add it to
 
 ### Examples of expected URI
 - **Personalised Fitness**
-  - BMR:http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18
-  - TDEE:http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=1&activityLevel=SEDENTARY
-  - Generate meal: [http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST)
-  - Generate Full Day Meal:http://localhost:8080/api/v1/personalisedFitness/dailyMeal
-  - Fitness Goal:[http://localhost:8080/api/v1/personalisedFitness](http://localhost:8080/api/v1/personalisedFitness/dailyMeal/fitnessGoal?goal=Strength_training)
-  - fitnessGoal:[http://localhost:8080/api/v1/personalisedFitness](http://localhost:8080/api/v1/personalisedFitness/dailyMeal/fitnessGoal?goal=tone_thigh)
+  - Get BMR: http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18
+  - Get TDEE: http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=18&activityLevel=SEDENTARY
+  - Get Meal Plan: http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST
+  - Get Full Day Meal Plan: http://localhost:8080/api/v1/personalisedFitness/dailyMeal
+  - Get Fitness Goal: http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=Strength_training
+  - Get Fitness Goal: http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=core_strength
 
 - **User Details**
-  - post:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfil](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
-  - get: [http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile)
-  - getById:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile/userId?id=74693)
-  - put:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
-  - delete:[http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/personalisedFitness/mealType?mealType=BREAKFAST/api/v1/userProfile?id=74693)
+  - Post User Details: http://localhost:8080/api/v1/userProfile
+  - Get User Details: http://localhost:8080/api/v1/userProfile
+  - Get User Details by Id: http://localhost:8080/api/v1/userProfile/userId?id=74693
+  - Put User Details by Id: http://localhost:8080/api/v1/userProfile?id=74693
+  - Delete User Details by Id: http://localhost:8080/api/v1/userProfile?id=74693
 
 - **ActivityLevel**
-  - Activity LevelController:[http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
+  - Activity LevelController: http://localhost:8080/api/v1/activityLevel
 
 ## **Requirement**
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)

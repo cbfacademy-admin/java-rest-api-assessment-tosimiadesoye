@@ -39,7 +39,7 @@ public class UserInputService {
         try {
             List<UserData> entry = readAndWriteToJson.readJsonObjById(id, new File(DATA_FILE_PATH), UserData.class);
             if (entry.isEmpty()) {
-                throw new NotFoundException("User not found with ID: " + id);
+                throw new NotFoundException("Cannot find user with ID: " + id);
             }
             return entry;
         }catch (IOException e){
