@@ -1,5 +1,6 @@
 package com.cbfacademy.apiassessment.controller;
 
+import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Idea;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
