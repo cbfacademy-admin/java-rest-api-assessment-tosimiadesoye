@@ -14,8 +14,8 @@ The app provides personalized fitness plans by generating tailored meal plans an
 ## **To View the API documentation in the browser**
 [Run the Application](#setup)
 then click on the link: http://localhost:8080/swagger-ui/index.html or add it to your browser
-
 #### The documentation should look like this:
+![Screenshot 2023-11-16 at 14.11.54.png](assets%2FScreenshot%202023-11-16%20at%2014.11.54.png)
 ![swagger.gif](assets%2Fswagger.gif)
 
 #### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
