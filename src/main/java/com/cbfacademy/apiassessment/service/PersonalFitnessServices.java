@@ -17,7 +17,7 @@ public class PersonalFitnessServices {
     private final ReadAndWriteToJson readAndWriteToJson = new ReadAndWriteToJson();
     private final PersonalisedFitnessPlan personalisedFitnessPlan = new PersonalisedFitnessPlan(readAndWriteToJson);
 
-    public long getRestingCalories(String gender, double weight, double height, int age) {
+    public long getBMR(String gender, double weight, double height, int age) {
         Gender userGender = Gender.fromString(gender);
         return personalisedFitnessPlan.calculateBMR(userGender, weight, height, age);
 

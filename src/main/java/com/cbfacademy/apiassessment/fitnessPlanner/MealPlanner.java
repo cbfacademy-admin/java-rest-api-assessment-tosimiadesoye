@@ -51,6 +51,7 @@ public abstract class MealPlanner {
 
     /**
      * Retrieves a list of meal Idea
+     * 
      * @return A list of meal Idea
      * @throws IOException if there is a problem reading the input file
      */

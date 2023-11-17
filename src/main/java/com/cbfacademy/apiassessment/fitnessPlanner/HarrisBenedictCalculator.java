@@ -2,10 +2,10 @@ package com.cbfacademy.apiassessment.fitnessPlanner;
 
 public interface HarrisBenedictCalculator {
 
-     long calculateBMR(Gender gender, double weight, double height, int age);
+    long calculateBMR(Gender gender, double weight, double height, int age);
 
     long calculateTDEE(Gender gender, double weight, double height, int age,
-                              ActivityLevel activityLevel);
+            ActivityLevel activityLevel);
 
     enum ActivityLevel {
         SEDENTARY(1.2), // little or no exercise
@@ -24,29 +24,31 @@ public interface HarrisBenedictCalculator {
             return multiplier;
         }
 
-        public static ActivityLevel fromString(String value){
+        public static ActivityLevel fromString(String value) {
             try {
                 return ActivityLevel.valueOf(value.toUpperCase());
-            }catch (IllegalArgumentException e){
-                throw new IllegalArgumentException("Invalid Activity Level value. Accepted values are 'SEDENTARY' or 'LIGHTLY_ACTIVE' or 'MODERATELY_ACTIVE' or 'VERY_ACTIVE' or 'SUPER_ACTIVE'. Received: '" + value + "'");
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(
+                        "Invalid Activity Level value. Accepted values are 'SEDENTARY' or 'LIGHTLY_ACTIVE' or 'MODERATELY_ACTIVE' or 'VERY_ACTIVE' or 'SUPER_ACTIVE'. Received: '"
+                                + value + "'");
             }
         }
 
     }
 
+    enum Gender {
 
- enum Gender{
+        FEMALE,
+        MALE;
 
-     FEMALE,
-     MALE;
-     public static Gender fromString(String value){
-         try {
-             return Gender.valueOf(value.toUpperCase());
-         }catch (IllegalArgumentException e){
-             throw new IllegalArgumentException("Invalid gender value. Accepted values are 'FEMALE' or 'MALE'. Received: '" + value + "'");
-         }
-     }
+        public static Gender fromString(String value) {
+            try {
+                return Gender.valueOf(value.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(
+                        "Invalid gender value. Accepted values are 'FEMALE' or 'MALE'. Received: '" + value + "'");
+            }
+        }
     }
-
 
 }

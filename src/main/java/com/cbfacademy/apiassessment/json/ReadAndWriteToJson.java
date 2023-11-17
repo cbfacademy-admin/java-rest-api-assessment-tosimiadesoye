@@ -25,26 +25,28 @@ public class ReadAndWriteToJson implements JsonDataStore {
         try (FileReader reader = new FileReader(file)) {
             Type listType = TypeToken.getParameterized(List.class, clazz).getType();
             return gson.fromJson(reader, listType);
-        }catch (IOException e){
-           throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz) throws FileNotFoundException {
+    public <T extends Identifier> void writeToJsonFile(T reqBody, File file, Class<T> clazz)
+            throws FileNotFoundException {
         List<T> dataEntries = readJsonFile(file, clazz);
 
         dataEntries.add(reqBody);
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(dataEntries, writer);
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
 
     @Override
-    public <T extends Identifier> List<T>  readJsonObjById(String id, File file, Class<T> clazz) throws FileNotFoundException {
+    public <T extends Identifier> List<T> readJsonObjById(String id, File file, Class<T> clazz)
+            throws FileNotFoundException {
         List<T> data = readJsonFile(file, clazz);
         return data.stream()
                 .filter(item -> item.getId().equals(id))
@@ -75,13 +77,14 @@ public class ReadAndWriteToJson implements JsonDataStore {
         try (Writer writer = new FileWriter(file)) {
             // Write the entire List (with updated data) back to the file
             gson.toJson(userData, writer);
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public <T extends Identifier> void deleteJsonObjById(String id, File file, Class<T> clazz) throws FileNotFoundException {
+    public <T extends Identifier> void deleteJsonObjById(String id, File file, Class<T> clazz)
+            throws FileNotFoundException {
 
         List<T> orderEntries = readJsonFile(file, clazz);
 
@@ -91,7 +94,7 @@ public class ReadAndWriteToJson implements JsonDataStore {
 
         try (Writer writer = new FileWriter(file)) {
             gson.toJson(updateOrderEntries, writer);
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

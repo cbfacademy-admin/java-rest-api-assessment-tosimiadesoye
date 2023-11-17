@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URL;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -52,7 +51,6 @@ class ActivityLevelControllerTest {
                     "VERY_ACTIVE",
                     "SUPER_ACTIVE",
             };
-
 
             assertArrayEquals(expectedResult, actualResult);
         } catch (JsonSyntaxException e) {
