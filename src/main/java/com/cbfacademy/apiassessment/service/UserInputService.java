@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-
 @Service
 public class UserInputService {
     private static final String DATA_FILE_PATH = "src/main/resources/userData.json";

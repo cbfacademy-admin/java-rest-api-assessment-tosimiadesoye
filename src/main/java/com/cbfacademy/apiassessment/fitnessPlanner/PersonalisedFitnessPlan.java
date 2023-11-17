@@ -1,16 +1,16 @@
 /**
- *The PersonalisedFitnessPlan class offers functionalities for generating personalized fitness plans,
+ * The PersonalisedFitnessPlan class offers functionalities for generating personalized fitness plans,
  * encompassing meal plans and workout recommendations based on user inputs and preferences.
  * It extends the MealPlanner class and implements interfaces like CalculateCalories and WorkoutPlanner to
  * encapsulate meal planning, calorie calculation, and workout generation functionalities.
- *<p>
+ * <p>
  * Key Features:
  * Meal and Workout Data: Utilizes external JSON files to store meal and workout data,
  * and integrates ChatGPT for workout recommendations when desired goals are unavailable in the existing data.
- *<p>
+ * <p>
  * Calorie Calculation: Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure
  * (TDEE) based on user's gender, weight, height, age, and activity level.
- *<p>
+ * <p>
  * Workout Generation: Provides functionality to generate workout recommendations tailored to a user's fitness goal.
  * Queries ChatGPT for workout ideas if no matching workouts are found in the stored data.
  *
@@ -49,16 +49,26 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     private static final double WOMEN_WEIGHT_COEFFICIENT = 9.247;
     private static final double WOMEN_HEIGHT_COEFFICIENT = 3.098;
     private static final double WOMEN_AGE_COEFFICIENT = 4.330;
+    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
     public static Logger logger = LoggerFactory.getLogger(PersonalisedFitnessPlan.class);
     private final ReadAndWriteToJson readAndWriteToJson;
-
-    private static final File WORKOUT_DATA_FILE_PATH = new File("src/main/resources/workout.json");
 
     public PersonalisedFitnessPlan(ReadAndWriteToJson readAndWriteToJson) {
         super(readAndWriteToJson);
         this.readAndWriteToJson = readAndWriteToJson;
     }
 
+    /**
+     * Calculates the Basal Metabolic Rate (BMR) based on user's characteristics.
+     *
+     * @param gender User's gender ("male" or "female")
+     * @param weight User's weight in kilograms
+     * @param height User's height in centimeters
+     * @param age    User's age in years
+     * @return Calculated Basal Metabolic Rate (BMR)
+     * @throws IllegalArgumentException If weight, height, or age is zero or a
+     *                                  negative value
+     */
     @Override
     public long calculateBMR(Gender gender, double weight, double height, int age) {
 
@@ -70,28 +80,32 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
 
         basalMetabolicRate = switch (gender) {
             case FEMALE ->
-                    (long) (WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height) - (WOMEN_AGE_COEFFICIENT * age));
+                (long) (WOMEN_BMR_CONSTANT + (WOMEN_WEIGHT_COEFFICIENT * weight) + (WOMEN_HEIGHT_COEFFICIENT * height)
+                        - (WOMEN_AGE_COEFFICIENT * age));
             case MALE ->
-                    (long) (MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height) - (MEN_AGE_COEFFICIENT * age));
+                (long) (MEN_BMR_CONSTANT + (MEN_WEIGHT_COEFFICIENT * weight) + (MEN_HEIGHT_COEFFICIENT * height)
+                        - (MEN_AGE_COEFFICIENT * age));
         };
-        return  Math.round(basalMetabolicRate);
+        return Math.round(basalMetabolicRate);
     }
 
     /**
-     * Calculates the Total Daily Energy Expenditure (TDEE) based on the user's gender, weight, height, age,
+     * Calculates the Total Daily Energy Expenditure (TDEE) based on the user's
+     * gender, weight, height, age,
      * and activity level.
      *
      * @param gender        User's gender ("male" or "female")
      * @param weight        User's weight in kilograms
      * @param height        User's height in centimeters
      * @param age           User's age in years
-     * @param activityLevel User's activity level (e.g., sedentary, moderate, active)
+     * @param activityLevel User's activity level (e.g., sedentary, moderate,
+     *                      active)
      * @return Total calories a user burns per day (TDEE)
      */
     @Override
     public long calculateTDEE(Gender gender, double weight,
-                              double height, int age,
-                              ActivityLevel activityLevel) {
+            double height, int age,
+            ActivityLevel activityLevel) {
         double BMR = calculateBMR(gender, weight, height, age);
 
         return Math.round(BMR * activityLevel.getMultiplier());
@@ -99,19 +113,21 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     }
 
     /**
-     * Provides functionality to generate a list of workouts based on a user's fitness goal.
-     * If no matching workouts are found in the JSON file, it queries ChatGPT, retrieves the
+     * Provides functionality to generate a list of workouts based on a user's
+     * fitness goal.
+     * If no matching workouts are found in the JSON file, it queries ChatGPT,
+     * retrieves the
      * ChatGPT response, and updates the JSON file with the response.
      *
      * @param goal a user's fitness goal (e.g., build muscle)
      * @return a list of workouts tailored to the fitness goal
-     * @throws IOException if there is a problem reading the input file or updating it
+     * @throws IOException if there is a problem reading the input file or updating
+     *                     it
      */
 
     @Override
     public List<Workout> generateWorkout(String goal) throws IOException {
         List<Workout> workout = new ArrayList<>();
-
 
         boolean found = false;
         for (Workout w : fetchWorkouts()) {
@@ -135,6 +151,7 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
 
     /**
      * Retrieves a list of workout
+     * 
      * @return A list of workout
      * @throws IOException if there is a problem reading the input file
      */
@@ -154,7 +171,8 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     }
 
     /**
-     * Queries ChatGPT with a user's fitness goal to generate a workout idea response.
+     * Queries ChatGPT with a user's fitness goal to generate a workout idea
+     * response.
      *
      * @param goal a user's fitness goal given to ChatGPT
      * @return the generated workout idea response from ChatGPT

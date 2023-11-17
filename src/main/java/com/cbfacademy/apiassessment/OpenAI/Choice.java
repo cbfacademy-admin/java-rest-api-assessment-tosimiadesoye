@@ -29,4 +29,3 @@ public class Choice {
         this.finishReason = finishReason;
     }
 }
-

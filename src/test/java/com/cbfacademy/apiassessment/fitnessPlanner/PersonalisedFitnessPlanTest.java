@@ -47,8 +47,6 @@ public class PersonalisedFitnessPlanTest {
                 Arguments.of("FEMALE", 60, 170, 35, "SUPER_ACTIVE", 2616.0));
     }
 
-
-
     public static Stream<Arguments> workoutGoals() {
         return Stream.of(
                 Arguments.of("Strength_training"),

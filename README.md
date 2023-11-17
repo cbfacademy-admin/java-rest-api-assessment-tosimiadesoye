@@ -21,6 +21,7 @@ The project utilises ChatGPT API
 - You will need an api key to have access to the ChatGPT feature.
 - You can get the API key from [here](https://platform.openai.com/api-keys)
 - Store the API key in this file: `/src/main/java/com/cbfacademy/apiassessment/OpenAI/.env`
+- It should look like this: `OPENAI_API_KEY=your-api-key-goes-here`
 
 ## **To View the API documentation in the browser**
 

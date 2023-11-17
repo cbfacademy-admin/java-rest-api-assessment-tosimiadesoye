@@ -24,10 +24,10 @@ public class ActivityLevelController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> readActivityLevel(){
+    public ResponseEntity<List<String>> readActivityLevel() {
 
-            List<String> activityLevel = activityLevelService.getActivityLevelAsAList();
-            return ResponseEntity.ok(activityLevel);
+        List<String> activityLevel = activityLevelService.getActivityLevelAsAList();
+        return ResponseEntity.ok(activityLevel);
 
     }
 }

@@ -1,8 +1,5 @@
 package com.cbfacademy.apiassessment.OpenAI;
 
-
-import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
-
 public class Message {
     private String role;
 
@@ -24,6 +21,4 @@ public class Message {
         this.content = content;
     }
 
-
 }
-

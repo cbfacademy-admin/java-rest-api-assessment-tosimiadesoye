@@ -11,9 +11,8 @@ public class UserData implements Identifier {
     private String fitness_goal;
     private String dietary_preference;
 
-
     public UserData(String id, int age, String gender, double weight, double height, String fitness_goal,
-                    String dietary_preference) {
+            String dietary_preference) {
         this.id = id;
         this.age = age;
         this.gender = gender;
@@ -23,7 +22,6 @@ public class UserData implements Identifier {
         this.dietary_preference = dietary_preference;
 
     }
-
 
     @Override
     public String getId() {
@@ -82,7 +80,6 @@ public class UserData implements Identifier {
     public void setDietary_preference(String dietary_preference) {
         this.dietary_preference = dietary_preference;
     }
-
 
     @Override
     public String toString() {

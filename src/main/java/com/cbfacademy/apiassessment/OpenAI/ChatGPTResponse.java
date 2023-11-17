@@ -4,7 +4,6 @@ import com.cbfacademy.apiassessment.Identifier;
 
 import java.util.List;
 
-
 public class ChatGPTResponse implements Identifier {
 
     private String id;
@@ -14,7 +13,6 @@ public class ChatGPTResponse implements Identifier {
     private List<Choice> choices;
 
     private Usage usage;
-
 
     public String getObject() {
         return object;

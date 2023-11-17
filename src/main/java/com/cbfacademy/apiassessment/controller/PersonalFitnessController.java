@@ -1,6 +1,5 @@
 package com.cbfacademy.apiassessment.controller;
 
-import com.cbfacademy.apiassessment.fitnessPlanner.HarrisBenedictCalculator.ActivityLevel;
 import com.cbfacademy.apiassessment.fitnessPlanner.Idea;
 import com.cbfacademy.apiassessment.fitnessPlanner.Workout;
 import com.cbfacademy.apiassessment.service.PersonalFitnessServices;
@@ -25,12 +24,12 @@ public class PersonalFitnessController {
         }
 
         @GetMapping("/BMR")
-        public ResponseEntity<Long> restingKcal(@RequestParam String gender,
+        public ResponseEntity<Long> readBMR(@RequestParam String gender,
                         @RequestParam double weight,
                         @RequestParam double height,
                         @RequestParam int age) {
 
-                Long restingKcal = personalFitnessServices.getRestingCalories(gender, weight, height, age);
+                Long restingKcal = personalFitnessServices.getBMR(gender, weight, height, age);
                 return ResponseEntity.ok(restingKcal);
 
         }
