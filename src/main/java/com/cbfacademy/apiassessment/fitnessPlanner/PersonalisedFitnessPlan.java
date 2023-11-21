@@ -1,23 +1,3 @@
-/**
- * The PersonalisedFitnessPlan class offers functionalities for generating personalized fitness plans,
- * encompassing meal plans and workout recommendations based on user inputs and preferences.
- * It extends the MealPlanner class and implements interfaces like CalculateCalories and WorkoutPlanner to
- * encapsulate meal planning, calorie calculation, and workout generation functionalities.
- * <p>
- * Key Features:
- * Meal and Workout Data: Utilizes external JSON files to store meal and workout data,
- * and integrates ChatGPT for workout recommendations when desired goals are unavailable in the existing data.
- * <p>
- * Calorie Calculation: Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure
- * (TDEE) based on user's gender, weight, height, age, and activity level.
- * <p>
- * Workout Generation: Provides functionality to generate workout recommendations tailored to a user's fitness goal.
- * Queries ChatGPT for workout ideas if no matching workouts are found in the stored data.
- *
- * @author Tosimi
- * @version 1.0
- */
-
 package com.cbfacademy.apiassessment.fitnessPlanner;
 
 import com.cbfacademy.apiassessment.OpenAI.ChatGPTResponse;
@@ -59,7 +39,7 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     }
 
     /**
-     * Calculates the Basal Metabolic Rate (BMR) based on user's characteristics.
+     * Calculates the Basal Metabolic Rate (BMR) based on user's details.
      *
      * @param gender User's gender ("male" or "female")
      * @param weight User's weight in kilograms
@@ -113,10 +93,10 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     }
 
     /**
-     * Provides functionality to generate a list of workouts based on a user's
+     * Gets a list of workouts based on a user's
      * fitness goal.
-     * If no matching workouts are found in the JSON file, it queries ChatGPT,
-     * retrieves the
+     * If no matching workouts are found in the JSON file, it asks ChatGPT,
+     * gets the
      * ChatGPT response, and updates the JSON file with the response.
      *
      * @param goal a user's fitness goal (e.g., build muscle)
@@ -150,7 +130,7 @@ public class PersonalisedFitnessPlan extends MealPlanner implements HarrisBenedi
     }
 
     /**
-     * Retrieves a list of workout
+     * Gets a list of workout
      * 
      * @return A list of workout
      * @throws IOException if there is a problem reading the input file

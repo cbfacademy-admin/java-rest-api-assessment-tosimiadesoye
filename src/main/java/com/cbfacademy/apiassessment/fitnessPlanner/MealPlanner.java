@@ -33,11 +33,11 @@ public abstract class MealPlanner {
     }
 
     /**
-     * Retrieves a list of meal Idea for a specific meal type (e.g., breakfast,
+     * Gets a list of meal Idea for a specific meal type (e.g., breakfast,
      * lunch, or dinner).
      *
      * @param mealType The type of meal (e.g., breakfast, lunch, or dinner)
-     * @return A list of meal Idea corresponding to the specified meal type
+     * @return A list of meal Idea
      * @throws IOException if there is a problem reading the input file
      */
 
@@ -52,7 +52,7 @@ public abstract class MealPlanner {
     /**
      * Retrieves a list of meal Idea
      * 
-     * @return A list of meal Idea
+     * @return All the meals in the specified json
      * @throws IOException if there is a problem reading the input file
      */
     public List<MealIdea> fetchAllMeals() throws IOException {

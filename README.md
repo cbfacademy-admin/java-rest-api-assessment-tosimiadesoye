@@ -1,18 +1,18 @@
 # **Personalised Fitness Planner**
 
-The app provides personalized fitness plans by generating tailored meal plans and workout recommendations based on user preferences.
+The app provides personalised fitness plans by generating meal plans and workout recommendations based on user preferences.
 
-- **Meal Planning:** Offers diverse meal options for breakfast, lunch, and dinner.
+- **Meal Planning:** Offers meal options for breakfast, lunch, and dinner.
 - **Calorie Calculation:** Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) based on user details.
   - **BMR Definition:** Basal metabolic rate is the amount of energy per unit of time that a person needs to keep the body functioning at rest. Some of those processes are breathing, blood circulation, controlling body temperature, cell growth, brain and nerve function, and contraction of muscles.
   - **TDEE Definition:** Your Total Daily Energy Expenditure (TDEE) is an estimation of how many calories you burn per day when exercise is taken into account.
-- **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilises stored data and ChatGPT integration for comprehensive workout suggestions.
+- **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilises stored data and ChatGPT integration for workout suggestions.
 
 ## **Key Features**
 
 - **Tailored Plans:** Customised meal and workout plans based on user input.
-- **ChatGPT Integration:** Leverages ChatGPT for workout recommendations when specific goals aren't available in the app's data.
-- **User Data Management:** Enables users to manage their data, allowing creation, retrieval, update, and deletion of information.
+- **ChatGPT Integration:** Uses ChatGPT for workout recommendations when specified goals aren't available in the app's data.
+- **User Data Management:** Allows users to manage their data, allowing creation, retrieval, update, and deletion of information.
 
 ## **Accessing the ChatGPT feature**
 
