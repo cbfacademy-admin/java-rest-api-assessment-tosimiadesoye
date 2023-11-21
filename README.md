@@ -1,40 +1,147 @@
-# **Java API Assessment**
+# **Personalised Fitness Planner**
+
+The app provides personalised fitness plans by generating meal plans and workout recommendations based on user preferences.
+
+- **Meal Planning:** Offers meal options for breakfast, lunch, and dinner.
+- **Calorie Calculation:** Calculates Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) based on user details.
+  - **BMR Definition:** Basal metabolic rate is the amount of energy per unit of time that a person needs to keep the body functioning at rest. Some of those processes are breathing, blood circulation, controlling body temperature, cell growth, brain and nerve function, and contraction of muscles.
+  - **TDEE Definition:** Your Total Daily Energy Expenditure (TDEE) is an estimation of how many calories you burn per day when exercise is taken into account.
+- **Workout Generation:** Recommends workouts aligned with user fitness goals. Utilises stored data and ChatGPT integration for workout suggestions.
+
+## **Key Features**
+
+- **Tailored Plans:** Customised meal and workout plans based on user input.
+- **ChatGPT Integration:** Uses ChatGPT for workout recommendations when specified goals aren't available in the app's data.
+- **User Data Management:** Allows users to manage their data, allowing creation, retrieval, update, and deletion of information.
+
+## **Accessing the ChatGPT feature**
+
+The project utilises ChatGPT API
+
+- You will need an api key to have access to the ChatGPT feature.
+- You can get the API key from [here](https://platform.openai.com/api-keys)
+- Store the API key in this file: `/src/main/java/com/cbfacademy/apiassessment/OpenAI/.env`
+- It should look like this: `OPENAI_API_KEY=your-api-key-goes-here`
+
+## **To View the API documentation in the browser**
+
+[Run the Application](#3-running-the-application)
+then click on the link: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) or add it to your browser
+
+### The documentation should look like this
+
+![Screenshot 2023-11-16 at 14.11.54.png](assets%2FScreenshot%202023-11-16%20at%2014.11.54.png)
+![swagger.gif](assets%2Fswagger.gif)
+
+## **Infrastructure Diagram**
+
+### **The below diagram shows the flow of Personalised Fitness across the infrastructure.**
+
+![personalisedFitnessPlanFlow.svg](assets%2FpersonalisedFitnessPlanFlow.svg)
+
+#### **The below diagram shows the flow of User Details across the infrastructure.**
+
+![UserDetailsFlow.svg](assets%2FUserDetailsFlow.svg)
+
+### Examples of expected URL endpoints
+
+[http://localhost:8080/](http://localhost:8080/)
+
+- **Personalised Fitness**
+
+  - Get BMR: [http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18](http://localhost:8080/api/v1/personalisedFitness/BMR?gender=FEMALE&weight=50&height=160&age=18)
+  - Get TDEE: [http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=18&activityLevel=SEDENTARY](http://localhost:8080/api/v1/personalisedFitness/TDEE?gender=FEMALE&weight=50&height=160&age=18&activityLevel=SEDENTARY)
+  - Get Meal Plan: [http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST](http://localhost:8080/api/v1/personalisedFitness?mealType=BREAKFAST)
+  - Get Full Day Meal Plan: [http://localhost:8080/api/v1/personalisedFitness/dailyMeal](http://localhost:8080/api/v1/personalisedFitness/dailyMeal)
+  - Get Fitness Goal: [http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=Strength_training](http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=Strength_training)
+  - Get Fitness Goal: [http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=core_strength](http://localhost:8080/api/v1/personalisedFitness/fitnessGoal?goal=core_strength)
+
+- **User Details**
+
+  - Post User Details: [http://localhost:8080/api/v1/userProfile](http://localhost:8080/api/v1/userProfile)
+
+    - ```json
+      {
+        "id": "string",
+        "age": 0,
+        "gender": "string",
+        "weight": 0,
+        "height": 0,
+        "fitness_goal": "string",
+        "dietary_preference": "string"
+      }
+      ```
+
+  - Get User Details: [http://localhost:8080/api/v1/userProfile](http://localhost:8080/api/v1/userProfile)
+  - Get User Details by Id: [http://localhost:8080/api/v1/userProfile/userId?id=74693](http://localhost:8080/api/v1/userProfile/userId?id=74693)
+  - Put User Details by Id: [http://localhost:8080/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/userProfile?id=74693)
+
+    - ```json
+      {
+        "id": "string",
+        "age": 0,
+        "gender": "string",
+        "weight": 0,
+        "height": 0,
+        "fitness_goal": "string",
+        "dietary_preference": "string"
+      }
+      ```
+
+  - Delete User Details by Id: [http://localhost:8080/api/v1/userProfile?id=74693](http://localhost:8080/api/v1/userProfile?id=74693)
+
+- **ActivityLevel**
+  - Activity LevelController: [http://localhost:8080/api/v1/activityLevel](http://localhost:8080/api/v1/activityLevel)
+
+### **Testing**
+
+Testing the application is pretty straight forward. Click on the run Icon in your IDE once in the test class you want to run
+
+## **Requirement**
+
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/iDPpP-d0)
+
+## **Java API Assessment**
 
 ## **Introduction**
+
 Dive into the world of API development using Java and SpringBoot. We're handing over a skeleton codebase; your challenge is to shape a top-notch API from it.
 
 You can build any API of your choosing, but it must include the following:
 
 1. At least one algorithm
-1. Unit test at least one class
-1. Store the data in a JSON file 
-1. Exception handling 
-1. Evidence of inheritance
-1. Good use of HTTP Protocols - methods, request and response, have full CRUD operations supported 
-1. Documentation
+2. Unit test at least one class
+3. Store the data in a JSON file
+4. Exception handling
+5. Evidence of inheritance
+6. Good use of HTTP Protocols - methods, request and response, have full CRUD operations supported
+7. Documentation
 
 ### **Learning Outcomes:**
 
 By the end of this assessment, you should be able to:
 
 1. **Design and Architect APIs**: Get to grips with the nitty-gritty of curating a top-quality API, focusing on data flow and endpoint interactions.
-1. **Implement Best Practices**: Showcase your adherence to Java & SpringBoot coding standards, error handling, and optimal project structure.
-1. **Code Integration**: Seamlessly combine your creations with the provided skeleton codebase.
-1. **Exception Management**: Efficiently handle exceptions, ensuring your API remains sturdy and dependable.
+2. **Implement Best Practices**: Showcase your adherence to Java & SpringBoot coding standards, error handling, and optimal project structure.
+3. **Code Integration**: Seamlessly combine your creations with the provided skeleton codebase.
+4. **Exception Management**: Efficiently handle exceptions, ensuring your API remains sturdy and dependable.
 
 Onward with this assessment, you're set for a deep dive into API development with Java and SpringBoot.
 
 ## **Design & Requirements**
 
 ### **Design Considerations:**
+
 - **API Flow**: Map out your API's progression, from endpoints to their functionalities.
 
 ### **Requirements List:**
+
 - **Core**: Make use of Java and SpringBoot.
 - **End Points**: Ensure they are detailed and fully operational.
 - **Error Handling**: Your API should handle mishaps gracefully and return informative feedback.
 
 ### **Learning Outcomes:**
+
 - Acknowledge the pivotal role of a focused design in APIs.
 - See firsthand how a detailed requirements list can pave the way for successful development.
 
@@ -44,6 +151,7 @@ Onward with this assessment, you're set for a deep dive into API development wit
 - **README**: Not just an afterthought. Fill it with the essence of your API, setup instructions, and other salient details.
 
 ### **Learning Outcomes:**
+
 - Hone your skills in effective version control.
 - Recognise the value of a well-curated repository.
 
@@ -53,6 +161,7 @@ Onward with this assessment, you're set for a deep dive into API development wit
 - **Modularity**: Your code should be modular, reusable, and easily comprehensible.
 
 #### **Learning Outcomes:**
+
 - Craft clean, efficient, and maintainable code.
 - Harness Java and SpringBoot to the fullest.
 
@@ -100,6 +209,7 @@ Open a terminal at the root of the repo directory and run the following command 
 ```
 
 If you are on a Windows machine, that will be:
+
 ```cmd
 mvnw clean dependency:resolve
 ```
@@ -108,12 +218,12 @@ You should see console output similar to the following:
 
 ```sh
 [INFO] Scanning for projects...
-[INFO] 
+[INFO]
 [INFO] -------------------< com.cbfacademy:api-assessment >--------------------
 [INFO] Building api-assessment 0.0.1-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
+[INFO]
 [INFO] --- clean:3.2.0:clean (default-clean) @ api-assessment ---
 [INFO] Deleting /Users/user/Dev/cbfacademy/java-api-assessment/target
 ...
@@ -147,17 +257,17 @@ You should see console output similar to the following (press `Ctrl + C` to exit
 
 ```sh
 [INFO] Scanning for projects...
-[INFO] 
+[INFO]
 [INFO] -------------------< com.cbfacademy:api-assessment >--------------------
 [INFO] Building api-assessment 0.0.1-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
+[INFO]
 [INFO] --- clean:3.2.0:clean (default-clean) @ api-assessment ---
 [INFO] Deleting /Users/gary/Dev/cbfacademy/java-api-assessment/target
-[INFO] 
+[INFO]
 [INFO] >>> spring-boot:3.1.4:run (default-cli) > test-compile @ api-assessment >>>
-[INFO] 
+[INFO]
 [INFO] --- resources:3.3.1:resources (default-resources) @ api-assessment ---
 [INFO] Copying 1 resource from src/main/resources to target/classes
 [INFO] Copying 0 resource from src/main/resources to target/classes
@@ -179,17 +289,17 @@ Open your browser and navigate to `http://localhost:8080`.
 
 ## **Deliverables**
 
-Ensure that your work is merged to the `main` branch of your GitHub repository by the specified deadline (original or extended). Your solution will assessed based on its state *at that point*; any later commits will **not** be taken into account.
+Ensure that your work is merged to the `main` branch of your GitHub repository by the specified deadline (original or extended). Your solution will assessed based on its state _at that point_; any later commits will **not** be taken into account.
 
 ## FAQs
 
 - Q: How can I process JSON in Java?
-    
-    A: There are a number of open-source packages that you can use to manipulate JSON. We recommend [Gson](https://github.com/google/gson), but you can also investigate alternatives like [json-simple](https://github.com/cliftonlabs/json-simple) or [Jackson](https://github.com/FasterXML/jackson-databind/).
+
+  A: There are a number of open-source packages that you can use to manipulate JSON. We recommend [Gson](https://github.com/google/gson), but you can also investigate alternatives like [json-simple](https://github.com/cliftonlabs/json-simple) or [Jackson](https://github.com/FasterXML/jackson-databind/).
 
 - Q: Can I use another IDE I'm more familiar with instead of VS Code, like IntelliJ or Eclipse?
 
-    A: You can if you wish, but only VS Code is formally supported by CBF Academy staff, so you do so at your own risk.
+  A: You can if you wish, but only VS Code is formally supported by CBF Academy staff, so you do so at your own risk.
 
 ## Top Tips
 
@@ -199,6 +309,6 @@ Ensure that your work is merged to the `main` branch of your GitHub repository b
 - :triangular_ruler: Keep your code tidy. Using the built-in formatting of VS Code or other IDEs makes your code easier to read and mistakes easier to spot.
 - :books: Read the docs. Whether via Intellisense in your IDE, or browsing online documentation, build a clear understanding of the libraries your code leverages.
 - :calendar: Don't wait until the last minute. Plan your work early and make the most of the time available to complete the assessment and avoid pre-deadline palpitations.
-- :sos: Ask. :clap: For. :clap: Help! :clap: Your mentors, instructors and assistants are literally here to support you, so *make use of them* - don't sit and struggle in silence.
+- :sos: Ask. :clap: For. :clap: Help! :clap: Your mentors, instructors and assistants are literally here to support you, so _make use of them_ - don't sit and struggle in silence.
 
 Best of luck! Remember, it's not just about the destination; it's the journey. Happy coding! 🚀
