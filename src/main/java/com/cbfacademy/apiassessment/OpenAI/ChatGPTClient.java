@@ -17,7 +17,8 @@ public class ChatGPTClient {
     public static Logger logger = LoggerFactory.getLogger(ChatGPTClient.class);
 
     /**
-     * Sends a prompt to the OpenAI GPT-3.5-turbo model specifying the user's goal to generate a
+     * Sends a prompt to the OpenAI GPT-3.5-turbo model specifying the user's goal
+     * to generate a
      * workout recommendation.
      *
      * @param value user's goal input
@@ -33,9 +34,10 @@ public class ChatGPTClient {
 
         String apiKey = dotenv.get("OPENAI_API_KEY");
 
-        String prompt = "Give me a workout that I can do for achieving this goal: " +
-                value + ". give me the json back as a jsonString only in this format: {name: workout I should do for" +
-                " achieving my " + value + " goal, suitable_for:[" + value + ", etc]}";
+        String prompt = "Recommend me a workout that I can use for achieving my " +
+                value
+                + " goal. give me the json back as a jsonString only in this format: {name: workout I should do to achieve "
+                + value + " 'e.g spread your legs wide, then lean back',  suitable_for:[" + value + ", etc]}";
 
         try {
             BufferedReader br = getBufferedReader(apiKey, model, prompt);
@@ -51,6 +53,7 @@ public class ChatGPTClient {
 
             ChatGPTResponse responseJson = gson.fromJson(response.toString(), ChatGPTResponse.class);
             br.close();
+
             return responseJson;
 
         } catch (IOException e) {
